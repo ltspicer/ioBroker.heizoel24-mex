@@ -66,6 +66,7 @@
         "loglevel": "info",
         "tier": 3,
         "mode": "schedule",
+        "schedule": "* * * * *",
         "allowInit": true,
         "type": "metering",
         "compact": true,
@@ -87,8 +88,12 @@
         ]
     },
     "native": {
-        "option1": true,
-        "option2": "42"
+        "username": "",
+        "passwort": "",
+        "mqtt_active": true,
+        "broker_address": "0.0.0.0",
+        "mqtt_user": "",
+        "mqtt_pass": ""
     },
     "objects": [],
     "instanceObjects": [
