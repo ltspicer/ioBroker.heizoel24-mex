@@ -10,7 +10,7 @@
 
 **Tests:** ![Test and Release](https://github.com/ltspicer/ioBroker.heizoel24-mex/workflows/Test%20and%20Release/badge.svg)
 
-## heizoel24-mex adapter for ioBroker
+## Heizoel24-MEX Adapter für ioBroker
 
 Read in data from MEX
 
