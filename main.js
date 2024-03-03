@@ -155,7 +155,7 @@ class Heizoel24Mex extends utils.Adapter {
                 console.log(topic2[n] + ":", datenJson[topic2[n]]);
             }
             const result = datenJson[topic2[n]] || '---';
-            inhaltTopic2[n] = result
+            inhaltTopic2[n] = result;
             await mqtt_send(client, "PricingForecast/" + topic2[n], result.toString());
         }
         let items = datenJson["Items"][0];
@@ -167,8 +167,8 @@ class Heizoel24Mex extends utils.Adapter {
                 console.log(topic1[n] + ":", items[topic1[n]]);
             }
             const result = items[topic1[n]] || '---';
-            inhaltTopic1[n] = result
-            inhaltTopic1[0] = true
+            inhaltTopic1[n] = result;
+            inhaltTopic1[0] = true;
             await mqtt_send(client, "Items/" + topic1[n], result.toString());
         }
         await mqtt_send(client, "Items/DataReceived", 'true');
@@ -182,7 +182,7 @@ class Heizoel24Mex extends utils.Adapter {
                 console.log(RemainsUntilCombined[n] + ":", daten3[RemainsUntilCombined[n]]);
             }
             const result = daten3[RemainsUntilCombined[n]] || '---';
-            inhaltRemainsUntilCombined[n] = result
+            inhaltRemainsUntilCombined[n] = result;
             await mqtt_send(client, "RemainsUntilCombined/" + RemainsUntilCombined[n], result.toString());
         }
         if (mqtt_active) {
@@ -191,13 +191,13 @@ class Heizoel24Mex extends utils.Adapter {
     }
     
     for (let n = 0; n < topic1.length; n++) {
-        const typ = typeof topic1[n]
+        const typ = typeof inhaltTopic1[n]
         await this.setObjectNotExistsAsync(topic1[n], {
             type: "state",
             common: {
                 name: topic1[n],
                 type: typ,
-                role: "name",
+                role: typ,
                 read: true,
                 write: true,
             },
@@ -208,13 +208,13 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < topic2.length; n++) {
-        const typ = typeof topic2[n]
+        const typ = typeof inhaltTopic2[n]
         await this.setObjectNotExistsAsync(topic2[n], {
             type: "state",
             common: {
                 name: topic2[n],
                 type: typ,
-                role: "name",
+                role: typ,
                 read: true,
                 write: true,
             },
@@ -225,13 +225,13 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < RemainsUntilCombined.length; n++) {
-        const typ = typeof RemainsUntilCombined[n]
+        const typ = typeof inhaltRemainsUntilCombined[n]
         await this.setObjectNotExistsAsync(RemainsUntilCombined[n], {
             type: "state",
             common: {
                 name: RemainsUntilCombined[n],
                 type: typ,
-                role: "name",
+                role: typ,
                 read: true,
                 write: true,
             },
