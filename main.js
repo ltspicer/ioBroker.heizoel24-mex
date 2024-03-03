@@ -28,7 +28,7 @@ class Heizoel24Mex extends utils.Adapter {
         // this.on("objectChange", this.onObjectChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
-        global.topic1 = ['SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
+        global.topic1 = ['DataReceived', 'SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
         global.topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
         global.RemainsUntilCombined = ['MonthAndYear', 'RemainsValue', 'RemainsUnit'];
         global.inhaltTopic1 = []
@@ -134,6 +134,7 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 console.log("Fehler. Keine Daten empfangen.");
             }
+            inhaltTopic1[0] = false
             await mqtt_send(client, "Items/DataReceived", false);
             client.end();
             return;
@@ -167,6 +168,7 @@ class Heizoel24Mex extends utils.Adapter {
             }
             const result = items[topic1[n]] || '---';
             inhaltTopic1[n] = result
+            inhaltTopic1[0] = true
             await mqtt_send(client, "Items/" + topic1[n], result.toString());
         }
         await mqtt_send(client, "Items/DataReceived", 'true');
@@ -189,11 +191,12 @@ class Heizoel24Mex extends utils.Adapter {
     }
     
     for (let n = 0; n < topic1.length; n++) {
+        const typ = typeof topic1[n]
         await this.setObjectNotExistsAsync(topic1[n], {
             type: "state",
             common: {
                 name: topic1[n],
-                type: "string",
+                type: typ,
                 role: "name",
                 read: true,
                 write: true,
@@ -205,11 +208,12 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < topic2.length; n++) {
+        const typ = typeof topic2[n]
         await this.setObjectNotExistsAsync(topic2[n], {
             type: "state",
             common: {
                 name: topic2[n],
-                type: "string",
+                type: typ,
                 role: "name",
                 read: true,
                 write: true,
@@ -221,11 +225,12 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < RemainsUntilCombined.length; n++) {
+        const typ = typeof RemainsUntilCombined[n]
         await this.setObjectNotExistsAsync(RemainsUntilCombined[n], {
             type: "state",
             common: {
                 name: RemainsUntilCombined[n],
-                type: "string",
+                type: typ,
                 role: "name",
                 read: true,
                 write: true,
