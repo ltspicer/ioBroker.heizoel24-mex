@@ -28,15 +28,12 @@ class Heizoel24Mex extends utils.Adapter {
         // this.on("objectChange", this.onObjectChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
-        const session_id = "";
-        const debug = false;
-        const username = this.config.username;
-        const passwort = this.config.passwort;
-        const broker_address = this.config.broker_address;
-        const mqtt_active = this.config.mqtt_active;
-        const mqtt_user = this.config.mqtt_user;
-        const mqtt_pass = this.config.mqtt_pass;
-        this.log.info("constructor ausgeführt!");
+        global.topic1 = ['SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
+        global.topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
+        global.RemainsUntilCombined = ['MonthAndYear', 'RemainsValue', 'RemainsUnit'];
+        global.inhaltTopic1 = []
+        global.inhaltTopic2 = []
+        global.inhaltRemainsUntilCombined = []
     }
 
     /**
@@ -50,12 +47,24 @@ class Heizoel24Mex extends utils.Adapter {
 
         // The adapters config (in the instance object everything under the attribute "native") is accessible via
         // this.config:
-        this.log.info("config username: " + username);
-        this.log.info("config passwort: " + this.config.passwort);
-        this.log.info("config broker_address: " + this.config.broker_address);
-        this.log.info("config mqtt_active: " + this.config.mqtt_active);
-        this.log.info("config mqtt_user: " + this.config.mqtt_user);
-        this.log.info("config mqtt_pass: " + this.config.mqtt_pass);
+
+        let session_id = "";
+        const debug = true;
+        const username = this.config.username;
+        const passwort = this.config.passwort;
+        const broker_address = this.config.broker_address;
+        const mqtt_active = this.config.mqtt_active;
+        const mqtt_user = this.config.mqtt_user;
+        const mqtt_pass = this.config.mqtt_pass;
+        if (debug) {
+            this.log.info("config username: " + username);
+            this.log.info("config passwort: " + this.config.passwort);
+            this.log.info("config broker_address: " + this.config.broker_address);
+            this.log.info("config mqtt_active: " + this.config.mqtt_active);
+            this.log.info("config mqtt_user: " + this.config.mqtt_user);
+            this.log.info("config mqtt_pass: " + this.config.mqtt_pass);
+        }
+        await main(this);
 
     async function mqtt_send(client, topic, wert) {
         client.publish("MEX/" + topic, wert);
@@ -120,9 +129,9 @@ class Heizoel24Mex extends utils.Adapter {
     }
     
     async function main() {
-        const topic1 = ['SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
-        const topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
-        const RemainsUntilCombined = ['MonthAndYear', 'RemainsValue', 'RemainsUnit'];
+//        const topic1 = ['SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
+//        const topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
+//        const RemainsUntilCombined = ['MonthAndYear', 'RemainsValue', 'RemainsUnit'];
     
         const client = mqtt.connect(`mqtt://${broker_address}`, {
             username: mqtt_user,
@@ -154,6 +163,7 @@ class Heizoel24Mex extends utils.Adapter {
                 console.log(topic2[n] + ":", datenJson[topic2[n]]);
             }
             const result = datenJson[topic2[n]] || 'leer';
+            inhaltTopic2[n] = result
             await mqtt_send(client, "PricingForecast/" + topic2[n], result.toString());
         }
         let items = datenJson["Items"][0];
@@ -165,6 +175,7 @@ class Heizoel24Mex extends utils.Adapter {
                 console.log(topic1[n] + ":", items[topic1[n]]);
             }
             const result = items[topic1[n]] || 'leer';
+            inhaltTopic1[n] = result
             await mqtt_send(client, "Items/" + topic1[n], result.toString());
         }
         await mqtt_send(client, "Items/DataReceived", 'true');
@@ -178,26 +189,27 @@ class Heizoel24Mex extends utils.Adapter {
                 console.log(RemainsUntilCombined[n] + ":", daten3[RemainsUntilCombined[n]]);
             }
             const result = daten3[RemainsUntilCombined[n]] || 'leer';
+            inhaltRemainsUntilCombined[n] = result
             await mqtt_send(client, "RemainsUntilCombined/" + RemainsUntilCombined[n], result.toString());
         }
         client.end();
-
-        this.subscribeStates("username");
-        await this.setStateAsync("username", username);
-    
     }
     
-    await this.setObjectNotExistsAsync("username", {
-        type: "state",
-        common: {
-            name: "username",
-            type: "string",
-            role: "name",
-            read: true,
-            write: true,
-        },
-        native: {},
-    });
+    for (let n = 0; n < topic1.length; n++) {
+        await this.setObjectNotExistsAsync(topic1[n], {
+            type: "state",
+            common: {
+                name: topic1[n],
+                type: "string",
+                role: "name",
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
+        this.subscribeStates(topic1[n]);
+        await this.setStateAsync(topic1[n], { val: inhaltTopic1[n], ack: true });
+    }
 
 
     /*
