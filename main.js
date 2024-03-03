@@ -62,7 +62,9 @@ class Heizoel24Mex extends utils.Adapter {
         await main(this);
 
     async function mqtt_send(client, topic, wert) {
-        client.publish("MEX/" + topic, wert);
+        if (mqtt_active) {
+            client.publish("MEX/" + topic, wert);
+        }
     }
     
     async function login() {
