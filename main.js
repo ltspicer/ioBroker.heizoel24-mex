@@ -158,7 +158,7 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 console.log(topic2[n] + ":", datenJson[topic2[n]]);
             }
-            const result = datenJson[topic2[n]] || 'leer';
+            const result = datenJson[topic2[n]] || '---';
             inhaltTopic2[n] = result
             await mqtt_send(client, "PricingForecast/" + topic2[n], result.toString());
         }
@@ -170,7 +170,7 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 console.log(topic1[n] + ":", items[topic1[n]]);
             }
-            const result = items[topic1[n]] || 'leer';
+            const result = items[topic1[n]] || '---';
             inhaltTopic1[n] = result
             await mqtt_send(client, "Items/" + topic1[n], result.toString());
         }
@@ -184,11 +184,13 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 console.log(RemainsUntilCombined[n] + ":", daten3[RemainsUntilCombined[n]]);
             }
-            const result = daten3[RemainsUntilCombined[n]] || 'leer';
+            const result = daten3[RemainsUntilCombined[n]] || '---';
             inhaltRemainsUntilCombined[n] = result
             await mqtt_send(client, "RemainsUntilCombined/" + RemainsUntilCombined[n], result.toString());
         }
-        client.end();
+        if (mqtt_active) {
+            client.end();
+        }
     }
     
     for (let n = 0; n < topic1.length; n++) {
@@ -205,6 +207,38 @@ class Heizoel24Mex extends utils.Adapter {
         });
         this.subscribeStates(topic1[n]);
         await this.setStateAsync(topic1[n], { val: inhaltTopic1[n], ack: true });
+    }
+
+    for (let n = 0; n < topic2.length; n++) {
+        await this.setObjectNotExistsAsync(topic2[n], {
+            type: "state",
+            common: {
+                name: topic2[n],
+                type: "string",
+                role: "name",
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
+        this.subscribeStates(topic2[n]);
+        await this.setStateAsync(topic2[n], { val: inhaltTopic2[n], ack: true });
+    }
+
+    for (let n = 0; n < RemainsUntilCombined.length; n++) {
+        await this.setObjectNotExistsAsync(RemainsUntilCombined[n], {
+            type: "state",
+            common: {
+                name: RemainsUntilCombined[n],
+                type: "string",
+                role: "name",
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
+        this.subscribeStates(RemainsUntilCombined[n]);
+        await this.setStateAsync(RemainsUntilCombined[n], { val: inhaltRemainsUntilCombined[n], ack: true });
     }
 
     }
@@ -227,7 +261,7 @@ class Heizoel24Mex extends utils.Adapter {
         }
     }
 
-    /**
+     /**
      * Is called if a subscribed state changes
      * @param {string} id
      * @param {ioBroker.State | null | undefined} state
