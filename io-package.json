@@ -75,7 +75,7 @@
         "adminUI": {
             "config": "json"
         },
-        "supportCustoms": false,
+        "supportCustoms": true,
         "dependencies": [
             {
                 "js-controller": ">=3.3.22"
