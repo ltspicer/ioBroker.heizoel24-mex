@@ -49,7 +49,7 @@ class Heizoel24Mex extends utils.Adapter {
         // this.config:
 
         let session_id = "";
-        const debug = true;
+        const debug = false;
         const username = this.config.username;
         const passwort = this.config.passwort;
         const broker_address = this.config.broker_address;
