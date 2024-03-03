@@ -168,7 +168,6 @@ class Heizoel24Mex extends utils.Adapter {
             }
             const result = items[topic1[n]] || '---';
             inhaltTopic1[n] = result;
-            inhaltTopic1[0] = true;
             await mqtt_send(client, "Items/" + topic1[n], result.toString());
         }
         await mqtt_send(client, "Items/DataReceived", 'true');
@@ -191,13 +190,12 @@ class Heizoel24Mex extends utils.Adapter {
     }
     
     for (let n = 0; n < topic1.length; n++) {
-        const typ = typeof inhaltTopic1[n]
         await this.setObjectNotExistsAsync(topic1[n], {
             type: "state",
             common: {
                 name: topic1[n],
-                type: typ,
-                role: typ,
+                type: "string",
+                role: "name",
                 read: true,
                 write: true,
             },
@@ -208,13 +206,12 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < topic2.length; n++) {
-        const typ = typeof inhaltTopic2[n]
         await this.setObjectNotExistsAsync(topic2[n], {
             type: "state",
             common: {
                 name: topic2[n],
-                type: typ,
-                role: typ,
+                type: "string",
+                role: "name",
                 read: true,
                 write: true,
             },
@@ -225,13 +222,12 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < RemainsUntilCombined.length; n++) {
-        const typ = typeof inhaltRemainsUntilCombined[n]
         await this.setObjectNotExistsAsync(RemainsUntilCombined[n], {
             type: "state",
             common: {
                 name: RemainsUntilCombined[n],
-                type: typ,
-                role: typ,
+                type: "string",
+                role: "name",
                 read: true,
                 write: true,
             },
