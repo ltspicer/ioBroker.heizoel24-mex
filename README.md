@@ -14,6 +14,11 @@
 
 Read in data from MEX
 
+## Instruktionen
+
+Dieser Adapter liest die Daten vom Heizoel24 Server und speicher diese im Datenpunkt **heizoel24-mex**.
+Hierzu muss **Username (Email Adresse)** und **Passwort** des Heizoel24 Accounts eingegeben werden.
+Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 
 ## Changelog
 <!--
@@ -23,6 +28,12 @@ Read in data from MEX
 
 ### **WORK IN PROGRESS**
 * (Daniel Luginbühl) initial release
+
+## ToDo Liste:
+- Variablen Typ vor schreiben in Datenpunkt abfragen
+- admin/i18n Anpassungen in diversen Sprachen
+- Startproblem unter GUI beheben
+- README.md ausführlicher machen
 
 ## License
 MIT License
