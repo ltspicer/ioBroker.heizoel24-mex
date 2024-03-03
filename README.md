@@ -30,7 +30,6 @@ Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 * (Daniel Luginbühl) initial release
 
 ## ToDo Liste:
-- Variablen Typ vor schreiben in Datenpunkt abfragen
 - admin/i18n Anpassungen in diversen Sprachen
 - MQTT Port Eingabemöglichkeit
 
