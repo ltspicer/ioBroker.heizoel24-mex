@@ -190,12 +190,13 @@ class Heizoel24Mex extends utils.Adapter {
     }
     
     for (let n = 0; n < topic1.length; n++) {
+        let typ = typeof inhaltTopic1[n];
         await this.setObjectNotExistsAsync(topic1[n], {
             type: "state",
             common: {
                 name: topic1[n],
-                type: "string",
-                role: "name",
+                type: typ,
+                role: typ,
                 read: true,
                 write: true,
             },
@@ -206,12 +207,13 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < topic2.length; n++) {
+        let typ = typeof inhaltTopic2[n];
         await this.setObjectNotExistsAsync(topic2[n], {
             type: "state",
             common: {
                 name: topic2[n],
-                type: "string",
-                role: "name",
+                type: typ,
+                role: typ,
                 read: true,
                 write: true,
             },
@@ -222,12 +224,13 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     for (let n = 0; n < RemainsUntilCombined.length; n++) {
+        let typ = typeof inhaltRemainsUntilCombined[n];
         await this.setObjectNotExistsAsync(RemainsUntilCombined[n], {
             type: "state",
             common: {
                 name: RemainsUntilCombined[n],
-                type: "string",
-                role: "name",
+                type: typ,
+                role: typ,
                 read: true,
                 write: true,
             },
