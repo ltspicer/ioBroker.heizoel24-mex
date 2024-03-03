@@ -34,6 +34,7 @@ Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 - admin/i18n Anpassungen in diversen Sprachen
 - Startproblem unter GUI beheben
 - README.md ausführlicher machen
+- MQTT Port Eingabemöglichkeit
 
 ## License
 MIT License
