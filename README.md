@@ -35,7 +35,6 @@ Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 
 ## ToDo Liste:
 - admin/i18n Anpassungen in diversen Sprachen
-- MQTT Port Eingabemöglichkeit
 
 ## License
 MIT License
