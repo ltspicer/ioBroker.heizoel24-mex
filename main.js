@@ -51,6 +51,7 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_active = this.config.mqtt_active;
         const mqtt_user = this.config.mqtt_user;
         const mqtt_pass = this.config.mqtt_pass;
+        const mqtt_port = this.config.mqtt_port;
         if (debug) {
             this.log.info("config username: " + username);
             this.log.info("config passwort: " + this.config.passwort);
@@ -58,6 +59,7 @@ class Heizoel24Mex extends utils.Adapter {
             this.log.info("config mqtt_active: " + this.config.mqtt_active);
             this.log.info("config mqtt_user: " + this.config.mqtt_user);
             this.log.info("config mqtt_pass: " + this.config.mqtt_pass);
+            this.log.info("config mqtt_port: " + this.config.mqtt_port);
         }
         await main(this);
 
@@ -126,7 +128,7 @@ class Heizoel24Mex extends utils.Adapter {
     }
     
     async function main() {
-        const client = mqtt.connect(`mqtt://${broker_address}`, {
+        const client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
             username: mqtt_user,
             password: mqtt_pass
         });

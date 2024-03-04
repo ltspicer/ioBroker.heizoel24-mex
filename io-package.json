@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "heizoel24-mex",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
             "0.0.1": {
                 "en": "initial release",
@@ -75,7 +75,6 @@
         "adminUI": {
             "config": "json"
         },
-        "supportCustoms": true,
         "dependencies": [
             {
                 "js-controller": ">=3.3.22"
@@ -93,7 +92,8 @@
         "mqtt_active": true,
         "broker_address": "0.0.0.0",
         "mqtt_user": "",
-        "mqtt_pass": ""
+        "mqtt_pass": "",
+        "mqtt_port": "1883"
     },
     "objects": [],
     "instanceObjects": [
@@ -120,3 +120,4 @@
         }
     ]
 }
+
