@@ -20,7 +20,7 @@ Der MEX ist ein Heizoelstandsmesser.
 
 ## Instruktionen
 
-Dieser Adapter liest die Daten vom Heizoel24 Server und speicher diese im Datenpunkt **heizoel24-mex**.
+Dieser Adapter liest die Daten vom Heizoel24 Server und speichert diese im Datenpunkt **heizoel24-mex**.
 Hierzu muss **Username (Email Adresse)** und **Passwort** des Heizoel24 Accounts eingegeben werden.
 Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 
