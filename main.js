@@ -244,6 +244,9 @@ class Heizoel24Mex extends utils.Adapter {
         await this.setStateAsync(RemainsUntilCombined[n], { val: inhaltRemainsUntilCombined[n], ack: true });
     }
 
+	// this.log.info(`Finished - stopping instance`);
+	this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
+
     }
 
     /**
