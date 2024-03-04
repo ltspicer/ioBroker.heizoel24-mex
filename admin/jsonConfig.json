@@ -9,7 +9,6 @@
         },
         "passwort": {
             "type": "text",
-            "visible": false,
             "label": "Heizoel24 Passwort",
             "newLine": true
         },
