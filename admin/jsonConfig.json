@@ -9,12 +9,14 @@
         },
         "passwort": {
             "type": "text",
+            "visible": false,
             "label": "Heizoel24 Passwort",
             "newLine": true
         },
          "mqtt_active": {
             "type": "checkbox",
             "label": "MQTT nutzen",
+            "default":false,
             "newLine": true
         },
         "broker_address": {
@@ -30,6 +32,12 @@
         "mqtt_pass": {
             "type": "text",
             "label": "MQTT Passwort",
+            "newLine": true
+        },
+        "mqtt_port": {
+            "type": "number",
+            "label": "MQTT Port",
+            "default": 1883,
             "newLine": true
         }
     }
