@@ -12,7 +12,11 @@
 
 ## Heizoel24-MEX Adapter für ioBroker
 
-Read in data from MEX
+Read in data from MEX.
+The MEX is a heating oil level meter.
+
+Liest Daten vom MEX ein.
+Der MEX ist ein Heizoelstandsmesser.
 
 ## Instruktionen
 
