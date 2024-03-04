@@ -52,6 +52,23 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_user = this.config.mqtt_user;
         const mqtt_pass = this.config.mqtt_pass;
         const mqtt_port = this.config.mqtt_port;
+
+		if (username == "" || passwort == "") {
+			this.log.error(`User email and/or user password empty - please check instance configuration`);
+			this.terminate ? this.terminate('User email and/or user password empty - please check instance configuration', 1) : process.exit(0);
+		}
+        if (mqtt_active) {
+		    if (broker_address == "" || broker_address == "0.0.0.0") {
+			    this.log.error(`MQTT IP address is empty - please check instance configuration`);
+			    this.terminate ? this.terminate('MQTT IP address is empty - please check instance configuration', 1) : process.exit(0);
+		    }
+            global.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
+                username: mqtt_user,
+                password: mqtt_pass
+            });
+        } else {
+            global.client = "dummy";
+        }
         if (debug) {
             this.log.info("config username: " + username);
             this.log.info("config passwort: " + this.config.passwort);
@@ -245,7 +262,7 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
 	// this.log.info(`Finished - stopping instance`);
-	this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
+	this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 0) : process.exit(0);
 
     }
 
