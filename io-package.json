@@ -89,7 +89,7 @@
     "native": {
         "username": "",
         "passwort": "",
-        "mqtt_active": true,
+        "mqtt_active": false,
         "broker_address": "0.0.0.0",
         "mqtt_user": "",
         "mqtt_pass": "",
