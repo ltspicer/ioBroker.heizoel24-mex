@@ -31,9 +31,9 @@ class Heizoel24Mex extends utils.Adapter {
         global.topic1 = ['DataReceived', 'SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
         global.topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
         global.RemainsUntilCombined = ['MonthAndYear', 'RemainsValue', 'RemainsUnit'];
-        global.inhaltTopic1 = []
-        global.inhaltTopic2 = []
-        global.inhaltRemainsUntilCombined = []
+        global.inhaltTopic1 = [];
+        global.inhaltTopic2 = [];
+        global.inhaltRemainsUntilCombined = [];
     }
 
     /**
@@ -155,7 +155,7 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 console.log("Fehler. Keine Daten empfangen.");
             }
-            inhaltTopic1[0] = false
+            inhaltTopic1[0] = false;
             await mqtt_send(client, "Items/DataReceived", false);
             client.end();
             return;
