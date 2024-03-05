@@ -91,7 +91,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (datenEmpfangen === true) {
 
-// Items
+            // Items
 
             for (let n = 0; n < topic1.length; n++) {
                 const typ = typeof inhaltTopic1[n];
@@ -106,11 +106,10 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-//                this.subscribeStates("Items." + topic1[n]);
                 await this.setStateAsync("Items." + topic1[n], { val: inhaltTopic1[n], ack: true });
             }
 
-// PricingForecast
+            // PricingForecast
 
             for (let n = 0; n < topic2.length; n++) {
                 const typ = typeof inhaltTopic2[n];
@@ -125,11 +124,10 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-//                this.subscribeStates("PricingForecast." + topic2[n]);
                 await this.setStateAsync("PricingForecast." + topic2[n], { val: inhaltTopic2[n], ack: true });
             }
 
-// RemainsUntilCombined
+            // RemainsUntilCombined
 
             for (let n = 0; n < RemainsUntilCombined.length; n++) {
                 const typ = typeof inhaltRemainsUntilCombined[n];
@@ -144,7 +142,6 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-//                this.subscribeStates("RemainsUntilCombined." + RemainsUntilCombined[n]);
                 await this.setStateAsync("RemainsUntilCombined." + RemainsUntilCombined[n], { val: inhaltRemainsUntilCombined[n], ack: true });
             }
         } else {
@@ -159,13 +156,12 @@ class Heizoel24Mex extends utils.Adapter {
                 },
                 native: {},
             });
-//            this.subscribeStates("Items." + topic1[0]);
             await this.setStateAsync("Items." + topic1[0], { val: false, ack: true });
             await this.LogMessage("error", "No data received");
             this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
 
-	    // this.log.info(`Finished - stopping instance`);
+	    // Finished - stopping instance
         await this.LogMessage("info", "Everything done. Going to terminate till next schedule");
 	    this.terminate ? this.terminate("Everything done. Going to terminate till next schedule", 0) : process.exit(0);
     }
