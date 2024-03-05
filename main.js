@@ -24,9 +24,6 @@ class Heizoel24Mex extends utils.Adapter {
             name: "heizoel24-mex",
         });
         this.on("ready", this.onReady.bind(this));
-        this.on("stateChange", this.onStateChange.bind(this));
-        // this.on("objectChange", this.onObjectChange.bind(this));
-        // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
         global.topic1 = ['DataReceived', 'SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
         global.topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
@@ -109,7 +106,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                this.subscribeStates("Items." + topic1[n]);
+//                this.subscribeStates("Items." + topic1[n]);
                 await this.setStateAsync("Items." + topic1[n], { val: inhaltTopic1[n], ack: true });
             }
 
@@ -128,7 +125,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                this.subscribeStates("PricingForecast." + topic2[n]);
+//                this.subscribeStates("PricingForecast." + topic2[n]);
                 await this.setStateAsync("PricingForecast." + topic2[n], { val: inhaltTopic2[n], ack: true });
             }
 
@@ -147,7 +144,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                this.subscribeStates("RemainsUntilCombined." + RemainsUntilCombined[n]);
+//                this.subscribeStates("RemainsUntilCombined." + RemainsUntilCombined[n]);
                 await this.setStateAsync("RemainsUntilCombined." + RemainsUntilCombined[n], { val: inhaltRemainsUntilCombined[n], ack: true });
             }
         } else {
@@ -162,14 +159,14 @@ class Heizoel24Mex extends utils.Adapter {
                 },
                 native: {},
             });
-            this.subscribeStates("Items." + topic1[0]);
+//            this.subscribeStates("Items." + topic1[0]);
             await this.setStateAsync("Items." + topic1[0], { val: false, ack: true });
-            await this.LogMessage("error", "Keine Daten empfangen");
-            this.terminate ? this.terminate('Keine Daten empfangen', 1) : process.exit(1);
+            await this.LogMessage("error", "No data received");
+            this.terminate ? this.terminate('No data received', 1) : process.exit(1);
         }
 
 	    // this.log.info(`Finished - stopping instance`);
-        await this.LogMessage("info", "Alles erledigt. Beende mich bis zum nächsten Schedule-Aufruf");
+        await this.LogMessage("info", "Everything done. Going to terminate till next schedule");
 	    this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 0) : process.exit(0);
     }
 
@@ -200,11 +197,11 @@ class Heizoel24Mex extends utils.Adapter {
                     await this.LogMessage("info", "Logged in");
                     return true;
                 } else {
-                    await this.LogMessage("error", "ResultCode nicht 0. Keine Session ID erhalten!");
+                    await this.LogMessage("error", "ResultCode not 0. No session ID received!");
                 }
             }
         } catch (error) {
-            await this.LogMessage("error", 'Login fehlgeschlagen! Heizoel24 Login Status Code: ' + error.response.status);
+            await this.LogMessage("error", 'Login failed! Heizoel24 Login Status Code: ' + error.response.status);
         }
         return false;
     }
@@ -222,7 +219,7 @@ class Heizoel24Mex extends utils.Adapter {
             const reply = await axios.get(url);
             if (reply.status === 200) {
                 if (debug) {
-                    await this.LogMessage("info", "Daten wurden empfangen");
+                    await this.LogMessage("info", "Data was received");
                 }
                 return reply;
             }
@@ -245,7 +242,7 @@ class Heizoel24Mex extends utils.Adapter {
         let daten = await this.mex();
 
         if (daten === false) {
-            await this.LogMessage("error", "Keine Daten empfangen.");
+            await this.LogMessage("error", "No data received");
             if (mqtt_active) {
                 await this.mqtt_send(client, "Items/DataReceived", 'false');
                 client.end();
@@ -256,8 +253,9 @@ class Heizoel24Mex extends utils.Adapter {
         const datenJson = daten.data;
         if (debug) {
             await this.LogMessage("info", " ");
-            await this.LogMessage("info", "JSON-Daten:");
-            await this.LogMessage("info", "===========");
+            await this.LogMessage("info", "==========");
+            await this.LogMessage("info", "JSON-Data:");
+            await this.LogMessage("info", "==========");
             await this.LogMessage("info", " ");
         }
         for (let n = 0; n < topic2.length; n++) {
@@ -320,40 +318,6 @@ class Heizoel24Mex extends utils.Adapter {
             callback();
         }
     }
-
-     /**
-     * Is called if a subscribed state changes
-     * @param {string} id
-     * @param {ioBroker.State | null | undefined} state
-     */
-    onStateChange(id, state) {
-        if (state) {
-            // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-        } else {
-            // The state was deleted
-            this.log.info(`state ${id} deleted`);
-        }
-    }
-
-    // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-    // /**
-    //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-    //  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-    //  * @param {ioBroker.Message} obj
-    //  */
-    // onMessage(obj) {
-    //     if (typeof obj === "object" && obj.message) {
-    //         if (obj.command === "send") {
-    //             // e.g. send email or pushover or whatever
-    //             this.log.info("send command");
-
-    //             // Send response in callback if required
-    //             if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-    //         }
-    //     }
-    // }
-
 }
 
 if (require.main !== module) {
