@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "heizoel24-mex",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
             "0.0.1": {
                 "en": "initial release",
@@ -60,7 +60,7 @@
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "heizoel24-mex.png",
-        "enabled": true,
+        "enabled": false,
         "extIcon": "https://raw.githubusercontent.com/ltspicer/ioBroker.heizoel24-mex/main/admin/heizoel24-mex.png",
         "readme": "https://github.com/ltspicer/ioBroker.heizoel24-mex/blob/main/README.md",
         "loglevel": "info",
