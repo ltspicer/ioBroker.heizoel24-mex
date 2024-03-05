@@ -10,8 +10,8 @@ const utils = require("@iobroker/adapter-core");
 
 // Load your modules here, e.g.:
 
-const axios = require('axios');
-const mqtt = require('mqtt');
+const axios = require("axios");
+const mqtt = require("mqtt");
 
 class Heizoel24Mex extends utils.Adapter {
 
@@ -25,9 +25,9 @@ class Heizoel24Mex extends utils.Adapter {
         });
         this.on("ready", this.onReady.bind(this));
         this.on("unload", this.onUnload.bind(this));
-        global.topic1 = ['DataReceived', 'SensorId', 'IsMain', 'CurrentVolumePercentage', 'CurrentVolume', 'NotifyAtLowLevel', 'NotifyAtAlmostEmptyLevel', 'NotificationsEnabled', 'Usage', 'RemainsUntil', 'MaxVolume', 'ZipCode', 'MexName', 'LastMeasurementTimeStamp', 'LastMeasurementWithDifferentValue', 'BatteryPercentage', 'Battery', 'LitresPerCentimeter', 'LastMeasurementWasSuccessfully', 'SensorTypeId', 'HasMeasurements', 'MeasuredDaysCount', 'LastMeasurementWasTooHigh', 'YearlyOilUsage', 'RemainingDays', 'LastOrderPrice', 'ResultCode', 'ResultMessage'];
-        global.topic2 = ['LastOrderPrice', 'PriceComparedToYesterdayPercentage', 'PriceForecastPercentage', 'HasMultipleMexDevices', 'DashboardViewMode', 'ShowComparedToYesterday', 'ShowForecast', 'ResultCode', 'ResultMessage'];
-        global.RemainsUntilCombined = ['MonthAndYear', 'RemainsValue', 'RemainsUnit'];
+        global.topic1 = ["DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", "LastOrderPrice", "ResultCode", "ResultMessage"];
+        global.topic2 = ["LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode", "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"];
+        global.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
         global.inhaltTopic1 = [];
         global.inhaltTopic2 = [];
         global.inhaltRemainsUntilCombined = [];
@@ -62,15 +62,15 @@ class Heizoel24Mex extends utils.Adapter {
         global.mqtt_pass = this.config.mqtt_pass;
         global.mqtt_port = this.config.mqtt_port;
 
-		if (username == "" || passwort == "") {
-			await this.LogMessage("error", "User email and/or user password empty - please check instance configuration");
-			this.terminate ? this.terminate('User email and/or user password empty - please check instance configuration', 1) : process.exit(0);
-		}
+        if (username == "" || passwort == "") {
+            await this.LogMessage("error", "User email and/or user password empty - please check instance configuration");
+            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 1) : process.exit(0);
+        }
         if (mqtt_active) {
-		    if (broker_address == "" || broker_address == "0.0.0.0") {
-			    await this.LogMessage("error", "MQTT IP address is empty - please check instance configuration");
-			    this.terminate ? this.terminate('MQTT IP address is empty - please check instance configuration', 1) : process.exit(0);
-		    }
+            if (broker_address == "" || broker_address == "0.0.0.0") {
+                await this.LogMessage("error", "MQTT IP address is empty - please check instance configuration");
+                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(0);
+            }
             global.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 username: mqtt_user,
                 password: mqtt_pass
@@ -87,14 +87,14 @@ class Heizoel24Mex extends utils.Adapter {
             await this.LogMessage("info", "config mqtt_pass: " + this.config.mqtt_pass);
             await this.LogMessage("info", "config mqtt_port: " + this.config.mqtt_port);
         }
-        let datenEmpfangen = await this.main();
+        const datenEmpfangen = await this.main();
 
         if (datenEmpfangen === true) {
 
 // Items
 
             for (let n = 0; n < topic1.length; n++) {
-                let typ = typeof inhaltTopic1[n];
+                const typ = typeof inhaltTopic1[n];
                 await this.setObjectNotExistsAsync("Items." + topic1[n], {
                     type: "state",
                     common: {
@@ -113,7 +113,7 @@ class Heizoel24Mex extends utils.Adapter {
 // PricingForecast
 
             for (let n = 0; n < topic2.length; n++) {
-                let typ = typeof inhaltTopic2[n];
+                const typ = typeof inhaltTopic2[n];
                 await this.setObjectNotExistsAsync("PricingForecast." + topic2[n], {
                     type: "state",
                     common: {
@@ -132,7 +132,7 @@ class Heizoel24Mex extends utils.Adapter {
 // RemainsUntilCombined
 
             for (let n = 0; n < RemainsUntilCombined.length; n++) {
-                let typ = typeof inhaltRemainsUntilCombined[n];
+                const typ = typeof inhaltRemainsUntilCombined[n];
                 await this.setObjectNotExistsAsync("RemainsUntilCombined." + RemainsUntilCombined[n], {
                     type: "state",
                     common: {
@@ -162,12 +162,12 @@ class Heizoel24Mex extends utils.Adapter {
 //            this.subscribeStates("Items." + topic1[0]);
             await this.setStateAsync("Items." + topic1[0], { val: false, ack: true });
             await this.LogMessage("error", "No data received");
-            this.terminate ? this.terminate('No data received', 1) : process.exit(1);
+            this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
 
 	    // this.log.info(`Finished - stopping instance`);
         await this.LogMessage("info", "Everything done. Going to terminate till next schedule");
-	    this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 0) : process.exit(0);
+	    this.terminate ? this.terminate("Everything done. Going to terminate till next schedule", 0) : process.exit(0);
     }
 
     async mqtt_send(client, topic, wert) {
@@ -178,10 +178,10 @@ class Heizoel24Mex extends utils.Adapter {
     
     async login() {
         if (debug) {
-            await this.LogMessage("info", 'Login in...');
+            await this.LogMessage("info", "Login in...");
         }
         const url = "https://api.heizoel24.de/app/api/app/Login";
-        const newHeaders = { 'Content-type': 'application/json' };
+        const newHeaders = { "Content-type": "application/json" };
         try {
             const reply = await axios.post(url, { "Password": passwort, "Username": username }, { headers: newHeaders });
             if (reply.status === 200) {
@@ -189,10 +189,10 @@ class Heizoel24Mex extends utils.Adapter {
                     await this.LogMessage("info", "Login OK");
                 }
                 const reply_json = reply.data;
-                if (reply_json['ResultCode'] === 0) {
-                    session_id = reply_json['SessionId'];
+                if (reply_json["ResultCode"] === 0) {
+                    session_id = reply_json["SessionId"];
                     if (debug) {
-                        await this.LogMessage("info", 'Session ID: ' + session_id);
+                        await this.LogMessage("info", "Session ID: " + session_id);
                     }
                     await this.LogMessage("info", "Logged in");
                     return true;
@@ -201,7 +201,7 @@ class Heizoel24Mex extends utils.Adapter {
                 }
             }
         } catch (error) {
-            await this.LogMessage("error", 'Login failed! Heizoel24 Login Status Code: ' + error.response.status);
+            await this.LogMessage("error", "Login failed! Heizoel24 Login Status Code: " + error.response.status);
         }
         return false;
     }
@@ -212,7 +212,7 @@ class Heizoel24Mex extends utils.Adapter {
             return false;
         }
         if (debug) {
-            await this.LogMessage("info", 'Refresh sensor data cache...');
+            await this.LogMessage("info", "Refresh sensor data cache...");
         }
         const url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
         try {
@@ -224,7 +224,7 @@ class Heizoel24Mex extends utils.Adapter {
                 return reply;
             }
         } catch (error) {
-            await this.LogMessage("error", 'Heizoel24 GetDashboardData Status Code: ' + error.response.status);
+            await this.LogMessage("error", "Heizoel24 GetDashboardData Status Code: " + error.response.status);
         }
         return false;
     }
@@ -239,12 +239,12 @@ class Heizoel24Mex extends utils.Adapter {
             const client = "dummy";
         }
 
-        let daten = await this.mex();
+        const daten = await this.mex();
 
         if (daten === false) {
             await this.LogMessage("error", "No data received");
             if (mqtt_active) {
-                await this.mqtt_send(client, "Items/DataReceived", 'false');
+                await this.mqtt_send(client, "Items/DataReceived", "false");
                 client.end();
             }
             return false;
@@ -262,11 +262,11 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 await this.LogMessage("info", topic2[n] + ": " + datenJson[topic2[n]]);
             }
-            let result = datenJson[topic2[n]] || '---';
+            const result = datenJson[topic2[n]] || "---";
             inhaltTopic2[n] = result;
             await this.mqtt_send(client, "PricingForecast/" + topic2[n], result.toString());
         }
-        let items = datenJson["Items"][0];
+        const items = datenJson["Items"][0];
         if (debug) {
             await this.LogMessage("info", "---------------------");
         }
@@ -274,22 +274,22 @@ class Heizoel24Mex extends utils.Adapter {
             if (debug) {
                 await this.LogMessage("info", topic1[n] + ": " + items[topic1[n]]);
             }
-            let result = items[topic1[n]] || '---';
+            const result = items[topic1[n]] || "---";
             inhaltTopic1[n] = result;
             await this.mqtt_send(client, "Items/" + topic1[n], result.toString());
         }
-        await this.mqtt_send(client, "Items/DataReceived", 'true');
+        await this.mqtt_send(client, "Items/DataReceived", "true");
         inhaltTopic1[0] = true;
-        let daten3 = items['RemainsUntilCombined'];
+        const daten3 = items["RemainsUntilCombined"];
         if (debug) {
             await this.LogMessage("info", "---------------------");
-            await this.LogMessage("info", 'RemainsUntilCombined:');
+            await this.LogMessage("info", "RemainsUntilCombined:");
         }
         for (let n = 0; n < RemainsUntilCombined.length; n++) {
             if (debug) {
                 await this.LogMessage("info", RemainsUntilCombined[n] + ": " + daten3[RemainsUntilCombined[n]]);
             }
-            let result = daten3[RemainsUntilCombined[n]] || '---';
+            const result = daten3[RemainsUntilCombined[n]] || "---";
             inhaltRemainsUntilCombined[n] = result;
             await this.mqtt_send(client, "RemainsUntilCombined/" + RemainsUntilCombined[n], result.toString());
         }
