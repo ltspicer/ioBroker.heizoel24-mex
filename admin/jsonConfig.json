@@ -4,38 +4,38 @@
     "items": {
         "username": {
             "type": "text",
-            "label": "Heizoel24 Email/Username",
+            "label": "Heizoel24 username (email)",
             "newLine": true
         },
         "passwort": {
             "type": "text",
-            "label": "Heizoel24 Passwort",
+            "label": "Heizoel24 password",
             "newLine": true
         },
          "mqtt_active": {
             "type": "checkbox",
-            "label": "MQTT nutzen",
+            "label": "Use MQTT",
             "default":false,
             "newLine": true
         },
         "broker_address": {
             "type": "text",
-            "label": "MQTT Broker IP Adresse",
+            "label": "MQTT broker IP address",
             "newLine": true
         },
         "mqtt_user": {
             "type": "text",
-            "label": "MQTT User",
+            "label": "MQTT user",
             "newLine": true
         },
         "mqtt_pass": {
             "type": "text",
-            "label": "MQTT Passwort",
+            "label": "MQTT password",
             "newLine": true
         },
         "mqtt_port": {
             "type": "number",
-            "label": "MQTT Port",
+            "label": "MQTT port",
             "default": 1883,
             "newLine": true
         }
