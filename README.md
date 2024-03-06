@@ -10,19 +10,10 @@
 
 **Tests:** ![Test and Release](https://github.com/ltspicer/ioBroker.heizoel24-mex/workflows/Test%20and%20Release/badge.svg)
 
-## Heizoel24-MEX Adapter für ioBroker
+## heizoel24-mex adapter for ioBroker
 
-Read in data from MEX.
-The MEX is a heating oil level meter.
+Read in data from MEX
 
-Liest Daten vom MEX ein.
-Der MEX ist ein Heizoelstandsmesser.
-
-## Instruktionen
-
-Dieser Adapter liest die Daten vom Heizoel24 Server und speichert diese im Datenpunkt **heizoel24-mex**.
-Hierzu muss **Username (Email Adresse)** und **Passwort** des Heizoel24 Accounts eingegeben werden.
-Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 
 ## Changelog
 <!--
@@ -32,9 +23,6 @@ Zusätzlich kann ein **MQTT** Ziel angegeben werden.
 
 ### **WORK IN PROGRESS**
 * (Daniel Luginbühl) initial release
-
-## ToDo Liste:
-- admin/i18n Anpassungen in diversen Sprachen
 
 ## License
 MIT License
