@@ -74,7 +74,7 @@ class Heizoel24Mex extends utils.Adapter {
             await this.LogMessage("info", "config mqtt_pass: " + mqtt_pass);
             await this.LogMessage("info", "config mqtt_port: " + mqtt_port);
         }
-        const datenEmpfangen = await this.main(this.client, username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass);
+        const datenEmpfangen = await this.main(this.client, username, passwort, mqtt_active);
         if (datenEmpfangen === true) {
             // Items
             for (let n = 0; n < this.topic1.length; n++) {
@@ -210,7 +210,7 @@ class Heizoel24Mex extends utils.Adapter {
         return false;
     }
 
-    async main(client, username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass) {
+    async main(client, username, passwort, mqtt_active) {
         const daten = await this.mex(username, passwort);
         if (daten === false) {
             await this.LogMessage("error", "No data received");
