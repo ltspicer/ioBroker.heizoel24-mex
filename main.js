@@ -51,12 +51,12 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (username == "" || passwort == "") {
             await this.LogMessage("error", "User email and/or user password empty - please check instance configuration");
-            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 1) : process.exit(0);
+            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 0) : process.exit(0);
         }
         if (mqtt_active) {
             if (broker_address == "" || broker_address == "0.0.0.0") {
                 await this.LogMessage("error", "MQTT IP address is empty - please check instance configuration");
-                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(0);
+                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
             }
             this.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 username: mqtt_user,
