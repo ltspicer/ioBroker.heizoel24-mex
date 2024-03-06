@@ -4,33 +4,26 @@
  * Created with @iobroker/create-adapter v2.6.2
  */
 
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
 const utils = require("@iobroker/adapter-core");
-
-// Load your modules here, e.g.:
-
 const axios = require("axios");
 const mqtt = require("mqtt");
 
 class Heizoel24Mex extends utils.Adapter {
 
-    /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
-     */
     constructor(options) {
         super({
             ...options,
             name: "heizoel24-mex",
         });
+        this.debug = false;
         this.on("ready", this.onReady.bind(this));
         this.on("unload", this.onUnload.bind(this));
-        global.topic1 = ["DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", "LastOrderPrice", "ResultCode", "ResultMessage"];
-        global.topic2 = ["LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode", "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"];
-        global.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
-        global.inhaltTopic1 = [];
-        global.inhaltTopic2 = [];
-        global.inhaltRemainsUntilCombined = [];
+        this.topic1 = ["DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", "LastOrderPrice", "ResultCode", "ResultMessage"];
+        this.topic2 = ["LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode", "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"];
+        this.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
+        this.inhaltTopic1 = [];
+        this.inhaltTopic2 = [];
+        this.inhaltRemainsUntilCombined = [];
     }
 
     async LogMessage(level, message) {
@@ -45,22 +38,17 @@ class Heizoel24Mex extends utils.Adapter {
         }
     }
 
-    /**
-     * Is called when databases are connected and adapter received configuration.
-     */
     async onReady() {
-        // Reset the connection indicator during startup
         this.setState("info.connection", false, true);
 
-        global.session_id = "";
-        global.debug = false;
-        global.username = this.config.username;
-        global.passwort = this.config.passwort;
-        global.broker_address = this.config.broker_address;
-        global.mqtt_active = this.config.mqtt_active;
-        global.mqtt_user = this.config.mqtt_user;
-        global.mqtt_pass = this.config.mqtt_pass;
-        global.mqtt_port = this.config.mqtt_port;
+        const session_id = "";
+        const username = this.config.username;
+        const passwort = this.config.passwort;
+        const broker_address = this.config.broker_address;
+        const mqtt_active = this.config.mqtt_active;
+        const mqtt_user = this.config.mqtt_user;
+        const mqtt_pass = this.config.mqtt_pass;
+        const mqtt_port = this.config.mqtt_port;
 
         if (username == "" || passwort == "") {
             await this.LogMessage("error", "User email and/or user password empty - please check instance configuration");
@@ -76,29 +64,26 @@ class Heizoel24Mex extends utils.Adapter {
                 password: mqtt_pass
             });
         } else {
-            global.client = "dummy";
+            const client = "dummy";
         }
-        if (debug) {
+        if (this.debug) {
             await this.LogMessage("info", "config username: " + username);
-            await this.LogMessage("info", "config passwort: " + this.config.passwort);
-            await this.LogMessage("info", "config broker_address: " + this.config.broker_address);
-            await this.LogMessage("info", "config mqtt_active: " + this.config.mqtt_active);
-            await this.LogMessage("info", "config mqtt_user: " + this.config.mqtt_user);
-            await this.LogMessage("info", "config mqtt_pass: " + this.config.mqtt_pass);
-            await this.LogMessage("info", "config mqtt_port: " + this.config.mqtt_port);
+            await this.LogMessage("info", "config passwort: " + passwort);
+            await this.LogMessage("info", "config broker_address: " + broker_address);
+            await this.LogMessage("info", "config mqtt_active: " + mqtt_active);
+            await this.LogMessage("info", "config mqtt_user: " + mqtt_user);
+            await this.LogMessage("info", "config mqtt_pass: " + mqtt_pass);
+            await this.LogMessage("info", "config mqtt_port: " + mqtt_port);
         }
-        const datenEmpfangen = await this.main();
-
+        const datenEmpfangen = await this.main(username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass);
         if (datenEmpfangen === true) {
-
             // Items
-
-            for (let n = 0; n < topic1.length; n++) {
-                const typ = typeof inhaltTopic1[n];
-                await this.setObjectNotExistsAsync("Items." + topic1[n], {
+            for (let n = 0; n < this.topic1.length; n++) {
+                const typ = typeof this.inhaltTopic1[n];
+                await this.setObjectNotExistsAsync("Items." + this.topic1[n], {
                     type: "state",
                     common: {
-                        name: topic1[n],
+                        name: this.topic1[n],
                         type: typ,
                         role: typ,
                         read: true,
@@ -106,17 +91,16 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync("Items." + topic1[n], { val: inhaltTopic1[n], ack: true });
+                await this.setStateAsync("Items." + this.topic1[n], { val: this.inhaltTopic1[n], ack: true });
             }
 
             // PricingForecast
-
-            for (let n = 0; n < topic2.length; n++) {
-                const typ = typeof inhaltTopic2[n];
-                await this.setObjectNotExistsAsync("PricingForecast." + topic2[n], {
+            for (let n = 0; n < this.topic2.length; n++) {
+                const typ = typeof this.inhaltTopic2[n];
+                await this.setObjectNotExistsAsync("PricingForecast." + this.topic2[n], {
                     type: "state",
                     common: {
-                        name: topic2[n],
+                        name: this.topic2[n],
                         type: typ,
                         role: typ,
                         read: true,
@@ -124,17 +108,16 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync("PricingForecast." + topic2[n], { val: inhaltTopic2[n], ack: true });
+                await this.setStateAsync("PricingForecast." + this.topic2[n], { val: this.inhaltTopic2[n], ack: true });
             }
 
             // RemainsUntilCombined
-
-            for (let n = 0; n < RemainsUntilCombined.length; n++) {
-                const typ = typeof inhaltRemainsUntilCombined[n];
-                await this.setObjectNotExistsAsync("RemainsUntilCombined." + RemainsUntilCombined[n], {
+            for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
+                const typ = typeof this.inhaltRemainsUntilCombined[n];
+                await this.setObjectNotExistsAsync("RemainsUntilCombined." + this.RemainsUntilCombined[n], {
                     type: "state",
                     common: {
-                        name: RemainsUntilCombined[n],
+                        name: this.RemainsUntilCombined[n],
                         type: typ,
                         role: typ,
                         read: true,
@@ -142,13 +125,13 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync("RemainsUntilCombined." + RemainsUntilCombined[n], { val: inhaltRemainsUntilCombined[n], ack: true });
+                await this.setStateAsync("RemainsUntilCombined." + this.RemainsUntilCombined[n], { val: this.inhaltRemainsUntilCombined[n], ack: true });
             }
         } else {
-            await this.setObjectNotExistsAsync("Items." + topic1[0], {
+            await this.setObjectNotExistsAsync("Items." + this.topic1[0], {
                 type: "state",
                 common: {
-                    name: topic1[0],
+                    name: this.topic1[0],
                     type: "boolean",
                     role: "boolean",
                     read: true,
@@ -156,76 +139,79 @@ class Heizoel24Mex extends utils.Adapter {
                 },
                 native: {},
             });
-            await this.setStateAsync("Items." + topic1[0], { val: false, ack: true });
+            await this.setStateAsync("Items." + this.topic1[0], { val: false, ack: true });
             await this.LogMessage("error", "No data received");
             this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
 
 	    // Finished - stopping instance
-        await this.LogMessage("info", "Everything done. Going to terminate till next schedule");
-	    this.terminate ? this.terminate("Everything done. Going to terminate till next schedule", 0) : process.exit(0);
+        this.terminate ? this.terminate("Everything done. Going to terminate till next schedule", 0) : process.exit(0);
     }
 
-    async mqtt_send(client, topic, wert) {
+    async mqtt_send(mqtt_active, client, topic, wert) {
         if (mqtt_active) {
             client.publish("MEX/" + topic, wert);
         }
     }
     
-    async login() {
-        if (debug) {
+    async login(username, passwort) {
+        if (this.debug) {
             await this.LogMessage("info", "Login in...");
+            await this.LogMessage("info", "username: " + username);
+            await this.LogMessage("info", "passwort: " + passwort);
         }
-        const url = "https://api.heizoel24.de/app/api/app/Login";
-        const newHeaders = { "Content-type": "application/json" };
+        this.username = username;
+        this.passwort = passwort;
+        this.url = "https://api.heizoel24.de/app/api/app/Login";
+        this.newHeaders = { "Content-type": "application/json" };
         try {
-            const reply = await axios.post(url, { "Password": passwort, "Username": username }, { headers: newHeaders });
+            const reply = await axios.post(this.url, { "Password": this.passwort, "Username": this.username }, { headers: this.newHeaders });
             if (reply.status === 200) {
-                if (debug) {
+                if (this.debug) {
                     await this.LogMessage("info", "Login OK");
                 }
                 const reply_json = reply.data;
                 if (reply_json["ResultCode"] === 0) {
-                    session_id = reply_json["SessionId"];
-                    if (debug) {
+                    const session_id = reply_json["SessionId"];
+                    if (this.debug) {
                         await this.LogMessage("info", "Session ID: " + session_id);
+                        await this.LogMessage("info", "Logged in");
                     }
-                    await this.LogMessage("info", "Logged in");
-                    return true;
+                    return [true, session_id];
                 } else {
                     await this.LogMessage("error", "ResultCode not 0. No session ID received!");
                 }
             }
         } catch (error) {
-            await this.LogMessage("error", "Login failed! Heizoel24 Login Status Code: " + error.response.status);
+            await this.LogMessage("error", "Login failed!");
         }
-        return false;
+        return [false, ""];
     }
     
-    async mex() {
-        const login_status = await this.login();
+    async mex(username, passwort) {
+        const [login_status, session_id] = await this.login(username, passwort);
         if (!login_status) {
             return false;
         }
-        if (debug) {
+        if (this.debug) {
             await this.LogMessage("info", "Refresh sensor data cache...");
         }
-        const url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
+        this.url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
         try {
-            const reply = await axios.get(url);
+            const reply = await axios.get(this.url);
             if (reply.status === 200) {
-                if (debug) {
+                if (this.debug) {
                     await this.LogMessage("info", "Data was received");
                 }
                 return reply;
             }
         } catch (error) {
-            await this.LogMessage("error", "Heizoel24 GetDashboardData Status Code: " + error.response.status);
+            await this.LogMessage("error", "Error when fetching dashboard data");
         }
         return false;
     }
     
-    async main() {
+    async main(username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass) {
         if (mqtt_active) {
             const client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 username: mqtt_user,
@@ -235,67 +221,66 @@ class Heizoel24Mex extends utils.Adapter {
             const client = "dummy";
         }
 
-        const daten = await this.mex();
+        const daten = await this.mex(username, passwort);
 
         if (daten === false) {
             await this.LogMessage("error", "No data received");
             if (mqtt_active) {
-                await this.mqtt_send(client, "Items/DataReceived", "false");
+                await this.mqtt_send(mqtt_active, client, "Items/DataReceived", "false");
                 client.end();
             }
             return false;
         }
 
         const datenJson = daten.data;
-        if (debug) {
+        if (this.debug) {
             await this.LogMessage("info", " ");
             await this.LogMessage("info", "==========");
             await this.LogMessage("info", "JSON-Data:");
             await this.LogMessage("info", "==========");
             await this.LogMessage("info", " ");
         }
-        for (let n = 0; n < topic2.length; n++) {
-            if (debug) {
-                await this.LogMessage("info", topic2[n] + ": " + datenJson[topic2[n]]);
+        for (let n = 0; n < this.topic2.length; n++) {
+            if (this.debug) {
+                await this.LogMessage("info", this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
             }
-            const result = datenJson[topic2[n]] || "---";
-            inhaltTopic2[n] = result;
-            await this.mqtt_send(client, "PricingForecast/" + topic2[n], result.toString());
+            const result = datenJson[this.topic2[n]] || "---";
+            this.inhaltTopic2[n] = result;
+            await this.mqtt_send(mqtt_active, client, "PricingForecast/" + this.topic2[n], result.toString());
         }
+
         const items = datenJson["Items"][0];
-        if (debug) {
+        if (this.debug) {
             await this.LogMessage("info", "---------------------");
         }
-        for (let n = 0; n < topic1.length; n++) {
-            if (debug) {
-                await this.LogMessage("info", topic1[n] + ": " + items[topic1[n]]);
+        for (let n = 0; n < this.topic1.length; n++) {
+            if (this.debug) {
+                await this.LogMessage("info", this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
             }
-            const result = items[topic1[n]] || "---";
-            inhaltTopic1[n] = result;
-            await this.mqtt_send(client, "Items/" + topic1[n], result.toString());
+            const result = items[this.topic1[n]] || "---";
+            this.inhaltTopic1[n] = result;
+            await this.mqtt_send(mqtt_active, client, "Items/" + this.topic1[n], result.toString());
         }
-        await this.mqtt_send(client, "Items/DataReceived", "true");
-        inhaltTopic1[0] = true;
+        await this.mqtt_send(mqtt_active, client, "Items/DataReceived", "true");
+        this.inhaltTopic1[0] = true;
         const daten3 = items["RemainsUntilCombined"];
-        if (debug) {
+        if (this.debug) {
             await this.LogMessage("info", "---------------------");
             await this.LogMessage("info", "RemainsUntilCombined:");
         }
-        for (let n = 0; n < RemainsUntilCombined.length; n++) {
-            if (debug) {
-                await this.LogMessage("info", RemainsUntilCombined[n] + ": " + daten3[RemainsUntilCombined[n]]);
+        for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
+            if (this.debug) {
+                await this.LogMessage("info", this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
             }
-            const result = daten3[RemainsUntilCombined[n]] || "---";
-            inhaltRemainsUntilCombined[n] = result;
-            await this.mqtt_send(client, "RemainsUntilCombined/" + RemainsUntilCombined[n], result.toString());
+            const result = daten3[this.RemainsUntilCombined[n]] || "---";
+            this.inhaltRemainsUntilCombined[n] = result;
+            await this.mqtt_send(mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
         }
         if (mqtt_active) {
             client.end();
         }
         return true;
     }
-
-
 
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
@@ -326,3 +311,4 @@ if (require.main !== module) {
     // otherwise start the instance directly
     new Heizoel24Mex();
 }
+
