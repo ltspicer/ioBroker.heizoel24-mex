@@ -1,5 +1,10 @@
 {
     "heizoel24-mex adapter settings": "Adaptereinstellungen für heizoel24-mex",
-    "option1": "Option 1",
-    "option2": "Option 2"
+    "username": "Heizoel24 Username (Email)",
+    "passwort": "Heizoel24 Passwort",
+    "mqtt_active": "MQTT benutzen",
+    "broker_address": "MQTT Broker IP Adresse",
+    "mqtt_user": "MQTT User",
+    "mqtt_pass": "MQTT Passwort",
+    "mqtt_port": "MQTT Port"
 }
