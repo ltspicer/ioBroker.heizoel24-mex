@@ -52,6 +52,7 @@
             "heizoel",
             "heizoel24"
         ],
+        "license": "MIT",
         "licenseInformation": {
             "type": "free",
             "license": "MIT"
