@@ -41,7 +41,6 @@ class Heizoel24Mex extends utils.Adapter {
     async onReady() {
         this.setState("info.connection", false, true);
 
-        const session_id = "";
         const username = this.config.username;
         const passwort = this.config.passwort;
         const broker_address = this.config.broker_address;
@@ -59,12 +58,12 @@ class Heizoel24Mex extends utils.Adapter {
                 await this.LogMessage("error", "MQTT IP address is empty - please check instance configuration");
                 this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(0);
             }
-            global.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
+            this.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 username: mqtt_user,
                 password: mqtt_pass
             });
         } else {
-            const client = "dummy";
+            this.client = "dummy";
         }
         if (this.debug) {
             await this.LogMessage("info", "config username: " + username);
@@ -75,7 +74,7 @@ class Heizoel24Mex extends utils.Adapter {
             await this.LogMessage("info", "config mqtt_pass: " + mqtt_pass);
             await this.LogMessage("info", "config mqtt_port: " + mqtt_port);
         }
-        const datenEmpfangen = await this.main(username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass);
+        const datenEmpfangen = await this.main(this.client, username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass);
         if (datenEmpfangen === true) {
             // Items
             for (let n = 0; n < this.topic1.length; n++) {
@@ -144,7 +143,7 @@ class Heizoel24Mex extends utils.Adapter {
             this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
 
-	    // Finished - stopping instance
+        // Finished - stopping instance
         this.terminate ? this.terminate("Everything done. Going to terminate till next schedule", 0) : process.exit(0);
     }
 
@@ -153,7 +152,7 @@ class Heizoel24Mex extends utils.Adapter {
             client.publish("MEX/" + topic, wert);
         }
     }
-    
+
     async login(username, passwort) {
         if (this.debug) {
             await this.LogMessage("info", "Login in...");
@@ -187,7 +186,7 @@ class Heizoel24Mex extends utils.Adapter {
         }
         return [false, ""];
     }
-    
+
     async mex(username, passwort) {
         const [login_status, session_id] = await this.login(username, passwort);
         if (!login_status) {
@@ -210,19 +209,9 @@ class Heizoel24Mex extends utils.Adapter {
         }
         return false;
     }
-    
-    async main(username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass) {
-        if (mqtt_active) {
-            const client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
-                username: mqtt_user,
-                password: mqtt_pass
-            });
-        } else {
-            const client = "dummy";
-        }
 
+    async main(client, username, passwort, mqtt_active, broker_address, mqtt_port, mqtt_user, mqtt_pass) {
         const daten = await this.mex(username, passwort);
-
         if (daten === false) {
             await this.LogMessage("error", "No data received");
             if (mqtt_active) {
