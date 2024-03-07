@@ -48,6 +48,7 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_user = this.config.mqtt_user;
         const mqtt_pass = this.config.mqtt_pass;
         const mqtt_port = this.config.mqtt_port;
+        this.debug = this.config.debug;
 
         if (username == "" || passwort == "") {
             await this.LogMessage("error", "User email and/or user password empty - please check instance configuration");
@@ -66,13 +67,22 @@ class Heizoel24Mex extends utils.Adapter {
             this.client = "dummy";
         }
         if (this.debug) {
-            await this.LogMessage("info", "config username: " + username);
-            await this.LogMessage("info", "config passwort: " + passwort);
-            await this.LogMessage("info", "config broker_address: " + broker_address);
-            await this.LogMessage("info", "config mqtt_active: " + mqtt_active);
-            await this.LogMessage("info", "config mqtt_user: " + mqtt_user);
-            await this.LogMessage("info", "config mqtt_pass: " + mqtt_pass);
-            await this.LogMessage("info", "config mqtt_port: " + mqtt_port);
+            await this.LogMessage("info", " ");
+            await this.LogMessage("info", "=============");
+            await this.LogMessage("info", "Configured data:");
+            await this.LogMessage("info", "=============");
+            await this.LogMessage("info", " ");
+            await this.LogMessage("info", "username: " + username);
+            await this.LogMessage("info", "passwort: " + passwort);
+            await this.LogMessage("info", "broker_address: " + broker_address);
+            await this.LogMessage("info", "mqtt_active: " + mqtt_active);
+            await this.LogMessage("info", "mqtt_user: " + mqtt_user);
+            await this.LogMessage("info", "mqtt_pass: " + mqtt_pass);
+            await this.LogMessage("info", "mqtt_port: " + mqtt_port);
+            await this.LogMessage("info", "debug: " + this.debug);
+            await this.LogMessage("info", " ");
+            await this.LogMessage("info", "----------------------------------------------------");
+            await this.LogMessage("info", " ");
         }
         const datenEmpfangen = await this.main(this.client, username, passwort, mqtt_active);
         if (datenEmpfangen === true) {
@@ -156,8 +166,6 @@ class Heizoel24Mex extends utils.Adapter {
     async login(username, passwort) {
         if (this.debug) {
             await this.LogMessage("info", "Login in...");
-            await this.LogMessage("info", "username: " + username);
-            await this.LogMessage("info", "passwort: " + passwort);
         }
         this.username = username;
         this.passwort = passwort;
@@ -228,6 +236,8 @@ class Heizoel24Mex extends utils.Adapter {
             await this.LogMessage("info", "JSON-Data:");
             await this.LogMessage("info", "==========");
             await this.LogMessage("info", " ");
+            await this.LogMessage("info", "******** PricingForecast: ********");
+            await this.LogMessage("info", " ");
         }
         for (let n = 0; n < this.topic2.length; n++) {
             if (this.debug) {
@@ -240,7 +250,9 @@ class Heizoel24Mex extends utils.Adapter {
 
         const items = datenJson["Items"][0];
         if (this.debug) {
-            await this.LogMessage("info", "---------------------");
+            await this.LogMessage("info", " ");
+            await this.LogMessage("info", "******** Items: ********");
+            await this.LogMessage("info", " ");
         }
         for (let n = 0; n < this.topic1.length; n++) {
             if (this.debug) {
@@ -254,8 +266,9 @@ class Heizoel24Mex extends utils.Adapter {
         this.inhaltTopic1[0] = true;
         const daten3 = items["RemainsUntilCombined"];
         if (this.debug) {
-            await this.LogMessage("info", "---------------------");
-            await this.LogMessage("info", "RemainsUntilCombined:");
+            await this.LogMessage("info", " ");
+            await this.LogMessage("info", "******** RemainsUntilCombined: ********");
+            await this.LogMessage("info", " ");
         }
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
             if (this.debug) {
@@ -264,6 +277,11 @@ class Heizoel24Mex extends utils.Adapter {
             const result = daten3[this.RemainsUntilCombined[n]] || "---";
             this.inhaltRemainsUntilCombined[n] = result;
             await this.mqtt_send(mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
+        }
+        if (this.debug) {
+            await this.LogMessage("info", " ");
+            await this.LogMessage("info", "----------------------------------------------------");
+            await this.LogMessage("info", " ");
         }
         if (mqtt_active) {
             client.end();
