@@ -6,5 +6,6 @@
     "broker_address": "MQTT broker IP address",
     "mqtt_user": "MQTT user",
     "mqtt_pass": "MQTT password",
-    "mqtt_port": "MQTT port"
+    "mqtt_port": "MQTT port",
+    "debug": "Detailed log"
 }
