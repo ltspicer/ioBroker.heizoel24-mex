@@ -9,19 +9,23 @@
         },
         "passwort": {
             "type": "text",
-            "label": "Heizoel24 password",
-            "newLine": true
+            "label": "Heizoel24 password"
         },
          "mqtt_active": {
             "type": "checkbox",
             "label": "Use MQTT",
-            "default":false,
+            "default": false,
             "newLine": true
         },
         "broker_address": {
             "type": "text",
             "label": "MQTT broker IP address",
             "newLine": true
+        },
+        "mqtt_port": {
+            "type": "number",
+            "label": "MQTT port",
+            "default": 1883
         },
         "mqtt_user": {
             "type": "text",
@@ -30,13 +34,12 @@
         },
         "mqtt_pass": {
             "type": "text",
-            "label": "MQTT password",
-            "newLine": true
+            "label": "MQTT password"
         },
-        "mqtt_port": {
-            "type": "number",
-            "label": "MQTT port",
-            "default": 1883,
+        "debug": {
+            "type": "checkbox",
+            "label": "Detailed log",
+            "default": false,
             "newLine": true
         }
     }
