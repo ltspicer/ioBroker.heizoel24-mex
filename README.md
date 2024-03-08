@@ -32,8 +32,18 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 
 ## Changelog
 
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ## **WORK IN PROGRESS**
+-->
+
 ### **WORK IN PROGRESS**
 
+- Repo neu triggern
+
+### 1.0.0 (2024-03-08)
+
+- Initial release for tests
 
 
 ## License
