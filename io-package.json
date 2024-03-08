@@ -1,121 +1,134 @@
 {
-    "common": {
-        "name": "heizoel24-mex",
-        "version": "0.0.5",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "uk": "Початкова версія",
-                "zh-cn": "首次出版"
-            }
-        },
-        "title": "Heizoel24 MEX",
-        "titleLang": {
-            "en": "Heizoel24 MEX",
-            "de": "Heizoel24 MEX",
-            "ru": "Хейзоэль24 МЕК",
-            "pt": "Heizoel24 MEX",
-            "nl": "Heizoel24 MEX",
-            "fr": "Heizoel24 MEX",
-            "it": "Heizoel24 MEX",
-            "es": "Heizoel24 MEX",
-            "pl": "Heizoel24 MEX",
-            "uk": "Heizoel24 MEX",
-            "zh-cn": "Heizoel24 墨西哥"
-        },
-        "desc": {
-            "en": "Read in data from MEX",
-            "de": "Daten von MEX einlesen",
-            "ru": "Чтение данных из MEX",
-            "pt": "Ler dados do MEX",
-            "nl": "Gegevens uit MEX inlezen",
-            "fr": "Lire les données du MEX",
-            "it": "Leggere i dati da MEX",
-            "es": "Leer datos de MEX",
-            "pl": "Wczytaj dane z MEX",
-            "uk": "Прочитайте дані з MEX",
-            "zh-cn": "从 MEX 读入数据"
-        },
-        "authors": [
-            "Daniel Luginbühl <webmaster@ltspiceusers.ch>"
-        ],
-        "keywords": [
-            "mex",
-            "heizoel",
-            "heizoel24"
-        ],
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "heizoel24-mex.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/ltspicer/ioBroker.heizoel24-mex/main/admin/heizoel24-mex.png",
-        "readme": "https://github.com/ltspicer/ioBroker.heizoel24-mex/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 3,
-        "mode": "schedule",
-        "schedule": "0 */3 * * *",
-        "allowInit": true,
-        "type": "metering",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.3.22"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.13"
-            }
-        ]
+  "common": {
+    "name": "heizoel24-mex",
+    "version": "1.0.0",
+    "news": {
+      "1.0.0": {
+        "en": "No errors found",
+        "de": "Keine Fehler gefunden",
+        "ru": "Не найдено ошибок",
+        "pt": "Sem erros encontrados",
+        "nl": "Geen fouten gevonden",
+        "fr": "Aucune erreur trouvée",
+        "it": "Nessun errore trovato",
+        "es": "No se han encontrado errores",
+        "pl": "Brak błędów",
+        "uk": "Немає помилок",
+        "zh-cn": "未找到错误"
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "uk": "Початкова версія",
+        "zh-cn": "首次出版"
+      }
     },
-    "native": {
-        "username": "",
-        "passwort": "",
-        "mqtt_active": false,
-        "broker_address": "0.0.0.0",
-        "mqtt_user": "",
-        "mqtt_pass": "",
-        "mqtt_port": "1883"
+    "title": "Heizoel24 MEX",
+    "titleLang": {
+      "en": "Heizoel24 MEX",
+      "de": "Heizoel24 MEX",
+      "ru": "Хейзоэль24 МЕК",
+      "pt": "Heizoel24 MEX",
+      "nl": "Heizoel24 MEX",
+      "fr": "Heizoel24 MEX",
+      "it": "Heizoel24 MEX",
+      "es": "Heizoel24 MEX",
+      "pl": "Heizoel24 MEX",
+      "uk": "Heizoel24 MEX",
+      "zh-cn": "Heizoel24 墨西哥"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Read in data from MEX",
+      "de": "Daten von MEX einlesen",
+      "ru": "Чтение данных из MEX",
+      "pt": "Ler dados do MEX",
+      "nl": "Gegevens uit MEX inlezen",
+      "fr": "Lire les données du MEX",
+      "it": "Leggere i dati da MEX",
+      "es": "Leer datos de MEX",
+      "pl": "Wczytaj dane z MEX",
+      "uk": "Прочитайте дані з MEX",
+      "zh-cn": "从 MEX 读入数据"
+    },
+    "authors": [
+      "Daniel Luginbühl <webmaster@ltspiceusers.ch>"
+    ],
+    "keywords": [
+      "mex",
+      "heizoel",
+      "heizoel24"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "heizoel24-mex.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/ltspicer/ioBroker.heizoel24-mex/main/admin/heizoel24-mex.png",
+    "readme": "https://github.com/ltspicer/ioBroker.heizoel24-mex/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "schedule",
+    "schedule": "0 */3 * * *",
+    "allowInit": true,
+    "type": "metering",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
     ]
+  },
+  "native": {
+    "username": "",
+    "passwort": "",
+    "mqtt_active": false,
+    "broker_address": "0.0.0.0",
+    "mqtt_user": "",
+    "mqtt_pass": "",
+    "mqtt_port": "1883"
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
