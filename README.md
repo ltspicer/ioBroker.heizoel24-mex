@@ -31,9 +31,10 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 
 
 ## Changelog
+
 <!--
-    Placeholder for the next version (at the beginning of the line):
-    ### **WORK IN PROGRESS**
+  Placeholder for the next version (at the beginning of the line):
+  ### **WORK IN PROGRESS**
 -->
 
 
