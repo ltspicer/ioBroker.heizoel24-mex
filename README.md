@@ -31,13 +31,13 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
 ### 1.0.0 (2024-03-08)
 
-- No errors found
+- Initial release for tests
 
-## v0.0.5 (2024-03-08)
-
-Initial release
 
 
 ## License
