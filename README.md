@@ -34,6 +34,13 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 
 ### **WORK IN PROGRESS**
 
+- No errors found
+
+## v0.0.5 (2024-03-08)
+
+Initial release
+
+
 ## License
 MIT License
 
