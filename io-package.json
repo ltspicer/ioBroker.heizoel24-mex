@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.0.0",
+    "version": "1.0.1-alpha.0",
     "news": {
+      "1.0.1-alpha.0": {
+        "en": "Repo neu triggern",
+        "de": "Repo neu triggern",
+        "ru": "Repo neu триггер",
+        "pt": "Repo neu gatilho",
+        "nl": "Repo neu triggern",
+        "fr": "Repo neu déclencheur",
+        "it": "Repo neu attivato",
+        "es": "Repo neu triggern",
+        "pl": "Repo neu triggern",
+        "uk": "Repo neu тригер",
+        "zh-cn": "Repo neu 触发器"
+      },
       "1.0.0": {
         "en": "No errors found",
         "de": "Keine Fehler gefunden",
