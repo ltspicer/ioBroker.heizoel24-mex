@@ -55,10 +55,10 @@ class Heizoel24Mex extends utils.Adapter {
             this.client = "dummy";
         }
         if (this.debug) {
-            await this.log.info("broker_address: " + broker_address);
-            await this.log.info("mqtt_active: " + mqtt_active);
-            await this.log.info("mqtt_port: " + mqtt_port);
-            await this.log.info("debug: " + this.debug);
+            await this.log.info("MQTT broker address: " + broker_address);
+            await this.log.info("MQTT active: " + mqtt_active);
+            await this.log.info("MQTT port: " + mqtt_port);
+            await this.log.info("Detailed logging: " + this.debug);
         }
         const dataReceived = await this.main(this.client, username, passwort, mqtt_active);
         if (dataReceived === true) {
