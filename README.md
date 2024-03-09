@@ -36,7 +36,7 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
     Placeholder for the next version (at the beginning of the line):
     ## **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.1.0 (2024-03-09)
 
 - Superfluous logging function removed
 

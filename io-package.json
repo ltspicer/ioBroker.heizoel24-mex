@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.0.1-alpha.0",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "Superfluous logging function removed",
+        "de": "Überflüssige Protokollierungsfunktion entfernt",
+        "ru": "Удаленная функция заготовки",
+        "pt": "Função de registro supérflua removida",
+        "nl": "Superfluous logging functie verwijderd",
+        "fr": "Fonction d'enregistrement superflue supprimée",
+        "it": "Funzione di registrazione superflua rimosso",
+        "es": "Función de registro superflua eliminada",
+        "pl": "Usunięta funkcja logowania nadmiarowego",
+        "uk": "Зняти функцію суперфлюзії",
+        "zh-cn": "超流记录函数已删除"
+      },
       "1.0.1-alpha.0": {
         "en": "Repo neu triggern",
         "de": "Repo neu triggern",
