@@ -36,6 +36,9 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
     Placeholder for the next version (at the beginning of the line):
     ## **WORK IN PROGRESS**
 -->
+## **WORK IN PROGRESS**
+
+- Superfluous logging function removed
 ### 1.0.1-alpha.0 (2024-03-08)
 
 - Repo neu triggern

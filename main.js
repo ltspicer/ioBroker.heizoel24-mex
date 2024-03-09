@@ -26,18 +26,6 @@ class Heizoel24Mex extends utils.Adapter {
         this.inhaltRemainsUntilCombined = [];
     }
 
-    async LogMessage(level, message) {
-        if (level == "info") {
-            this.log.info(message);
-        }
-        if (level == "warn") {
-            this.log.warn(message);
-        }
-        if (level == "error") {
-            this.log.error(message);
-        }
-    }
-
     async onReady() {
         this.setState("info.connection", false, true);
 
@@ -51,12 +39,12 @@ class Heizoel24Mex extends utils.Adapter {
         this.debug = this.config.debug;
 
         if (username == "" || passwort == "") {
-            await this.LogMessage("error", "User email and/or user password empty - please check instance configuration");
+            await this.log.error("User email and/or user password empty - please check instance configuration");
             this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 0) : process.exit(0);
         }
         if (mqtt_active) {
             if (broker_address == "" || broker_address == "0.0.0.0") {
-                await this.LogMessage("error", "MQTT IP address is empty - please check instance configuration");
+                await this.log.error("MQTT IP address is empty - please check instance configuration");
                 this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
             }
             this.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
@@ -67,25 +55,25 @@ class Heizoel24Mex extends utils.Adapter {
             this.client = "dummy";
         }
         if (this.debug) {
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "=============");
-            await this.LogMessage("info", "Configured data:");
-            await this.LogMessage("info", "=============");
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "username: " + username);
-            await this.LogMessage("info", "passwort: " + passwort);
-            await this.LogMessage("info", "broker_address: " + broker_address);
-            await this.LogMessage("info", "mqtt_active: " + mqtt_active);
-            await this.LogMessage("info", "mqtt_user: " + mqtt_user);
-            await this.LogMessage("info", "mqtt_pass: " + mqtt_pass);
-            await this.LogMessage("info", "mqtt_port: " + mqtt_port);
-            await this.LogMessage("info", "debug: " + this.debug);
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "----------------------------------------------------");
-            await this.LogMessage("info", " ");
+            await this.log.info(" ");
+            await this.log.info("=============");
+            await this.log.info("Configured data:");
+            await this.log.info("=============");
+            await this.log.info(" ");
+            await this.log.info("username: " + username);
+            await this.log.info("passwort: " + passwort);
+            await this.log.info("broker_address: " + broker_address);
+            await this.log.info("mqtt_active: " + mqtt_active);
+            await this.log.info("mqtt_user: " + mqtt_user);
+            await this.log.info("mqtt_pass: " + mqtt_pass);
+            await this.log.info("mqtt_port: " + mqtt_port);
+            await this.log.info("debug: " + this.debug);
+            await this.log.info(" ");
+            await this.log.info("----------------------------------------------------");
+            await this.log.info(" ");
         }
-        const datenEmpfangen = await this.main(this.client, username, passwort, mqtt_active);
-        if (datenEmpfangen === true) {
+        const dataReceived = await this.main(this.client, username, passwort, mqtt_active);
+        if (dataReceived === true) {
             // Items
             for (let n = 0; n < this.topic1.length; n++) {
                 const typ = typeof this.inhaltTopic1[n];
@@ -149,7 +137,7 @@ class Heizoel24Mex extends utils.Adapter {
                 native: {},
             });
             await this.setStateAsync("Items." + this.topic1[0], { val: false, ack: true });
-            await this.LogMessage("error", "No data received");
+            await this.log.error("No data received");
             this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
 
@@ -165,7 +153,7 @@ class Heizoel24Mex extends utils.Adapter {
 
     async login(username, passwort) {
         if (this.debug) {
-            await this.LogMessage("info", "Login in...");
+            await this.log.info("Login in...");
         }
         this.username = username;
         this.passwort = passwort;
@@ -175,22 +163,22 @@ class Heizoel24Mex extends utils.Adapter {
             const reply = await axios.post(this.url, { "Password": this.passwort, "Username": this.username }, { headers: this.newHeaders });
             if (reply.status === 200) {
                 if (this.debug) {
-                    await this.LogMessage("info", "Login OK");
+                    await this.log.info("Login OK");
                 }
                 const reply_json = reply.data;
                 if (reply_json["ResultCode"] === 0) {
                     const session_id = reply_json["SessionId"];
                     if (this.debug) {
-                        await this.LogMessage("info", "Session ID: " + session_id);
-                        await this.LogMessage("info", "Logged in");
+                        await this.log.info("Session ID: " + session_id);
+                        await this.log.info("Logged in");
                     }
                     return [true, session_id];
                 } else {
-                    await this.LogMessage("error", "ResultCode not 0. No session ID received!");
+                    await this.log.error("ResultCode not 0. No session ID received!");
                 }
             }
         } catch (error) {
-            await this.LogMessage("error", "Login failed!");
+            await this.log.error("Login failed!");
         }
         return [false, ""];
     }
@@ -201,19 +189,19 @@ class Heizoel24Mex extends utils.Adapter {
             return false;
         }
         if (this.debug) {
-            await this.LogMessage("info", "Refresh sensor data cache...");
+            await this.log.info("Refresh sensor data cache...");
         }
         this.url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
         try {
             const reply = await axios.get(this.url);
             if (reply.status === 200) {
                 if (this.debug) {
-                    await this.LogMessage("info", "Data was received");
+                    await this.log.info("Data was received");
                 }
                 return reply;
             }
         } catch (error) {
-            await this.LogMessage("error", "Error when fetching dashboard data");
+            await this.log.error("Error when fetching dashboard data");
         }
         return false;
     }
@@ -221,7 +209,7 @@ class Heizoel24Mex extends utils.Adapter {
     async main(client, username, passwort, mqtt_active) {
         const daten = await this.mex(username, passwort);
         if (daten === false) {
-            await this.LogMessage("error", "No data received");
+            await this.log.error("No data received");
             if (mqtt_active) {
                 await this.mqtt_send(mqtt_active, client, "Items/DataReceived", "false");
                 client.end();
@@ -231,17 +219,17 @@ class Heizoel24Mex extends utils.Adapter {
 
         const datenJson = daten.data;
         if (this.debug) {
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "==========");
-            await this.LogMessage("info", "JSON-Data:");
-            await this.LogMessage("info", "==========");
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "******** PricingForecast: ********");
-            await this.LogMessage("info", " ");
+            await this.log.info(" ");
+            await this.log.info("==========");
+            await this.log.info("JSON-Data:");
+            await this.log.info("==========");
+            await this.log.info(" ");
+            await this.log.info("******** PricingForecast: ********");
+            await this.log.info(" ");
         }
         for (let n = 0; n < this.topic2.length; n++) {
             if (this.debug) {
-                await this.LogMessage("info", this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
+                await this.log.info(this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
             }
             const result = datenJson[this.topic2[n]] || "---";
             this.inhaltTopic2[n] = result;
@@ -250,13 +238,13 @@ class Heizoel24Mex extends utils.Adapter {
 
         const items = datenJson["Items"][0];
         if (this.debug) {
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "******** Items: ********");
-            await this.LogMessage("info", " ");
+            await this.log.info(" ");
+            await this.log.info("******** Items: ********");
+            await this.log.info(" ");
         }
         for (let n = 0; n < this.topic1.length; n++) {
             if (this.debug) {
-                await this.LogMessage("info", this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
+                await this.log.info(this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
             }
             const result = items[this.topic1[n]] || "---";
             this.inhaltTopic1[n] = result;
@@ -266,22 +254,22 @@ class Heizoel24Mex extends utils.Adapter {
         this.inhaltTopic1[0] = true;
         const daten3 = items["RemainsUntilCombined"];
         if (this.debug) {
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "******** RemainsUntilCombined: ********");
-            await this.LogMessage("info", " ");
+            await this.log.info(" ");
+            await this.log.info("******** RemainsUntilCombined: ********");
+            await this.log.info(" ");
         }
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
             if (this.debug) {
-                await this.LogMessage("info", this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
+                await this.log.info(this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
             }
             const result = daten3[this.RemainsUntilCombined[n]] || "---";
             this.inhaltRemainsUntilCombined[n] = result;
             await this.mqtt_send(mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
         }
         if (this.debug) {
-            await this.LogMessage("info", " ");
-            await this.LogMessage("info", "----------------------------------------------------");
-            await this.LogMessage("info", " ");
+            await this.log.info(" ");
+            await this.log.info("----------------------------------------------------");
+            await this.log.info(" ");
         }
         if (mqtt_active) {
             client.end();
