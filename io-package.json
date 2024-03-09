@@ -77,10 +77,9 @@
       "heizoel",
       "heizoel24"
     ],
-    "licenseInformation": {
-      "type": "free",
-      "license": "MIT"
-    },
+
+    "license": "MIT",
+
     "platform": "Javascript/Node.js",
     "main": "main.js",
     "icon": "heizoel24-mex.png",
