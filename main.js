@@ -55,22 +55,10 @@ class Heizoel24Mex extends utils.Adapter {
             this.client = "dummy";
         }
         if (this.debug) {
-            await this.log.info(" ");
-            await this.log.info("=============");
-            await this.log.info("Configured data:");
-            await this.log.info("=============");
-            await this.log.info(" ");
-            await this.log.info("username: " + username);
-            await this.log.info("passwort: " + passwort);
             await this.log.info("broker_address: " + broker_address);
             await this.log.info("mqtt_active: " + mqtt_active);
-            await this.log.info("mqtt_user: " + mqtt_user);
-            await this.log.info("mqtt_pass: " + mqtt_pass);
             await this.log.info("mqtt_port: " + mqtt_port);
             await this.log.info("debug: " + this.debug);
-            await this.log.info(" ");
-            await this.log.info("----------------------------------------------------");
-            await this.log.info(" ");
         }
         const dataReceived = await this.main(this.client, username, passwort, mqtt_active);
         if (dataReceived === true) {
@@ -218,18 +206,10 @@ class Heizoel24Mex extends utils.Adapter {
         }
 
         const datenJson = daten.data;
-        if (this.debug) {
-            await this.log.info(" ");
-            await this.log.info("==========");
-            await this.log.info("JSON-Data:");
-            await this.log.info("==========");
-            await this.log.info(" ");
-            await this.log.info("******** PricingForecast: ********");
-            await this.log.info(" ");
-        }
+
         for (let n = 0; n < this.topic2.length; n++) {
             if (this.debug) {
-                await this.log.info(this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
+                await this.log.info("PricingForecast: " + this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
             }
             const result = datenJson[this.topic2[n]] || "---";
             this.inhaltTopic2[n] = result;
@@ -237,14 +217,10 @@ class Heizoel24Mex extends utils.Adapter {
         }
 
         const items = datenJson["Items"][0];
-        if (this.debug) {
-            await this.log.info(" ");
-            await this.log.info("******** Items: ********");
-            await this.log.info(" ");
-        }
+
         for (let n = 0; n < this.topic1.length; n++) {
             if (this.debug) {
-                await this.log.info(this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
+                await this.log.info("Items: " + this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
             }
             const result = items[this.topic1[n]] || "---";
             this.inhaltTopic1[n] = result;
@@ -252,35 +228,24 @@ class Heizoel24Mex extends utils.Adapter {
         }
         await this.mqtt_send(mqtt_active, client, "Items/DataReceived", "true");
         this.inhaltTopic1[0] = true;
+
         const daten3 = items["RemainsUntilCombined"];
-        if (this.debug) {
-            await this.log.info(" ");
-            await this.log.info("******** RemainsUntilCombined: ********");
-            await this.log.info(" ");
-        }
+
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
             if (this.debug) {
-                await this.log.info(this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
+                await this.log.info("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
             }
             const result = daten3[this.RemainsUntilCombined[n]] || "---";
             this.inhaltRemainsUntilCombined[n] = result;
             await this.mqtt_send(mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
         }
-        if (this.debug) {
-            await this.log.info(" ");
-            await this.log.info("----------------------------------------------------");
-            await this.log.info(" ");
-        }
+
         if (mqtt_active) {
             client.end();
         }
         return true;
     }
 
-    /**
-     * Is called when adapter shuts down - callback has to be called under any circumstances!
-     * @param {() => void} callback
-     */
     onUnload(callback) {
         try {
             // Here you must clear all timeouts or intervals that may still be active
@@ -297,13 +262,8 @@ class Heizoel24Mex extends utils.Adapter {
 }
 
 if (require.main !== module) {
-    // Export the constructor in compact mode
-    /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
-     */
     module.exports = (options) => new Heizoel24Mex(options);
 } else {
-    // otherwise start the instance directly
     new Heizoel24Mex();
 }
 
