@@ -55,7 +55,21 @@ class Heizoel24Mex extends utils.Adapter {
             this.client = "dummy";
         }
         if (this.debug) {
-            await this.log.info("MQTT broker address: " + broker_address);
+            if (username.trim().length === 0) {
+                this.log.warn("Username is empty");
+            } else {
+                this.log.info("Username is set");
+            }
+            if (passwort.trim().length === 0) {
+                this.log.warn("Password is empty");
+            } else {
+                this.log.info("Password is set");
+            }
+            if (broker_address.trim().length === 0 || broker_address == "0.0.0.0") {
+                this.log.warn("MQTT broker IP is empty");
+            } else {
+                this.log.info("MQTT broker IP is set");
+            }
             await this.log.info("MQTT active: " + mqtt_active);
             await this.log.info("MQTT port: " + mqtt_port);
             await this.log.info("Detailed logging: " + this.debug);
