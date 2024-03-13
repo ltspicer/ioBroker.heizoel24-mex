@@ -123,6 +123,14 @@
       }
     ]
   },
+  "encryptedNative": [
+    "passwort",
+    "mqtt_pass"
+  ],
+  "protectedNative": [
+    "passwort",
+    "mqtt_pass"
+  ],
   "native": {
     "username": "",
     "passwort": "",
@@ -143,7 +151,6 @@
       "native": {}
     },
     {
-      "_id": "info.connection",
       "type": "state",
       "common": {
         "role": "indicator.connected",
