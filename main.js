@@ -44,9 +44,9 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_port = this.config.mqtt_port;
         const sensor_id = this.config.sensor_id;
 
-        if (typeof sensor_id != "number" || sensor_id < 1 || sensor_id > 20) {
-            this.log.error("Sensor ID is not set");
-            this.terminate ? this.terminate("Sensor ID is not set", 0) : process.exit(0);
+        if (sensor_id < 1 || sensor_id > 20) {
+            this.log.error("Sensor ID has no value between 1 and 20");
+            this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
         }
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
@@ -84,7 +84,7 @@ class Heizoel24Mex extends utils.Adapter {
             // Items
             for (let n = 0; n < this.topic1.length; n++) {
                 const typ = typeof this.inhaltTopic1[n];
-                await this.setObjectNotExistsAsync("Items." + this.topic1[n], {
+                await this.setObjectNotExistsAsync(sensor_id + ".Items." + this.topic1[n], {
                     type: "state",
                     common: {
                         name: this.topic1[n],
@@ -95,13 +95,13 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync("Items." + this.topic1[n], { val: this.inhaltTopic1[n], ack: true });
+                await this.setStateAsync(sensor_id + ".Items." + this.topic1[n], { val: this.inhaltTopic1[n], ack: true });
             }
 
             // PricingForecast
             for (let n = 0; n < this.topic2.length; n++) {
                 const typ = typeof this.inhaltTopic2[n];
-                await this.setObjectNotExistsAsync("PricingForecast." + this.topic2[n], {
+                await this.setObjectNotExistsAsync(sensor_id + ".PricingForecast." + this.topic2[n], {
                     type: "state",
                     common: {
                         name: this.topic2[n],
@@ -112,13 +112,13 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync("PricingForecast." + this.topic2[n], { val: this.inhaltTopic2[n], ack: true });
+                await this.setStateAsync(sensor_id + ".PricingForecast." + this.topic2[n], { val: this.inhaltTopic2[n], ack: true });
             }
 
             // RemainsUntilCombined
             for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
                 const typ = typeof this.inhaltRemainsUntilCombined[n];
-                await this.setObjectNotExistsAsync("RemainsUntilCombined." + this.RemainsUntilCombined[n], {
+                await this.setObjectNotExistsAsync(sensor_id + ".RemainsUntilCombined." + this.RemainsUntilCombined[n], {
                     type: "state",
                     common: {
                         name: this.RemainsUntilCombined[n],
@@ -129,10 +129,10 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync("RemainsUntilCombined." + this.RemainsUntilCombined[n], { val: this.inhaltRemainsUntilCombined[n], ack: true });
+                await this.setStateAsync(sensor_id + ".RemainsUntilCombined." + this.RemainsUntilCombined[n], { val: this.inhaltRemainsUntilCombined[n], ack: true });
             }
         } else {
-            await this.setObjectNotExistsAsync("Items." + this.topic1[0], {
+            await this.setObjectNotExistsAsync(sensor_id + ".Items." + this.topic1[0], {
                 type: "state",
                 common: {
                     name: this.topic1[0],
@@ -143,7 +143,7 @@ class Heizoel24Mex extends utils.Adapter {
                 },
                 native: {},
             });
-            await this.setStateAsync("Items." + this.topic1[0], { val: false, ack: true });
+            await this.setStateAsync(sensor_id + ".Items." + this.topic1[0], { val: false, ack: true });
             this.log.error("No data received");
             this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
@@ -220,7 +220,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         for (let n = 0; n < this.topic2.length; n++) {
             this.log.debug("PricingForecast: " + this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
-            const result = datenJson[this.topic2[n]] || "---";
+            const result = datenJson[this.topic2[n]] || false;
             this.inhaltTopic2[n] = result;
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "PricingForecast/" + this.topic2[n], result.toString());
@@ -231,7 +231,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         for (let n = 0; n < this.topic1.length; n++) {
             this.log.debug("Items: " + this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
-            const result = items[this.topic1[n]] || "---";
+            const result = items[this.topic1[n]] || false;
             this.inhaltTopic1[n] = result;
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "Items/" + this.topic1[n], result.toString());
@@ -246,7 +246,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
             this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
-            const result = daten3[this.RemainsUntilCombined[n]] || "---";
+            const result = daten3[this.RemainsUntilCombined[n]] || false;
             this.inhaltRemainsUntilCombined[n] = result;
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
