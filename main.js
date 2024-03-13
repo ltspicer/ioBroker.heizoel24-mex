@@ -44,8 +44,8 @@ class Heizoel24Mex extends utils.Adapter {
         const sensor_id = this.config.sensor_id;
 
         if (typeof sensor_id != "number" || sensor_id < 1 || sensor_id > 20) {
-            this.log.warn("Sensor ID set to 1");
-            const sensor_id = 1;
+            this.log.error("Sensor ID is not set");
+            this.terminate ? this.terminate("Sensor ID is not set", 0) : process.exit(0);
         }
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
