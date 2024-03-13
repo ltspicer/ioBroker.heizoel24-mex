@@ -21,12 +21,12 @@ class Heizoel24Mex extends utils.Adapter {
         this.on("unload", this.onUnload.bind(this));
         this.topic1 = ["DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", "LastOrderPrice", "ResultCode", "ResultMessage"];
         this.topic2 = ["LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode", "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"];
+        this.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
 
         this.roleTopic1 = ["indicator", "value", "indicator", "level", "level", "level.color.red", "level.color.red", "indicator", "value", "date", "level.max", "value", "value", "date", "date", "value.battery", "value.battery", "value", "indicator", "value", "indicator", "value", "indicator", "value", "value", "value", "value", "value"];
         this.roleTopic2 = ["value", "value", "value", "indicator", "value", "indicator", "indicator", "value", "value"];
         this.roleRemainsUntilCombined = ["value", "value", "value"];
 
-        this.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
         this.inhaltTopic1 = [];
         this.inhaltTopic2 = [];
         this.inhaltRemainsUntilCombined = [];
@@ -34,6 +34,7 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     async onReady() {
+        this.setState("info.connection", false, true);
         const username = this.config.username;
         const passwort = this.config.passwort;
         const broker_address = this.config.broker_address;

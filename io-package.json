@@ -138,7 +138,8 @@
     "broker_address": "0.0.0.0",
     "mqtt_user": "",
     "mqtt_pass": "",
-    "mqtt_port": "1883"
+    "mqtt_port": "1883",
+    "sensor_id": "1"
   },
   "objects": [],
   "instanceObjects": [
@@ -151,6 +152,7 @@
       "native": {}
     },
     {
+      "_id": "info.connection",
       "type": "state",
       "common": {
         "role": "indicator.connected",
