@@ -229,13 +229,13 @@ class Heizoel24Mex extends utils.Adapter {
 
         const items = datenJson["Items"][0];
 
-        for (let n = 0; n < this.topic1.length; n++) {
-            this.log.debug("Items: " + this.topic1[n] + ": " + items[this.topic1[n]] + ", Typ: " + (typeof items[this.topic1[n]]));
+        for (let n = 1; n < this.topic1.length; n++) {
             const result = items[this.topic1[n]] || false;
             this.inhaltTopic1[n] = result;
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "Items/" + this.topic1[n], result.toString());
             }
+            this.log.debug("Items: " + this.topic1[n] + ": " + result.toString() + ", Typ: " + (typeof result));
         }
         if (mqtt_active) {
             await this.mqtt_send(sensor_id, mqtt_active, client, "Items/DataReceived", "true");
