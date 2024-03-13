@@ -36,10 +36,10 @@
             "type": "text",
             "label": "MQTT password"
         },
-        "debug": {
-            "type": "checkbox",
-            "label": "Detailed log",
-            "default": false,
+        "sensor_id": {
+            "type": "number",
+            "label": "Sensor ID",
+            "default": 1,
             "newLine": true
         }
     }
