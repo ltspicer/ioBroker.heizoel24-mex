@@ -38,7 +38,7 @@
         },
         "sensor_id": {
             "type": "number",
-            "label": "Sensor ID",
+            "label": "Sensor ID (1-20)",
             "default": 1,
             "newLine": true
         }
