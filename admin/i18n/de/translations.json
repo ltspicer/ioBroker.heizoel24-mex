@@ -7,5 +7,5 @@
     "mqtt_user": "MQTT User",
     "mqtt_pass": "MQTT Passwort",
     "mqtt_port": "MQTT Port",
-    "sensor_id": "Sensor ID"
+    "sensor_id": "Sensor ID (1-20)"
 }
