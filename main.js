@@ -27,6 +27,10 @@ class Heizoel24Mex extends utils.Adapter {
         this.roleTopic2 = ["value", "value", "value", "indicator", "value", "indicator", "indicator", "value", "value"];
         this.roleRemainsUntilCombined = ["value", "value", "value"];
 
+        this.unitTopic1 = ["", "", "", "%", "L", "%", "%", "", "L/Day", "", "L", "", "", "", "", "%", "V", "L/cm", "", "", "", "Days", "", "L", "Days", "€|CHF", "", ""];
+        this.unitTopic2 = ["€|CHF/100L", "%", "%", "", "", "", "", "", ""];
+        this.unitRemainsUntilCombined = ["Month Year", "", ""];
+
         this.inhaltTopic1 = [];
         this.inhaltTopic2 = [];
         this.inhaltRemainsUntilCombined = [];
@@ -59,6 +63,7 @@ class Heizoel24Mex extends utils.Adapter {
                 this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
             }
             this.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
+                connectTimeout: 4000,
                 username: mqtt_user,
                 password: mqtt_pass
             });
@@ -90,6 +95,7 @@ class Heizoel24Mex extends utils.Adapter {
                         name: this.topic1[n],
                         type: typ,
                         role: this.roleTopic1[n],
+                        unit: this.unitTopic1[n],
                         read: true,
                         write: false
                     },
@@ -107,6 +113,7 @@ class Heizoel24Mex extends utils.Adapter {
                         name: this.topic2[n],
                         type: typ,
                         role: this.roleTopic2[n],
+                        unit: this.unitTopic2[n],
                         read: true,
                         write: false
                     },
@@ -124,6 +131,7 @@ class Heizoel24Mex extends utils.Adapter {
                         name: this.RemainsUntilCombined[n],
                         type: typ,
                         role: this.roleRemainsUntilCombined[n],
+                        unit: this.unitRemainsUntilCombined[n],
                         read: true,
                         write: false
                     },
@@ -219,12 +227,12 @@ class Heizoel24Mex extends utils.Adapter {
         const datenJson = daten.data;
 
         for (let n = 0; n < this.topic2.length; n++) {
-            this.log.debug("PricingForecast: " + this.topic2[n] + ": " + datenJson[this.topic2[n]] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
             const result = datenJson[this.topic2[n]] || false;
             this.inhaltTopic2[n] = result;
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "PricingForecast/" + this.topic2[n], result.toString());
             }
+            this.log.debug("PricingForecast: " + this.topic2[n] + ": " + result.toString() + ", unit: " + this.unitTopic2[n] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
         }
 
         const items = datenJson["Items"][0];
@@ -235,7 +243,7 @@ class Heizoel24Mex extends utils.Adapter {
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "Items/" + this.topic1[n], result.toString());
             }
-            this.log.debug("Items: " + this.topic1[n] + ": " + result.toString() + ", Typ: " + (typeof result));
+            this.log.debug("Items: " + this.topic1[n] + ": " + result.toString() + ", unit: " + this.unitTopic1[n] + ", Typ: " + (typeof result));
         }
         if (mqtt_active) {
             await this.mqtt_send(sensor_id, mqtt_active, client, "Items/DataReceived", "true");
@@ -245,12 +253,12 @@ class Heizoel24Mex extends utils.Adapter {
         const daten3 = items["RemainsUntilCombined"];
 
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
-            this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + daten3[this.RemainsUntilCombined[n]] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
             const result = daten3[this.RemainsUntilCombined[n]] || false;
             this.inhaltRemainsUntilCombined[n] = result;
             if (mqtt_active) {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
             }
+            this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + result.toString() + ", unit: " + this.unitRemainsUntilCombined[n] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
         }
 
         if (mqtt_active) {
