@@ -31,6 +31,10 @@ class Heizoel24Mex extends utils.Adapter {
         this.unitTopic2 = ["€|CHF/100L", "%", "%", "", "", "", "", "", ""];
         this.unitRemainsUntilCombined = ["Month Year", "", ""];
 
+        this.typTopic1 = ["boolean", "number", "boolean", "number", "number", "number", "number", "boolean", "number", "string", "number", "number", "string", "string", "string", "number", "number", "number", "boolean", "number", "boolean", "number", "boolean", "number", "number", "number", "number", "string"];
+        this.typTopic2 = ["number", "number", "number", "boolean", "number", "boolean", "boolean", "number", "string"];
+        this.typRemainsUntilCombined = ["string", "string", "string"];
+
         this.inhaltTopic1 = [];
         this.inhaltTopic2 = [];
         this.inhaltRemainsUntilCombined = [];
@@ -48,7 +52,7 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_port = this.config.mqtt_port;
         const sensor_id = this.config.sensor_id;
 
-        if (sensor_id < 1 || sensor_id > 20) {
+        if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
             this.log.error("Sensor ID has no value between 1 and 20");
             this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
         }
@@ -88,12 +92,11 @@ class Heizoel24Mex extends utils.Adapter {
         if (dataReceived === true) {
             // Items
             for (let n = 0; n < this.topic1.length; n++) {
-                const typ = typeof this.inhaltTopic1[n];
                 await this.setObjectNotExistsAsync(sensor_id + ".Items." + this.topic1[n], {
                     type: "state",
                     common: {
                         name: this.topic1[n],
-                        type: typ,
+                        type: this.typTopic1[n],
                         role: this.roleTopic1[n],
                         unit: this.unitTopic1[n],
                         read: true,
@@ -106,12 +109,11 @@ class Heizoel24Mex extends utils.Adapter {
 
             // PricingForecast
             for (let n = 0; n < this.topic2.length; n++) {
-                const typ = typeof this.inhaltTopic2[n];
                 await this.setObjectNotExistsAsync(sensor_id + ".PricingForecast." + this.topic2[n], {
                     type: "state",
                     common: {
                         name: this.topic2[n],
-                        type: typ,
+                        type: this.typTopic2[n],
                         role: this.roleTopic2[n],
                         unit: this.unitTopic2[n],
                         read: true,
@@ -124,12 +126,11 @@ class Heizoel24Mex extends utils.Adapter {
 
             // RemainsUntilCombined
             for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
-                const typ = typeof this.inhaltRemainsUntilCombined[n];
                 await this.setObjectNotExistsAsync(sensor_id + ".RemainsUntilCombined." + this.RemainsUntilCombined[n], {
                     type: "state",
                     common: {
                         name: this.RemainsUntilCombined[n],
-                        type: typ,
+                        type: this.typRemainsUntilCombined[n],
                         role: this.roleRemainsUntilCombined[n],
                         unit: this.unitRemainsUntilCombined[n],
                         read: true,
@@ -193,28 +194,46 @@ class Heizoel24Mex extends utils.Adapter {
         return [false, ""];
     }
 
+    async measurement(sensor_id, session_id) {
+        this.log.debug("Get future residual oil levels...");
+        const url = `https://api.heizoel24.de/app/api/app/measurement/CalculateRemaining/${session_id}/${sensor_id}/False`;
+        try {
+            const reply = await axios.get(url);
+            if (reply.status === 200) {
+                this.log.debug("Future residual oil levels received");
+                return reply.data;
+            } else {
+                this.log.debug("Heizoel24 residual oil levels > Status Code: " + reply.status);
+                return "error";
+            }
+        } catch (error) {
+            this.log.error("Error fetching data: " + error.response.status);
+            return "error";
+        }
+    }
+
     async mex(username, passwort) {
         const [login_status, session_id] = await this.login(username, passwort);
         if (!login_status) {
-            return false;
+            return [false, false];
         }
         this.log.debug("Refresh sensor data cache...");
-        this.url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
+        const url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
         try {
-            const reply = await axios.get(this.url);
+            const reply = await axios.get(url);
             if (reply.status === 200) {
                 this.log.debug("Data was received");
-                return reply;
+                return [reply, session_id];
             }
         } catch (error) {
             this.log.error("Error when fetching dashboard data. Error: " + error.response.status);
             this.terminate ? this.terminate("Error when fetching dashboard!", 1) : process.exit(1);
         }
-        return false;
+        return [false, false];
     }
 
     async main(client, username, passwort, mqtt_active, sensor_id) {
-        const daten = await this.mex(username, passwort);
+        const [daten, session_id] = await this.mex(username, passwort);
         if (daten === false) {
             this.log.error("No data received");
             if (mqtt_active) {
@@ -259,6 +278,62 @@ class Heizoel24Mex extends utils.Adapter {
                 await this.mqtt_send(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
             }
             this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + result.toString() + ", unit: " + this.unitRemainsUntilCombined[n] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
+        }
+
+        const sensorId = this.inhaltTopic1[1]; // get SensorId
+        let zukunftsDaten = await this.measurement(sensorId, session_id);
+        if (zukunftsDaten === "error") {
+            this.log.debug("Error. No data received.");
+            return;
+        }
+
+        zukunftsDaten = zukunftsDaten["ConsumptionCurveResult"];
+
+        let n = 0;
+        for (const key in zukunftsDaten) {
+            const datum = key.split("T")[0];
+
+            if (n % 14 == 0) {
+                if (n % 56 == 0) {
+                    this.log.debug(datum + " " + zukunftsDaten[key] + " Liter remaining");
+                }
+                if (mqtt_active) {
+                    this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".date", datum);
+                    this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".liter", zukunftsDaten[key].toString());
+                }
+
+                //await new Promise(resolve => setTimeout(resolve, 5));
+
+
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", {
+                    type: "state",
+                    common: {
+                        name: "Date",
+                        type: "string",
+                        role: "date",
+                        unit: "",
+                        read: true,
+                        write: false
+                    },
+                    native: {},
+                });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", { val: datum, ack: true });
+
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", {
+                    type: "state",
+                    common: {
+                        name: "Liter",
+                        type: "number",
+                        role: "value",
+                        unit: "L",
+                        read: true,
+                        write: false
+                    },
+                    native: {},
+                });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", { val: zukunftsDaten[key], ack: true });
+            }
+            n++;
         }
 
         if (mqtt_active) {
