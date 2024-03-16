@@ -139,7 +139,9 @@
     "mqtt_user": "",
     "mqtt_pass": "",
     "mqtt_port": "1883",
-    "sensor_id": "1"
+    "sensor_id": "1",
+    "storeJson": false,
+    "storeDir": "/home/iobroker"
   },
   "objects": [],
   "instanceObjects": [

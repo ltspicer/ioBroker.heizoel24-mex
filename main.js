@@ -7,6 +7,7 @@
 const utils = require("@iobroker/adapter-core");
 const axios = require("axios");
 const mqtt = require("mqtt");
+const fs = require("fs");
 
 axios.defaults.timeout = 2000;
 
@@ -51,6 +52,8 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_pass = this.config.mqtt_pass;
         const mqtt_port = this.config.mqtt_port;
         const sensor_id = this.config.sensor_id;
+        const storeJson = this.config.storeJson;
+        const storeDir = this.config.storeDir;
 
         if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
             this.log.error("Sensor ID has no value between 1 and 20");
@@ -88,7 +91,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.log.debug("MQTT active: " + mqtt_active);
         this.log.debug("MQTT port: " + mqtt_port);
-        const dataReceived = await this.main(this.client, username, passwort, mqtt_active, sensor_id);
+        const dataReceived = await this.main(this.client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir);
         if (dataReceived === true) {
             // Items
             for (let n = 0; n < this.topic1.length; n++) {
@@ -232,7 +235,7 @@ class Heizoel24Mex extends utils.Adapter {
         return [false, false];
     }
 
-    async main(client, username, passwort, mqtt_active, sensor_id) {
+    async main(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir) {
         const [daten, session_id] = await this.mex(username, passwort);
         if (daten === false) {
             this.log.error("No data received");
@@ -284,7 +287,16 @@ class Heizoel24Mex extends utils.Adapter {
         let zukunftsDaten = await this.measurement(sensorId, session_id);
         if (zukunftsDaten === "error") {
             this.log.debug("Error. No data received.");
-            return;
+            return false;
+        }
+
+        if (storeJson) {
+            try {
+                const json = JSON.stringify(zukunftsDaten);
+                fs.writeFileSync(storeDir + "/oelstand.json", json, "utf8");
+            } catch (error) {
+                this.log.warn("Json file not saved");
+            }
         }
 
         zukunftsDaten = zukunftsDaten["ConsumptionCurveResult"];
@@ -292,18 +304,15 @@ class Heizoel24Mex extends utils.Adapter {
         let n = 0;
         for (const key in zukunftsDaten) {
             const datum = key.split("T")[0];
-
+            this.datum = datum;
             if (n % 14 == 0) {
                 if (n % 56 == 0) {
                     this.log.debug(datum + " " + zukunftsDaten[key] + " Liter remaining");
                 }
                 if (mqtt_active) {
-                    this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".date", datum);
-                    this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".liter", zukunftsDaten[key].toString());
+                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".date", datum);
+                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".liter", zukunftsDaten[key].toString());
                 }
-
-                //await new Promise(resolve => setTimeout(resolve, 5));
-
 
                 await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", {
                     type: "state",
@@ -338,6 +347,41 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (mqtt_active) {
             client.end();
+        }
+
+        for (n; n < 736; n++) {
+            if (n % 14 == 0) {
+                if (n % 56 == 0) {
+                    this.log.debug("Data point " + String(n).padStart(5, "0") + " set to 0 liter");
+                }
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", {
+                    type: "state",
+                    common: {
+                        name: "Date",
+                        type: "string",
+                        role: "date",
+                        unit: "",
+                        read: true,
+                        write: false
+                    },
+                    native: {},
+                });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", { val: this.datum, ack: true });
+
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", {
+                    type: "state",
+                    common: {
+                        name: "Liter",
+                        type: "number",
+                        role: "value",
+                        unit: "L",
+                        read: true,
+                        write: false
+                    },
+                    native: {},
+                });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", { val: 0, ack: true });
+            }
         }
         return true;
     }
