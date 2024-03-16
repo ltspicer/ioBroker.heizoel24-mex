@@ -9,5 +9,5 @@
     "mqtt_port": "MQTT Port",
     "sensor_id": "Sensor ID (1-20)",
     "storeJson": "Json speichern",
-    "storeDir": "Verzeichnis für Json Datei (Dateiname ist CalculatedRemaining.json)"
+    "storeDir": "Verz. für Json Datei (Dateiname: CalculatedRemaining.json)"
 }
