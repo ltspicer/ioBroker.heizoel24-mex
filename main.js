@@ -43,7 +43,6 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     async onReady() {
-        this.setState("info.connection", false, true);
         const username = this.config.username;
         const passwort = this.config.passwort;
         const broker_address = this.config.broker_address;
