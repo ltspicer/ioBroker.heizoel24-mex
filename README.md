@@ -14,8 +14,6 @@
 
 The MEX is a heating oil level measuring device. This adapter reads the MEX data from the Heizoel24 server.
 
-Der MEX ist ein Heizoelstandsmessgerät. Dieser Adapter liest die MEX Daten vom Heizoel24 Server.
-
 See: https://www.heizoel24.de/mex
 
 
