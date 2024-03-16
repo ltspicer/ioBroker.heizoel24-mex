@@ -310,11 +310,11 @@ class Heizoel24Mex extends utils.Adapter {
                     this.log.debug(datum + " " + zukunftsDaten[key] + " Liter remaining");
                 }
                 if (mqtt_active) {
-                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".date", datum);
-                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/" + String(n).padStart(5, "0") + ".liter", zukunftsDaten[key].toString());
+                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/Day " + String(n).padStart(4, "0") + ".date", datum);
+                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/Day " + String(n).padStart(4, "0") + ".liter", zukunftsDaten[key].toString());
                 }
 
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", {
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Date", {
                     type: "state",
                     common: {
                         name: "Date",
@@ -326,9 +326,9 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", { val: datum, ack: true });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Date", { val: datum, ack: true });
 
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", {
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Liter", {
                     type: "state",
                     common: {
                         name: "Liter",
@@ -340,9 +340,12 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", { val: zukunftsDaten[key], ack: true });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Liter", { val: zukunftsDaten[key], ack: true });
             }
             n++;
+            if (n > 735) {
+                break;
+            }
         }
 
         if (mqtt_active) {
@@ -352,9 +355,9 @@ class Heizoel24Mex extends utils.Adapter {
         for (n; n < 736; n++) {
             if (n % 14 == 0) {
                 if (n % 56 == 0) {
-                    this.log.debug("Data point " + String(n).padStart(5, "0") + " set to 0 liter");
+                    this.log.debug("Data point: Day " + String(n).padStart(4, "0") + " set to 0 liter");
                 }
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", {
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Date", {
                     type: "state",
                     common: {
                         name: "Date",
@@ -366,9 +369,9 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Date", { val: this.datum, ack: true });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Date", { val: this.datum, ack: true });
 
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", {
+                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Liter", {
                     type: "state",
                     common: {
                         name: "Liter",
@@ -380,7 +383,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining." + String(n).padStart(5, "0") + ".Liter", { val: 0, ack: true });
+                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Day " + String(n).padStart(4, "0") + ".Liter", { val: 0, ack: true });
             }
         }
         return true;
