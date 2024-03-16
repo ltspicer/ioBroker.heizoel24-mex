@@ -39,7 +39,7 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 ### 1.2.0 (2024-03-16)
 
 - CalculatedRemaining data points renamed to "Day XXXX"
-- Limited to 735 data points
+- Limited to 52 data points
 - Option for save CalculatedRemaining json
 
 ### 1.1.0 (2024-03-09)
