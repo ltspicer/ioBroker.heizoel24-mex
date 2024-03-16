@@ -24,11 +24,6 @@ Simply enter the login data from your Heizoel24 account (e-mail and password).
 The MEX data is stored in the data point heizoel24-mex.
 The adapter starts by default every 3 hours. This is completely sufficient, as the MEX only sends data once a day.
 
-## Benutzung:
-Lediglich Login Daten vom Heizoel24 Account eintragen (Email und Passwort).
-Die MEX Daten werden im Datenpunkt heizoel24-mex gespeichert.
-Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend, da der MEX nur einmal im Tag Daten versendet.
-
 
 ## Changelog
 
@@ -38,7 +33,7 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 -->
 ### 1.2.0 (2024-03-16)
 
-- CalculatedRemaining data points renamed to "Day XXXX"
+- CalculatedRemaining data points renamed to "Day+XXXX Days"
 - Limited to 52 data points
 - Option for save CalculatedRemaining json
 
@@ -48,7 +43,7 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
 
 ### 1.0.1-alpha.0 (2024-03-08)
 
-- Repo neu triggern
+- Repo new triggering
 
 ### 1.0.0 (2024-03-08)
 
