@@ -50,7 +50,7 @@
         },
         "storeDir": {
           "type": "text",
-          "label": "Directory for Json file",
+          "label": "Directory for Json file (filename is CalculatedRemaining.json)",
           "default": "/home/iobroker"
         }
     }
