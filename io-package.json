@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "news": {
+      "1.2.0": {
+        "en": "CalculatedRemaining data points renamed to \"Day XXXX\"\nLimited to 735 data points\nOption for save CalculatedRemaining json",
+        "de": "Berechnung Weiterführende Datenpunkte in \"Day XXXX\" umbenannt\nLimitiert auf 735 Datenpunkte\nOption zum Speichern von CalculatedRemaining json",
+        "ru": "Рассчитано Оставшиеся точки данных, переименованные в «Day XXXX»\nОграниченные до 735 точек данных\nОпция для сохранения CalculatedRemaining json",
+        "pt": "Calculado Pontos de dados remanescentes renomeados para \"Day XXXX\"\nLimitado a 735 pontos de dados\nOpção para salvar calculado Continuando json",
+        "nl": "Berekend Resterende datapunten hernoemd naar \"Dag XXXX\"\nBeperkt tot 735 gegevenspunten\nOptie voor opslaan BerekendRemaining json",
+        "fr": "Calculé Autres points de données rebaptisés \"Jour XXXX\"\nLimité à 735 points de données\nOption pour sauvegarder CalculéRestement json",
+        "it": "Calcolato Remain data points rinominato \"Day XXXX\"\nLimitato a 735 punti dati\nOpzione per salvare CalculatedRemaining json",
+        "es": "Cálculo Permanecer puntos de datos renombrados a \"Día XXXX\"\nLimitado a 735 puntos de datos\nOpción para guardar CalculadoRemanente json",
+        "pl": "Obliczone Pozostałe punkty danych zmieniono na \"Dzień XXXX\"\nPomoc ograniczona do 735 punktów danych\nOpcja oszczędzania obliczonego pozostałego jsona",
+        "uk": "Розрахунок Зменшення очок даних, перейменованих на \"Day XXXX\"\nОбмежено до 735 точок даних\nВаріант для економії Розрахунково-вимірювальної джсон",
+        "zh-cn": "计算 剩余数据点更名为“ Day ”\n限于735个数据点\n保存计算json的选项"
+      },
       "1.1.0": {
         "en": "Superfluous logging function removed",
         "de": "Überflüssige Protokollierungsfunktion entfernt",

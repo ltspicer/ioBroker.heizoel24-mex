@@ -36,7 +36,7 @@ Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend,
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.2.0 (2024-03-16)
 
 - CalculatedRemaining data points renamed to "Day XXXX"
 - Limited to 735 data points
