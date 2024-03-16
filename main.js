@@ -20,6 +20,7 @@ class Heizoel24Mex extends utils.Adapter {
         });
         this.on("ready", this.onReady.bind(this));
         this.on("unload", this.onUnload.bind(this));
+
         this.topic1 = ["DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", "LastOrderPrice", "ResultCode", "ResultMessage"];
         this.topic2 = ["LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode", "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"];
         this.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
@@ -30,10 +31,10 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.unitTopic1 = ["", "", "", "%", "L", "%", "%", "", "L/Day", "", "L", "", "", "", "", "%", "V", "L/cm", "", "", "", "Days", "", "L", "Days", "€|CHF", "", ""];
         this.unitTopic2 = ["€|CHF/100L", "%", "%", "", "", "", "", "", ""];
-        this.unitRemainsUntilCombined = ["Month Year", "", ""];
+        this.unitRemainsUntilCombined = ["", "", ""];
 
-        this.typTopic1 = ["boolean", "number", "boolean", "number", "number", "number", "number", "boolean", "number", "string", "number", "number", "string", "string", "string", "number", "number", "number", "boolean", "number", "boolean", "number", "boolean", "number", "number", "number", "number", "string"];
-        this.typTopic2 = ["number", "number", "number", "boolean", "number", "boolean", "boolean", "number", "string"];
+        this.typTopic1 = ["boolean", "number", "boolean", "number", "number", "number", "number", "boolean", "number", "string", "number", "string", "string", "string", "string", "number", "number", "number", "boolean", "number", "boolean", "number", "boolean", "number", "number", "number", "boolean", "boolean"];
+        this.typTopic2 = ["number", "number", "number", "boolean", "number", "boolean", "boolean", "boolean", "boolean"];
         this.typRemainsUntilCombined = ["string", "string", "string"];
 
         this.inhaltTopic1 = [];
@@ -408,4 +409,3 @@ if (require.main !== module) {
 } else {
     new Heizoel24Mex();
 }
-
