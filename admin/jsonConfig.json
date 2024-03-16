@@ -41,6 +41,17 @@
             "label": "Sensor ID (1-20)",
             "default": 1,
             "newLine": true
+        },
+        "storeJson": {
+          "type": "checkbox",
+          "label": "Save Json file",
+          "default": false,
+          "newLine": true
+        },
+        "storeDir": {
+          "type": "text",
+          "label": "Directory for Json file",
+          "default": "/home/iobroker"
         }
     }
 }
