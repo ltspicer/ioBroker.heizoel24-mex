@@ -31,7 +31,7 @@ The adapter starts by default every 3 hours. This is completely sufficient, as t
 -->
 ### 1.2.0 (2024-03-16)
 
-- CalculatedRemaining data points renamed to "Day+XXXX Days"
+- CalculatedRemaining data points renamed to "Today+XXXX Days"
 - Limited to 52 data points
 - Option for save CalculatedRemaining json
 
