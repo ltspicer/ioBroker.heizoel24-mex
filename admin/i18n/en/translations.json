@@ -7,5 +7,7 @@
     "mqtt_user": "MQTT user",
     "mqtt_pass": "MQTT password",
     "mqtt_port": "MQTT port",
-    "sensor_id": "Sensor ID (1-20)"
+    "sensor_id": "Sensor ID (1-20)",
+    "storeJson": "Save Json",
+    "storeDir": "Directory for Json file"
 }
