@@ -21,21 +21,70 @@ class Heizoel24Mex extends utils.Adapter {
         this.on("ready", this.onReady.bind(this));
         this.on("unload", this.onUnload.bind(this));
 
-        this.topic1 = ["DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", "LastOrderPrice", "ResultCode", "ResultMessage"];
-        this.topic2 = ["LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode", "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"];
-        this.RemainsUntilCombined = ["MonthAndYear", "RemainsValue", "RemainsUnit"];
+        // Topic1 (Items)
+        this.topic1 = [
+            "DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", //                        1.
+            "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", //         2.
+            "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", //      3.
+            "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", // 4.
+            "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", //  5.
+            "LastOrderPrice", "ResultCode", "ResultMessage" //                                                          6.
+        ];
+        this.roleTopic1 = [
+            "indicator", "value", "indicator", "level", "level", //                 1.
+            "level.color.red", "level.color.red", "indicator", "value", "date", //  2.
+            "level.max", "value", "value", "date", "date", //                       3.
+            "value.battery", "value.battery", "value", "indicator", "value", //     4.
+            "indicator", "value", "indicator", "value", "value", //                 5.
+            "value", "value", "value" //                                            6.
+        ];
+        this.unitTopic1 = [
+            "", "", "", "%", "L", //        1.
+            "%", "%", "", "L/Day", "", //   2.
+            "L", "", "", "", "", //         3.
+            "%", "V", "L/cm", "", "", //    4.
+            "", "Days", "", "L", "Days", // 5.
+            "€|CHF", "", "" //              6.
+        ];
+        this.typTopic1 = [
+            "boolean", "number", "boolean", "number", "number", //  1.
+            "number", "number", "boolean", "number", "string", //   2.
+            "number", "string", "string", "string", "string", //    3.
+            "number", "number", "number", "boolean", "number", //   4.
+            "boolean", "number", "boolean", "number", "number", //  5.
+            "number", "boolean", "boolean" //                       6.
+        ];
 
-        this.roleTopic1 = ["indicator", "value", "indicator", "level", "level", "level.color.red", "level.color.red", "indicator", "value", "date", "level.max", "value", "value", "date", "date", "value.battery", "value.battery", "value", "indicator", "value", "indicator", "value", "indicator", "value", "value", "value", "value", "value"];
-        this.roleTopic2 = ["value", "value", "value", "indicator", "value", "indicator", "indicator", "value", "value"];
-        this.roleRemainsUntilCombined = ["value", "value", "value"];
+        // Topic2 (PricingForecast)
+        this.topic2 = [
+            "LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode",
+            "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"
+        ];
+        this.roleTopic2 = [
+            "value", "value", "value", "indicator", "value",
+            "indicator", "indicator", "value", "value"
+        ];
+        this.unitTopic2 = [
+            "€|CHF/100L", "%", "%", "", "",
+            "", "", "", ""
+        ];
+        this.typTopic2 = [
+            "number", "number", "number", "boolean", "number",
+            "boolean", "boolean", "boolean", "boolean"];
 
-        this.unitTopic1 = ["", "", "", "%", "L", "%", "%", "", "L/Day", "", "L", "", "", "", "", "%", "V", "L/cm", "", "", "", "Days", "", "L", "Days", "€|CHF", "", ""];
-        this.unitTopic2 = ["€|CHF/100L", "%", "%", "", "", "", "", "", ""];
-        this.unitRemainsUntilCombined = ["", "", ""];
-
-        this.typTopic1 = ["boolean", "number", "boolean", "number", "number", "number", "number", "boolean", "number", "string", "number", "string", "string", "string", "string", "number", "number", "number", "boolean", "number", "boolean", "number", "boolean", "number", "number", "number", "boolean", "boolean"];
-        this.typTopic2 = ["number", "number", "number", "boolean", "number", "boolean", "boolean", "boolean", "boolean"];
-        this.typRemainsUntilCombined = ["string", "string", "string"];
+        // RemainsUntilCombined (RemainsUntilCombined)
+        this.RemainsUntilCombined = [
+            "MonthAndYear", "RemainsValue", "RemainsUnit"
+        ];
+        this.roleRemainsUntilCombined = [
+            "value", "value", "value"
+        ];
+        this.unitRemainsUntilCombined = [
+            "", "", ""
+        ];
+        this.typRemainsUntilCombined = [
+            "string", "string", "string"
+        ];
 
         this.inhaltTopic1 = [];
         this.inhaltTopic2 = [];
@@ -164,7 +213,7 @@ class Heizoel24Mex extends utils.Adapter {
         this.terminate ? this.terminate("Everything done. Going to terminate till next schedule", 0) : process.exit(0);
     }
 
-    async mqtt_send(sensor_id, mqtt_active, client, topic, wert) {
+    async sendMqtt(sensor_id, mqtt_active, client, topic, wert) {
         if (mqtt_active) {
             client.publish("MEX/"+ sensor_id + "/" + topic, wert);
         }
@@ -240,7 +289,7 @@ class Heizoel24Mex extends utils.Adapter {
         if (daten === false) {
             this.log.error("No data received");
             if (mqtt_active) {
-                await this.mqtt_send(sensor_id, mqtt_active, client, "Items/DataReceived", "false");
+                await this.sendMqtt(sensor_id, mqtt_active, client, "Items/DataReceived", "false");
                 client.end();
             }
             return false;
@@ -252,7 +301,7 @@ class Heizoel24Mex extends utils.Adapter {
             const result = datenJson[this.topic2[n]] || false;
             this.inhaltTopic2[n] = result;
             if (mqtt_active) {
-                await this.mqtt_send(sensor_id, mqtt_active, client, "PricingForecast/" + this.topic2[n], result.toString());
+                await this.sendMqtt(sensor_id, mqtt_active, client, "PricingForecast/" + this.topic2[n], result.toString());
             }
             this.log.debug("PricingForecast: " + this.topic2[n] + ": " + result.toString() + ", unit: " + this.unitTopic2[n] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
         }
@@ -263,12 +312,12 @@ class Heizoel24Mex extends utils.Adapter {
             const result = items[this.topic1[n]] || false;
             this.inhaltTopic1[n] = result;
             if (mqtt_active) {
-                await this.mqtt_send(sensor_id, mqtt_active, client, "Items/" + this.topic1[n], result.toString());
+                await this.sendMqtt(sensor_id, mqtt_active, client, "Items/" + this.topic1[n], result.toString());
             }
             this.log.debug("Items: " + this.topic1[n] + ": " + result.toString() + ", unit: " + this.unitTopic1[n] + ", Typ: " + (typeof result));
         }
         if (mqtt_active) {
-            await this.mqtt_send(sensor_id, mqtt_active, client, "Items/DataReceived", "true");
+            await this.sendMqtt(sensor_id, mqtt_active, client, "Items/DataReceived", "true");
         }
         this.inhaltTopic1[0] = true;
 
@@ -278,7 +327,7 @@ class Heizoel24Mex extends utils.Adapter {
             const result = daten3[this.RemainsUntilCombined[n]] || false;
             this.inhaltRemainsUntilCombined[n] = result;
             if (mqtt_active) {
-                await this.mqtt_send(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
+                await this.sendMqtt(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
             }
             this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + result.toString() + ", unit: " + this.unitRemainsUntilCombined[n] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
         }
@@ -305,13 +354,13 @@ class Heizoel24Mex extends utils.Adapter {
         for (const key in zukunftsDaten) {
             const datum = key.split("T")[0];
             this.datum = datum;
-            if (n % 14 == 0) {
+            if (n % 14 == 0) { // Only every 14 days
                 if (n % 56 == 0) {
                     this.log.debug(datum + " " + zukunftsDaten[key] + " Liter remaining");
                 }
                 if (mqtt_active) {
-                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Date", datum);
-                    await this.mqtt_send(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Liter", zukunftsDaten[key].toString());
+                    await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Date", datum);
+                    await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Liter", zukunftsDaten[key].toString());
                 }
 
                 await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
@@ -343,7 +392,7 @@ class Heizoel24Mex extends utils.Adapter {
                 await this.setStateAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: zukunftsDaten[key], ack: true });
             }
             n++;
-            if (n > 735) {
+            if (n > 735) { // Stop at day 735 at the latest
                 break;
             }
         }
@@ -352,8 +401,9 @@ class Heizoel24Mex extends utils.Adapter {
             client.end();
         }
 
+        // Set surplus data points to 0
         for (n; n < 736; n++) {
-            if (n % 14 == 0) {
+            if (n % 14 == 0) { // Only every 14 days
                 if (n % 56 == 0) {
                     this.log.debug("Data point: Day " + String(n).padStart(4, "0") + " set to 0 liter");
                 }
