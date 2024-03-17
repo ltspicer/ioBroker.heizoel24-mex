@@ -341,7 +341,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (storeJson) {
             try {
-                const json = JSON.stringify(zukunftsDaten);
+                const json = JSON.stringify(zukunftsDaten, null, 4);
                 fs.writeFileSync(storeDir + "/CalculatedRemaining.json", json, "utf8");
             } catch (error) {
                 this.log.warn("Json file not saved. Does ioBroker have write permissions in the specified folder?");
