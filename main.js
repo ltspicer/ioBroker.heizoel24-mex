@@ -21,75 +21,258 @@ class Heizoel24Mex extends utils.Adapter {
         this.on("ready", this.onReady.bind(this));
         this.on("unload", this.onUnload.bind(this));
 
-        // Topic1 (Items)
-        this.topic1 = [
-            "DataReceived", "SensorId", "IsMain", "CurrentVolumePercentage", "CurrentVolume", //                        1.
-            "NotifyAtLowLevel", "NotifyAtAlmostEmptyLevel", "NotificationsEnabled", "Usage", "RemainsUntil", //         2.
-            "MaxVolume", "ZipCode", "MexName", "LastMeasurementTimeStamp", "LastMeasurementWithDifferentValue", //      3.
-            "BatteryPercentage", "Battery", "LitresPerCentimeter", "LastMeasurementWasSuccessfully", "SensorTypeId", // 4.
-            "HasMeasurements", "MeasuredDaysCount", "LastMeasurementWasTooHigh", "YearlyOilUsage", "RemainingDays", //  5.
-            "LastOrderPrice", "ResultCode", "ResultMessage" //                                                          6.
-        ];
-        this.roleTopic1 = [
-            "indicator", "value", "indicator", "level", "level", //                 1.
-            "level.color.red", "level.color.red", "indicator", "value", "date", //  2.
-            "level.max", "value", "value", "date", "date", //                       3.
-            "value.battery", "value.battery", "value", "indicator", "value", //     4.
-            "indicator", "value", "indicator", "value", "value", //                 5.
-            "value", "value", "value" //                                            6.
-        ];
-        this.unitTopic1 = [
-            "", "", "", "%", "L", //        1.
-            "%", "%", "", "L/Day", "", //   2.
-            "L", "", "", "", "", //         3.
-            "%", "V", "L/cm", "", "", //    4.
-            "", "Days", "", "L", "Days", // 5.
-            "€|CHF", "", "" //              6.
-        ];
-        this.typTopic1 = [
-            "boolean", "number", "boolean", "number", "number", //  1.
-            "number", "number", "boolean", "number", "string", //   2.
-            "number", "string", "string", "string", "string", //    3.
-            "number", "number", "number", "boolean", "number", //   4.
-            "boolean", "number", "boolean", "number", "number", //  5.
-            "number", "boolean", "boolean" //                       6.
+        this.Items = [
+            {
+                id   : "DataReceived",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "SensorId",
+                role : "value",
+                unit : "",
+                type : "number"
+            },
+            {
+                id   : "IsMain",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "CurrentVolumePercentage",
+                role : "level",
+                unit : "%",
+                type : "number"
+            },
+            {
+                id   : "CurrentVolume",
+                role : "level",
+                unit : "L",
+                type : "number"
+            },
+            {
+                id   : "NotifyAtLowLevel",
+                role : "level.color.red",
+                unit : "%",
+                type : "number"
+            },
+            {
+                id   : "NotifyAtAlmostEmptyLevel",
+                role : "level.color.red",
+                unit : "%",
+                type : "number"
+            },
+            {
+                id   : "NotificationsEnabled",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "Usage",
+                role : "value",
+                unit : "L/Day",
+                type : "number"
+            },
+            {
+                id   : "RemainsUntil",
+                role : "date",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "MaxVolume",
+                role : "level.max",
+                unit : "L",
+                type : "number"
+            },
+            {
+                id   : "ZipCode",
+                role : "value",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "MexName",
+                role : "value",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "LastMeasurementTimeStamp",
+                role : "date",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "LastMeasurementWithDifferentValue",
+                role : "date",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "BatteryPercentage",
+                role : "value.battery",
+                unit : "%",
+                type : "number"
+            },
+            {
+                id   : "Battery",
+                role : "value.battery",
+                unit : "V",
+                type : "number"
+            },
+            {
+                id   : "LitresPerCentimeter",
+                role : "value",
+                unit : "L/cm",
+                type : "number"
+            },
+            {
+                id   : "LastMeasurementWasSuccessfully",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "SensorTypeId",
+                role : "value",
+                unit : "",
+                type : "number"
+            },
+            {
+                id   : "HasMeasurements",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "MeasuredDaysCount",
+                role : "value",
+                unit : "Days",
+                type : "number"
+            },
+            {
+                id   : "LastMeasurementWasTooHigh",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "YearlyOilUsage",
+                role : "value",
+                unit : "L",
+                type : "number"
+            },
+            {
+                id   : "RemainingDays",
+                role : "value",
+                unit : "Days",
+                type : "number"
+            },
+            {
+                id   : "LastOrderPrice",
+                role : "value",
+                unit : "€|CHF",
+                type : "number"
+            },
+            {
+                id   : "ResultCode",
+                role : "value",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "ResultMessage",
+                role : "value",
+                unit : "",
+                type : "boolean"
+            },
         ];
 
-        // Topic2 (PricingForecast)
-        this.topic2 = [
-            "LastOrderPrice", "PriceComparedToYesterdayPercentage", "PriceForecastPercentage", "HasMultipleMexDevices", "DashboardViewMode",
-            "ShowComparedToYesterday", "ShowForecast", "ResultCode", "ResultMessage"
+        this.PricingForecast = [
+            {
+                id   : "LastOrderPrice",
+                role : "value",
+                unit : "€|CHF/100L",
+                type : "number"
+            },
+            {
+                id   : "PriceComparedToYesterdayPercentage",
+                role : "value",
+                unit : "%",
+                type : "number"
+            },
+            {
+                id   : "PriceForecastPercentage",
+                role : "value",
+                unit : "%",
+                type : "number"
+            },
+            {
+                id   : "HasMultipleMexDevices",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "DashboardViewMode",
+                role : "value",
+                unit : "",
+                type : "number"
+            },
+            {
+                id   : "ShowComparedToYesterday",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "ShowForecast",
+                role : "indicator",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "ResultCode",
+                role : "value",
+                unit : "",
+                type : "boolean"
+            },
+            {
+                id   : "ResultMessage",
+                role : "value",
+                unit : "",
+                type : "boolean"
+            },
         ];
-        this.roleTopic2 = [
-            "value", "value", "value", "indicator", "value",
-            "indicator", "indicator", "value", "value"
-        ];
-        this.unitTopic2 = [
-            "€|CHF/100L", "%", "%", "", "",
-            "", "", "", ""
-        ];
-        this.typTopic2 = [
-            "number", "number", "number", "boolean", "number",
-            "boolean", "boolean", "boolean", "boolean"];
 
-        // RemainsUntilCombined (RemainsUntilCombined)
         this.RemainsUntilCombined = [
-            "MonthAndYear", "RemainsValue", "RemainsUnit"
-        ];
-        this.roleRemainsUntilCombined = [
-            "value", "value", "value"
-        ];
-        this.unitRemainsUntilCombined = [
-            "", "", ""
-        ];
-        this.typRemainsUntilCombined = [
-            "string", "string", "string"
+            {
+                id   : "MonthAndYear",
+                role : "value",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "RemainsValue",
+                role : "value",
+                unit : "",
+                type : "string"
+            },
+            {
+                id   : "RemainsUnit",
+                role : "value",
+                unit : "",
+                type : "string"
+            },
         ];
 
-        this.inhaltTopic1 = [];
-        this.inhaltTopic2 = [];
+        this.contentItems = [];
+        this.contentPricingForecast = [];
         this.inhaltRemainsUntilCombined = [];
-        this.client = null;
     }
 
     async onReady() {
@@ -104,21 +287,28 @@ class Heizoel24Mex extends utils.Adapter {
         const storeJson = this.config.storeJson;
         const storeDir = this.config.storeDir;
 
-        if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
-            this.log.error("Sensor ID has no value between 1 and 20");
-            this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
+        if (Number.isInteger(sensor_id)) {
+            if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
+                this.log.error("Sensor ID has no value between 1 and 20");
+                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 1) : process.exit(1);
+            }
+        } else {
+            this.log.error("Sensor ID has no valid value");
+            this.terminate ? this.terminate("Sensor ID has no valid value", 1) : process.exit(1);
         }
+        this.log.debug("Sensor ID is " + sensor_id);
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
             this.log.error("User email and/or user password empty - please check instance configuration");
-            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 0) : process.exit(0);
+            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 1) : process.exit(1);
         }
+        let client = null;
         if (mqtt_active) {
             if (broker_address.trim().length === 0 || broker_address == "0.0.0.0") {
                 this.log.error("MQTT IP address is empty - please check instance configuration");
-                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
+                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(1);
             }
-            this.client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
+            client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 connectTimeout: 4000,
                 username: mqtt_user,
                 password: mqtt_pass
@@ -140,63 +330,98 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.log.debug("MQTT active: " + mqtt_active);
         this.log.debug("MQTT port: " + mqtt_port);
-        const dataReceived = await this.main(this.client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir);
+        const dataReceived = await this.main(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir);
         if (dataReceived === true) {
+            await this.setObjectNotExistsAsync(sensor_id.toString(), {
+                type: "device",
+                common: {
+                    name: ""
+                },
+                native: {},
+            });
             // Items
-            for (let n = 0; n < this.topic1.length; n++) {
-                await this.setObjectNotExistsAsync(sensor_id + ".Items." + this.topic1[n], {
+            await this.setObjectNotExistsAsync(sensor_id.toString() + ".Items", {
+                type: "channel",
+                common: {
+                    name: "Items"
+                },
+                native: {},
+            });
+            for (let n = 0; n < this.Items.length; n++) {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".Items." + this.Items[n].id, {
                     type: "state",
                     common: {
-                        name: this.topic1[n],
-                        type: this.typTopic1[n],
-                        role: this.roleTopic1[n],
-                        unit: this.unitTopic1[n],
+                        name: this.Items[n].id,
+                        type: this.Items[n].type,
+                        role: this.Items[n].role,
+                        unit: this.Items[n].unit,
                         read: true,
                         write: false
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".Items." + this.topic1[n], { val: this.inhaltTopic1[n], ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".Items." + this.Items[n].id, { val: this.contentItems[n], ack: true });
             }
 
             // PricingForecast
-            for (let n = 0; n < this.topic2.length; n++) {
-                await this.setObjectNotExistsAsync(sensor_id + ".PricingForecast." + this.topic2[n], {
+            await this.setObjectNotExistsAsync(sensor_id.toString() + ".PricingForecast", {
+                type: "channel",
+                common: {
+                    name: "PricingForecast"
+                },
+                native: {},
+            });
+            for (let n = 0; n < this.PricingForecast.length; n++) {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".PricingForecast." + this.PricingForecast[n].id, {
                     type: "state",
                     common: {
-                        name: this.topic2[n],
-                        type: this.typTopic2[n],
-                        role: this.roleTopic2[n],
-                        unit: this.unitTopic2[n],
+                        name: this.PricingForecast[n].name,
+                        type: this.PricingForecast[n].type,
+                        role: this.PricingForecast[n].role,
+                        unit: this.PricingForecast[n].unit,
                         read: true,
                         write: false
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".PricingForecast." + this.topic2[n], { val: this.inhaltTopic2[n], ack: true });
+
+                if (this.contentPricingForecast[n] == false &&
+                    (this.PricingForecast[n].id == "PriceComparedToYesterdayPercentage" ||
+                    this.PricingForecast[n].id == "PriceForecastPercentage")) {
+                    this.log.debug(this.PricingForecast[n].id + " omitted, while it's false");
+                } else {
+                    await this.setStateAsync(sensor_id.toString() + ".PricingForecast." + this.PricingForecast[n].id, { val: this.contentPricingForecast[n], ack: true });
+                }
             }
 
             // RemainsUntilCombined
+            await this.setObjectNotExistsAsync(sensor_id.toString() + ".RemainsUntilCombined", {
+                type: "channel",
+                common: {
+                    name: "RemainsUntilCombined"
+                },
+                native: {},
+            });
             for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
-                await this.setObjectNotExistsAsync(sensor_id + ".RemainsUntilCombined." + this.RemainsUntilCombined[n], {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".RemainsUntilCombined." + this.RemainsUntilCombined[n].id, {
                     type: "state",
                     common: {
-                        name: this.RemainsUntilCombined[n],
-                        type: this.typRemainsUntilCombined[n],
-                        role: this.roleRemainsUntilCombined[n],
-                        unit: this.unitRemainsUntilCombined[n],
+                        name: this.RemainsUntilCombined[n].id,
+                        type: this.RemainsUntilCombined[n].type,
+                        role: this.RemainsUntilCombined[n].role,
+                        unit: this.RemainsUntilCombined[n].unit,
                         read: true,
                         write: false
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".RemainsUntilCombined." + this.RemainsUntilCombined[n], { val: this.inhaltRemainsUntilCombined[n], ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".RemainsUntilCombined." + this.RemainsUntilCombined[n].id, { val: this.inhaltRemainsUntilCombined[n], ack: true });
             }
         } else {
-            await this.setObjectNotExistsAsync(sensor_id + ".Items." + this.topic1[0], {
+            await this.setObjectNotExistsAsync(sensor_id.toString() + ".Items." + this.Items[0].id, {
                 type: "state",
                 common: {
-                    name: this.topic1[0],
+                    name: this.Items[0].id,
                     type: "boolean",
                     role: "indicator",
                     read: true,
@@ -204,7 +429,7 @@ class Heizoel24Mex extends utils.Adapter {
                 },
                 native: {},
             });
-            await this.setStateAsync(sensor_id + ".Items." + this.topic1[0], { val: false, ack: true });
+            await this.setStateAsync(sensor_id.toString() + ".Items." + this.Items[0].id, { val: false, ack: true });
             this.log.error("No data received");
             this.terminate ? this.terminate("No data received", 1) : process.exit(1);
         }
@@ -215,7 +440,7 @@ class Heizoel24Mex extends utils.Adapter {
 
     async sendMqtt(sensor_id, mqtt_active, client, topic, wert) {
         if (mqtt_active) {
-            client.publish("MEX/"+ sensor_id + "/" + topic, wert);
+            client.publish("MEX/"+ sensor_id.toString() + "/" + topic, wert);
         }
     }
 
@@ -297,42 +522,48 @@ class Heizoel24Mex extends utils.Adapter {
 
         const datenJson = daten.data;
 
-        for (let n = 0; n < this.topic2.length; n++) {
-            const result = datenJson[this.topic2[n]] || false;
-            this.inhaltTopic2[n] = result;
+        for (let n = 0; n < this.PricingForecast.length; n++) {
+            const result = datenJson[this.PricingForecast[n].id] || false;
+            this.contentPricingForecast[n] = result;
             if (mqtt_active) {
-                await this.sendMqtt(sensor_id, mqtt_active, client, "PricingForecast/" + this.topic2[n], result.toString());
+                if (this.contentPricingForecast[n] == false &&
+                    (this.PricingForecast[n].id == "PriceComparedToYesterdayPercentage" ||
+                    this.PricingForecast[n].id == "PriceForecastPercentage")) {
+                    this.log.debug(this.PricingForecast[n].id + " omitted, while it's false");
+                } else {
+                    await this.sendMqtt(sensor_id, mqtt_active, client, "PricingForecast/" + this.PricingForecast[n].id, result.toString());
+                }
             }
-            this.log.debug("PricingForecast: " + this.topic2[n] + ": " + result.toString() + ", unit: " + this.unitTopic2[n] + ", Typ: " + (typeof datenJson[this.topic2[n]]));
+            this.log.debug("PricingForecast: " + this.PricingForecast[n].id + ": " + result.toString() + ", unit: " + this.PricingForecast[n].unit + ", Typ: " + (typeof datenJson[this.PricingForecast[n].id]));
         }
 
         const items = datenJson["Items"][0];
 
-        for (let n = 1; n < this.topic1.length; n++) {
-            const result = items[this.topic1[n]] || false;
-            this.inhaltTopic1[n] = result;
+        for (let n = 1; n < this.Items.length; n++) {
+            const result = items[this.Items[n].id] || false;
+            this.contentItems[n] = result;
             if (mqtt_active) {
-                await this.sendMqtt(sensor_id, mqtt_active, client, "Items/" + this.topic1[n], result.toString());
+                await this.sendMqtt(sensor_id, mqtt_active, client, "Items/" + this.Items[n].id, result.toString());
             }
-            this.log.debug("Items: " + this.topic1[n] + ": " + result.toString() + ", unit: " + this.unitTopic1[n] + ", Typ: " + (typeof result));
+            this.log.debug("Items: " + this.Items[n].id + ": " + result.toString() + ", unit: " + this.Items[n].unit + ", Typ: " + (typeof result));
         }
         if (mqtt_active) {
             await this.sendMqtt(sensor_id, mqtt_active, client, "Items/DataReceived", "true");
         }
-        this.inhaltTopic1[0] = true;
+        this.contentItems[0] = true;
 
         const daten3 = items["RemainsUntilCombined"];
 
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
-            const result = daten3[this.RemainsUntilCombined[n]] || false;
+            const result = daten3[this.RemainsUntilCombined[n].id] || false;
             this.inhaltRemainsUntilCombined[n] = result;
             if (mqtt_active) {
-                await this.sendMqtt(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n], result.toString());
+                await this.sendMqtt(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n].id, result.toString());
             }
-            this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n] + ": " + result.toString() + ", unit: " + this.unitRemainsUntilCombined[n] + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n]]));
+            this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n].id + ": " + result.toString() + ", unit: " + this.RemainsUntilCombined[n].unit + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n].id]));
         }
 
-        const sensorId = this.inhaltTopic1[1]; // get SensorId
+        const sensorId = this.contentItems[1]; // get SensorId
         let zukunftsDaten = await this.measurement(sensorId, session_id);
         if (zukunftsDaten === "error") {
             this.log.debug("Error. No data received.");
@@ -350,6 +581,14 @@ class Heizoel24Mex extends utils.Adapter {
 
         zukunftsDaten = zukunftsDaten["ConsumptionCurveResult"];
 
+        await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining", {
+            type: "channel",
+            common: {
+                name: "CalculatedRemaining"
+            },
+            native: {},
+        });
+
         let n = 0;
         for (const key in zukunftsDaten) {
             const datum = key.split("T")[0];
@@ -363,7 +602,7 @@ class Heizoel24Mex extends utils.Adapter {
                     await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Liter", zukunftsDaten[key].toString());
                 }
 
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
                     type: "state",
                     common: {
                         name: "Date",
@@ -375,9 +614,9 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", { val: datum, ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", { val: datum, ack: true });
 
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", {
                     type: "state",
                     common: {
                         name: "Liter",
@@ -389,7 +628,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: zukunftsDaten[key], ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: zukunftsDaten[key], ack: true });
             }
             n++;
             if (n > 735) { // Stop at day 735 at the latest
@@ -407,7 +646,7 @@ class Heizoel24Mex extends utils.Adapter {
                 if (n % 56 == 0) {
                     this.log.debug("Data point: Day " + String(n).padStart(4, "0") + " set to 0 liter");
                 }
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
                     type: "state",
                     common: {
                         name: "Date",
@@ -419,9 +658,9 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", { val: this.datum, ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", { val: this.datum, ack: true });
 
-                await this.setObjectNotExistsAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", {
+                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", {
                     type: "state",
                     common: {
                         name: "Liter",
@@ -433,7 +672,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: 0, ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: 0, ack: true });
             }
         }
         return true;
