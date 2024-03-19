@@ -272,7 +272,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.contentItems = [];
         this.contentPricingForecast = [];
-        this.inhaltRemainsUntilCombined = [];
+        this.contentRemainsUntilCombined = [];
     }
 
     async onReady() {
@@ -290,23 +290,23 @@ class Heizoel24Mex extends utils.Adapter {
         if (Number.isInteger(sensor_id)) {
             if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
                 this.log.error("Sensor ID has no value between 1 and 20");
-                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 1) : process.exit(1);
+                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
             }
         } else {
             this.log.error("Sensor ID has no valid value");
-            this.terminate ? this.terminate("Sensor ID has no valid value", 1) : process.exit(1);
+            this.terminate ? this.terminate("Sensor ID has no valid value", 0) : process.exit(0);
         }
         this.log.debug("Sensor ID is " + sensor_id);
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
             this.log.error("User email and/or user password empty - please check instance configuration");
-            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 1) : process.exit(1);
+            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 0) : process.exit(0);
         }
         let client = null;
         if (mqtt_active) {
             if (broker_address.trim().length === 0 || broker_address == "0.0.0.0") {
                 this.log.error("MQTT IP address is empty - please check instance configuration");
-                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(1);
+                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
             }
             client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 connectTimeout: 4000,
@@ -415,7 +415,7 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
-                await this.setStateAsync(sensor_id.toString() + ".RemainsUntilCombined." + this.RemainsUntilCombined[n].id, { val: this.inhaltRemainsUntilCombined[n], ack: true });
+                await this.setStateAsync(sensor_id.toString() + ".RemainsUntilCombined." + this.RemainsUntilCombined[n].id, { val: this.contentRemainsUntilCombined[n], ack: true });
             }
         } else {
             await this.setObjectNotExistsAsync(sensor_id.toString() + ".Items." + this.Items[0].id, {
@@ -556,7 +556,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
             const result = daten3[this.RemainsUntilCombined[n].id] || false;
-            this.inhaltRemainsUntilCombined[n] = result;
+            this.contentRemainsUntilCombined[n] = result;
             if (mqtt_active) {
                 await this.sendMqtt(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n].id, result.toString());
             }
