@@ -290,23 +290,23 @@ class Heizoel24Mex extends utils.Adapter {
         if (Number.isInteger(sensor_id)) {
             if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
                 this.log.error("Sensor ID has no value between 1 and 20");
-                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
+                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 1) : process.exit(1);
             }
         } else {
             this.log.error("Sensor ID has no valid value");
-            this.terminate ? this.terminate("Sensor ID has no valid value", 0) : process.exit(0);
+            this.terminate ? this.terminate("Sensor ID has no valid value", 1) : process.exit(1);
         }
         this.log.debug("Sensor ID is " + sensor_id);
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
             this.log.error("User email and/or user password empty - please check instance configuration");
-            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 0) : process.exit(0);
+            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 1) : process.exit(1);
         }
         let client = null;
         if (mqtt_active) {
             if (broker_address.trim().length === 0 || broker_address == "0.0.0.0") {
                 this.log.error("MQTT IP address is empty - please check instance configuration");
-                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
+                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(1);
             }
             client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 connectTimeout: 4000,
@@ -348,6 +348,7 @@ class Heizoel24Mex extends utils.Adapter {
                 native: {},
             });
             for (let n = 0; n < this.Items.length; n++) {
+                // @ts-ignore
                 await this.setObjectNotExistsAsync(sensor_id.toString() + ".Items." + this.Items[n].id, {
                     type: "state",
                     common: {
@@ -372,6 +373,7 @@ class Heizoel24Mex extends utils.Adapter {
                 native: {},
             });
             for (let n = 0; n < this.PricingForecast.length; n++) {
+                // @ts-ignore
                 await this.setObjectNotExistsAsync(sensor_id.toString() + ".PricingForecast." + this.PricingForecast[n].id, {
                     type: "state",
                     common: {
@@ -403,6 +405,7 @@ class Heizoel24Mex extends utils.Adapter {
                 native: {},
             });
             for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
+                // @ts-ignore
                 await this.setObjectNotExistsAsync(sensor_id.toString() + ".RemainsUntilCombined." + this.RemainsUntilCombined[n].id, {
                     type: "state",
                     common: {
@@ -489,13 +492,13 @@ class Heizoel24Mex extends utils.Adapter {
         }
     }
 
-    async mex(username, passwort) {
+    async mex(username, passwort, sensor_id) {
         const [login_status, session_id] = await this.login(username, passwort);
         if (!login_status) {
             return [false, false];
         }
         this.log.debug("Refresh sensor data cache...");
-        const url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/1/False`;
+        const url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/${sensor_id}/False`;
         try {
             const reply = await axios.get(url);
             if (reply.status === 200) {
@@ -510,7 +513,7 @@ class Heizoel24Mex extends utils.Adapter {
     }
 
     async main(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir) {
-        const [daten, session_id] = await this.mex(username, passwort);
+        const [daten, session_id] = await this.mex(username, passwort, sensor_id);
         if (daten === false) {
             this.log.error("No data received");
             if (mqtt_active) {
@@ -579,8 +582,6 @@ class Heizoel24Mex extends utils.Adapter {
             }
         }
 
-        zukunftsDaten = zukunftsDaten["ConsumptionCurveResult"];
-
         await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining", {
             type: "channel",
             common: {
@@ -589,103 +590,55 @@ class Heizoel24Mex extends utils.Adapter {
             native: {},
         });
 
+        zukunftsDaten = zukunftsDaten["ConsumptionCurveResult"];
+        let jsonData = "[\n";
+        let unixTimestamp = 0;
+        let key = "";
+        let datum = "";
+
         let n = 0;
-        for (const key in zukunftsDaten) {
-            const datum = key.split("T")[0];
-            this.datum = datum;
+        for (key in zukunftsDaten) {
+            datum = key.split("T")[0];
             if (n % 14 == 0) { // Only every 14 days
-                if (n % 56 == 0) {
-                    this.log.debug(datum + " " + zukunftsDaten[key] + " Liter remaining");
-                }
                 if (mqtt_active) {
                     await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Date", datum);
                     await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Liter", zukunftsDaten[key].toString());
                 }
-
-                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
-                    type: "state",
-                    common: {
-                        name: "Date",
-                        type: "string",
-                        role: "date",
-                        unit: "",
-                        read: true,
-                        write: false
-                    },
-                    native: {},
-                });
-                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", { val: datum, ack: true });
-
-                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", {
-                    type: "state",
-                    common: {
-                        name: "Liter",
-                        type: "number",
-                        role: "value",
-                        unit: "L",
-                        read: true,
-                        write: false
-                    },
-                    native: {},
-                });
-                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: zukunftsDaten[key], ack: true });
+                unixTimestamp = new Date(datum).getTime() / 1000;
+                jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "},\n";
             }
             n++;
-            if (n > 735) { // Stop at day 735 at the latest
-                break;
-            }
         }
+        if (mqtt_active) {
+            await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Date", datum);
+            await this.sendMqtt(sensor_id, mqtt_active, client, "CalculatedRemaining/Today+" + String(n).padStart(4, "0") + " Days.Liter", zukunftsDaten[key].toString());
+        }
+
+        this.log.debug(n.toString() + " future days saved");
+        jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "}\n]";
+
+        await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.CalculatedRemainingJson", {
+            type: "state",
+            common: {
+                name: "OilLevelsInTheFuture",
+                type: "string",
+                role: "value",
+                unit: "",
+                read: true,
+                write: false
+            },
+            native: {},
+        });
+        await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.CalculatedRemainingJson", { val: jsonData, ack: true });
 
         if (mqtt_active) {
             client.end();
-        }
-
-        // Set surplus data points to 0
-        for (n; n < 736; n++) {
-            if (n % 14 == 0) { // Only every 14 days
-                if (n % 56 == 0) {
-                    this.log.debug("Data point: Day " + String(n).padStart(4, "0") + " set to 0 liter");
-                }
-                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", {
-                    type: "state",
-                    common: {
-                        name: "Date",
-                        type: "string",
-                        role: "date",
-                        unit: "",
-                        read: true,
-                        write: false
-                    },
-                    native: {},
-                });
-                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Date", { val: this.datum, ack: true });
-
-                await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", {
-                    type: "state",
-                    common: {
-                        name: "Liter",
-                        type: "number",
-                        role: "value",
-                        unit: "L",
-                        read: true,
-                        write: false
-                    },
-                    native: {},
-                });
-                await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.Today+" + String(n).padStart(4, "0") + " Days.Liter", { val: 0, ack: true });
-            }
         }
         return true;
     }
 
     onUnload(callback) {
         try {
-            // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
-            // clearInterval(interval1);
-
             callback();
         } catch (e) {
             callback();
