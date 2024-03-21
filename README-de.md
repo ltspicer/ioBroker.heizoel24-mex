@@ -11,6 +11,7 @@ Siehe: https://www.heizoel24.de/mex
 Lediglich Login Daten vom Heizoel24 Account eintragen (Email und Passwort).
 Die MEX Daten werden im Datenpunkt heizoel24-mex gespeichert.
 Der Adapter startet standardmässig alle 3 Stunden. Das ist völlig ausreichend, da der MEX nur einmal im Tag Daten versendet.
+Die Datei CalculatedRemaining/CalculatedRemainingJson (Berechnete Restmenge) kann direkt mit eCharts geöffnet werden.
 
 ## License
 MIT License
