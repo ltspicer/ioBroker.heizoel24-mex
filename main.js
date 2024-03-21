@@ -290,23 +290,23 @@ class Heizoel24Mex extends utils.Adapter {
         if (Number.isInteger(sensor_id)) {
             if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
                 this.log.error("Sensor ID has no value between 1 and 20");
-                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 1) : process.exit(1);
+                this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
             }
         } else {
             this.log.error("Sensor ID has no valid value");
-            this.terminate ? this.terminate("Sensor ID has no valid value", 1) : process.exit(1);
+            this.terminate ? this.terminate("Sensor ID has no valid value", 0) : process.exit(0);
         }
         this.log.debug("Sensor ID is " + sensor_id);
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
             this.log.error("User email and/or user password empty - please check instance configuration");
-            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 1) : process.exit(1);
+            this.terminate ? this.terminate("User email and/or user password empty - please check instance configuration", 0) : process.exit(0);
         }
         let client = null;
         if (mqtt_active) {
             if (broker_address.trim().length === 0 || broker_address == "0.0.0.0") {
                 this.log.error("MQTT IP address is empty - please check instance configuration");
-                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 1) : process.exit(1);
+                this.terminate ? this.terminate("MQTT IP address is empty - please check instance configuration", 0) : process.exit(0);
             }
             client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 connectTimeout: 4000,
