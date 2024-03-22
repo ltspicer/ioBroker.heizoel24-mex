@@ -415,6 +415,7 @@ class Heizoel24Mex extends utils.Adapter {
         }
 
         this.log.debug(n.toString() + " future days saved");
+        unixTimestamp = new Date(datum).getTime() / 1000;
         jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "}\n]";
 
         await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.JsonForEcharts", {
