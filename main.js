@@ -617,7 +617,7 @@ class Heizoel24Mex extends utils.Adapter {
         this.log.debug(n.toString() + " future days saved");
         jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "}\n]";
 
-        await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.CalculatedRemainingJson", {
+        await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.JsonForEcharts", {
             type: "state",
             common: {
                 name: "OilLevelsInTheFuture",
@@ -629,7 +629,7 @@ class Heizoel24Mex extends utils.Adapter {
             },
             native: {},
         });
-        await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.CalculatedRemainingJson", { val: jsonData, ack: true });
+        await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.JsonForEcharts", { val: jsonData, ack: true });
 
         if (mqtt_active) {
             client.end();

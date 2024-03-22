@@ -21,7 +21,7 @@ See: https://www.heizoel24.de/mex
 Simply enter the login data from your Heizoel24 account (e-mail and password).
 The MEX data is stored in the data point heizoel24-mex.
 The adapter starts by default every 3 hours. This is completely sufficient, as the MEX only sends data once a day.
-The data point CalculatedRemaining/CalculatedRemainingJson (calculated remaining quantity) can be opened directly with eCharts.
+The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity) can be opened directly with eCharts.
 
 
 ## Changelog
