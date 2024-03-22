@@ -22,252 +22,52 @@ class Heizoel24Mex extends utils.Adapter {
         this.on("unload", this.onUnload.bind(this));
 
         this.Items = [
-            {
-                id   : "DataReceived",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "SensorId",
-                role : "value",
-                unit : "",
-                type : "number"
-            },
-            {
-                id   : "IsMain",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "CurrentVolumePercentage",
-                role : "level",
-                unit : "%",
-                type : "number"
-            },
-            {
-                id   : "CurrentVolume",
-                role : "level",
-                unit : "L",
-                type : "number"
-            },
-            {
-                id   : "NotifyAtLowLevel",
-                role : "level.color.red",
-                unit : "%",
-                type : "number"
-            },
-            {
-                id   : "NotifyAtAlmostEmptyLevel",
-                role : "level.color.red",
-                unit : "%",
-                type : "number"
-            },
-            {
-                id   : "NotificationsEnabled",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "Usage",
-                role : "value",
-                unit : "L/Day",
-                type : "number"
-            },
-            {
-                id   : "RemainsUntil",
-                role : "date",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "MaxVolume",
-                role : "level.max",
-                unit : "L",
-                type : "number"
-            },
-            {
-                id   : "ZipCode",
-                role : "value",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "MexName",
-                role : "value",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "LastMeasurementTimeStamp",
-                role : "date",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "LastMeasurementWithDifferentValue",
-                role : "date",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "BatteryPercentage",
-                role : "value.battery",
-                unit : "%",
-                type : "number"
-            },
-            {
-                id   : "Battery",
-                role : "value.battery",
-                unit : "V",
-                type : "number"
-            },
-            {
-                id   : "LitresPerCentimeter",
-                role : "value",
-                unit : "L/cm",
-                type : "number"
-            },
-            {
-                id   : "LastMeasurementWasSuccessfully",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "SensorTypeId",
-                role : "value",
-                unit : "",
-                type : "number"
-            },
-            {
-                id   : "HasMeasurements",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "MeasuredDaysCount",
-                role : "value",
-                unit : "Days",
-                type : "number"
-            },
-            {
-                id   : "LastMeasurementWasTooHigh",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "YearlyOilUsage",
-                role : "value",
-                unit : "L",
-                type : "number"
-            },
-            {
-                id   : "RemainingDays",
-                role : "value",
-                unit : "Days",
-                type : "number"
-            },
-            {
-                id   : "LastOrderPrice",
-                role : "value",
-                unit : "€|CHF",
-                type : "number"
-            },
-            {
-                id   : "ResultCode",
-                role : "value",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "ResultMessage",
-                role : "value",
-                unit : "",
-                type : "boolean"
-            },
+            {id : "DataReceived",                       role : "indicator",       unit : "",       type : "boolean"},
+            {id : "SensorId",                           role : "value",           unit : "",       type : "number" },
+            {id : "IsMain",                             role : "indicator",       unit : "",       type : "boolean"},
+            {id : "CurrentVolumePercentage",            role : "level",           unit : "%",      type : "number" },
+            {id : "CurrentVolume",                      role : "level",           unit : "L",      type : "number" },
+            {id : "NotifyAtLowLevel",                   role : "level.color.red", unit : "%",      type : "number" },
+            {id : "NotifyAtAlmostEmptyLevel",           role : "level.color.red", unit : "%",      type : "number" },
+            {id : "NotificationsEnabled",               role : "indicator",       unit : "",       type : "boolean"},
+            {id : "Usage",                              role : "value",           unit : "L/Day",  type : "number" },
+            {id : "RemainsUntil",                       role : "date",            unit : "",       type : "string" },
+            {id : "MaxVolume",                          role : "level.max",       unit : "L",      type : "number" },
+            {id : "ZipCode",                            role : "value",           unit : "",       type : "string" },
+            {id : "MexName",                            role : "value",           unit : "",       type : "string" },
+            {id : "LastMeasurementTimeStamp",           role : "date",            unit : "",       type : "string" },
+            {id : "LastMeasurementWithDifferentValue",  role : "date",            unit : "",       type : "string" },
+            {id : "BatteryPercentage",                  role : "value.battery",   unit : "%",      type : "number" },
+            {id : "Battery",                            role : "value.battery",   unit : "V",      type : "number" },
+            {id : "LitresPerCentimeter",                role : "value",           unit : "L/cm",   type : "number" },
+            {id : "LastMeasurementWasSuccessfully",     role : "indicator",       unit : "",       type : "boolean"},
+            {id : "SensorTypeId",                       role : "value",           unit : "",       type : "number" },
+            {id : "HasMeasurements",                    role : "indicator",       unit : "",       type : "boolean"},
+            {id : "MeasuredDaysCount",                  role : "value",           unit : "Days",   type : "number" },
+            {id : "LastMeasurementWasTooHigh",          role : "indicator",       unit : "",       type : "boolean"},
+            {id : "YearlyOilUsage",                     role : "value",           unit : "L",      type : "number" },
+            {id : "RemainingDays",                      role : "value",           unit : "Days",   type : "number" },
+            {id : "LastOrderPrice",                     role : "value",           unit : "€|CHF",  type : "number" },
+            {id : "ResultCode",                         role : "value",           unit : "",       type : "boolean"},
+            {id : "ResultMessage",                      role : "value",           unit : "",       type : "boolean"},
         ];
 
         this.PricingForecast = [
-            {
-                id   : "LastOrderPrice",
-                role : "value",
-                unit : "€|CHF/100L",
-                type : "number"
-            },
-            {
-                id   : "PriceComparedToYesterdayPercentage",
-                role : "value",
-                unit : "%",
-                type : "number"
-            },
-            {
-                id   : "PriceForecastPercentage",
-                role : "value",
-                unit : "%",
-                type : "number"
-            },
-            {
-                id   : "HasMultipleMexDevices",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "DashboardViewMode",
-                role : "value",
-                unit : "",
-                type : "number"
-            },
-            {
-                id   : "ShowComparedToYesterday",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "ShowForecast",
-                role : "indicator",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "ResultCode",
-                role : "value",
-                unit : "",
-                type : "boolean"
-            },
-            {
-                id   : "ResultMessage",
-                role : "value",
-                unit : "",
-                type : "boolean"
-            },
+            {id : "LastOrderPrice",                     role : "value",      unit : "€|CHF/100L",  type : "number" },
+            {id : "PriceComparedToYesterdayPercentage", role : "value",      unit : "%",           type : "number" },
+            {id : "PriceForecastPercentage",            role : "value",      unit : "%",           type : "number" },
+            {id : "HasMultipleMexDevices",              role : "indicator",  unit : "",            type : "boolean"},
+            {id : "DashboardViewMode",                  role : "value",      unit : "",            type : "number" },
+            {id : "ShowComparedToYesterday",            role : "indicator",  unit : "",            type : "boolean"},
+            {id : "ShowForecast",                       role : "indicator",  unit : "",            type : "boolean"},
+            {id : "ResultCode",                         role : "value",      unit : "",            type : "boolean"},
+            {id : "ResultMessage",                      role : "value",      unit : "",            type : "boolean"},
         ];
 
         this.RemainsUntilCombined = [
-            {
-                id   : "MonthAndYear",
-                role : "value",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "RemainsValue",
-                role : "value",
-                unit : "",
-                type : "string"
-            },
-            {
-                id   : "RemainsUnit",
-                role : "value",
-                unit : "",
-                type : "string"
-            },
+            {id : "MonthAndYear",                       role : "value",      unit : "",            type : "string" },
+            {id : "RemainsValue",                       role : "value",      unit : "",            type : "string" },
+            {id : "RemainsUnit",                        role : "value",      unit : "",            type : "string" },
         ];
 
         this.contentItems = [];
