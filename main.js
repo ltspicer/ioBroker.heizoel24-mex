@@ -83,12 +83,15 @@ class Heizoel24Mex extends utils.Adapter {
         const mqtt_user = this.config.mqtt_user;
         const mqtt_pass = this.config.mqtt_pass;
         const mqtt_port = this.config.mqtt_port;
-        const sensor_id = this.config.sensor_id;
+        const sensor_in = this.config.sensor_id;
+        let sensor_id = 1;
         const storeJson = this.config.storeJson;
         const storeDir = this.config.storeDir;
 
-        if (Number.isInteger(sensor_id)) {
+        if (Number(sensor_in)) {
+            sensor_id = parseInt(sensor_in);
             if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
+                sensor_id = 1;
                 this.log.error("Sensor ID has no value between 1 and 20");
                 this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
             }
