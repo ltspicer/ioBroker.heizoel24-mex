@@ -90,8 +90,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (Number(sensor_in)) {
             sensor_id = parseInt(sensor_in);
-            if (parseInt(sensor_id) < 1 || parseInt(sensor_id) > 20) {
-                sensor_id = 1;
+            if (sensor_id < 1 || sensor_id > 20) {
                 this.log.error("Sensor ID has no value between 1 and 20");
                 this.terminate ? this.terminate("Sensor ID has no value between 1 and 20", 0) : process.exit(0);
             }
