@@ -33,8 +33,7 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 ### 1.2.0 (2024-03-16)
 
 - CalculatedRemaining data in JsonForEcharts data point stored. This can used direct with eCharts
-- Limited to 52 data points
-- Option for save CalculatedRemaining json
+- Option for save CalculatedRemaining.json file
 
 ### 1.1.0 (2024-03-09)
 
