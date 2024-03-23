@@ -190,7 +190,7 @@ class Heizoel24Mex extends utils.Adapter {
                 if (this.contentPricingForecast[n] == false &&
                     (this.PricingForecast[n].id == "PriceComparedToYesterdayPercentage" ||
                     this.PricingForecast[n].id == "PriceForecastPercentage")) {
-                    this.log.debug(this.PricingForecast[n].id + " omitted, while it's false");
+                    this.log.debug(this.PricingForecast[n].id + " omitted, because it's false");
                 } else {
                     await this.setStateAsync(sensor_id.toString() + ".PricingForecast." + this.PricingForecast[n].id, { val: this.contentPricingForecast[n], ack: true });
                 }
@@ -332,7 +332,7 @@ class Heizoel24Mex extends utils.Adapter {
                 if (this.contentPricingForecast[n] == false &&
                     (this.PricingForecast[n].id == "PriceComparedToYesterdayPercentage" ||
                     this.PricingForecast[n].id == "PriceForecastPercentage")) {
-                    this.log.debug(this.PricingForecast[n].id + " omitted, while it's false");
+                    this.log.debug(this.PricingForecast[n].id + " omitted, because it's false");
                 } else {
                     await this.sendMqtt(sensor_id, mqtt_active, client, "PricingForecast/" + this.PricingForecast[n].id, result.toString());
                 }
