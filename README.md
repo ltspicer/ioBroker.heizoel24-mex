@@ -32,7 +32,7 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 -->
 ### 1.2.0 (2024-03-16)
 
-- CalculatedRemaining data points renamed to "Today+XXXX Days"
+- CalculatedRemaining data in JsonForEcharts data point stored. This can used direct with eCharts
 - Limited to 52 data points
 - Option for save CalculatedRemaining json
 
