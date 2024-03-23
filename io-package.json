@@ -155,5 +155,17 @@
     "sensor_id": "1",
     "storeJson": false,
     "storeDir": "/home/iobroker"
-  }
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    }
+  ]
+}
 }
