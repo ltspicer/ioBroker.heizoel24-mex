@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "news": {
+      "1.3.0": {
+        "en": "New README.md",
+        "de": "Neue README.md",
+        "ru": "New README.md",
+        "pt": "Novo README.md",
+        "nl": "Nieuw README.md",
+        "fr": "Nouveau README.md",
+        "it": "Nuovo README.md",
+        "es": "Nuevo README.md",
+        "pl": "Nowy README.md",
+        "uk": "Новий README.md",
+        "zh-cn": "新建 README.md"
+      },
       "1.2.0": {
         "en": "CalculatedRemaining data points renamed to \"Day XXXX\"\nLimited to 735 data points\nOption for save CalculatedRemaining json",
         "de": "Berechnung Weiterführende Datenpunkte in \"Day XXXX\" umbenannt\nLimitiert auf 735 Datenpunkte\nOption zum Speichern von CalculatedRemaining json",
