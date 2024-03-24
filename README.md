@@ -33,6 +33,7 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 ### 1.3.0 (2024-03-24)
 
 - New README.md
+- CalculatedRemaining data points removed
 
 ### 1.2.0 (2024-03-16)
 
