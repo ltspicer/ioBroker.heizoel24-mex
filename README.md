@@ -32,6 +32,8 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 -->
 ### **WORK IN PROGRESS**
 
+- New README.md
+
 ### 1.2.0 (2024-03-16)
 
 - CalculatedRemaining data points renamed to "Today+XXXX Days"
