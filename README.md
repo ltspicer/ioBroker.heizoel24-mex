@@ -30,7 +30,7 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.1 (2024-03-24)
 
 - CalculatedRemaining json data point for eCharts added
 

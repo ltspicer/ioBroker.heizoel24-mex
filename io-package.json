@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "news": {
+      "1.3.1": {
+        "en": "CalculatedRemaining json data point for eCharts added",
+        "de": "Berechnung Weiterführender json-Datenpunkt für eCharts hinzugefügt",
+        "ru": "Рассчитано Оставшаяся точка данных json для eCharts добавлена",
+        "pt": "Calculado Ponto de dados json restante para eCharts adicionado",
+        "nl": "Berekend Resterend json-gegevenspunt voor eCharts toegevoegd",
+        "fr": "Calculé Autre point de données json pour eCharts ajouté",
+        "it": "Calcolato Remain json data point per eCharts aggiunto",
+        "es": "Cálculo Punto de datos json restante para eCharts añadido",
+        "pl": "Obliczone Pozostały punkt danych json dla eCharts dodany",
+        "uk": "Розрахунок Зменшення точки даних json для eCharts додано",
+        "zh-cn": "计算 添加了电子图的 json 数据点"
+      },
       "1.3.0": {
         "en": "New README.md",
         "de": "Neue README.md",
