@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "news": {
+      "1.3.3": {
+        "en": "Fix: no error if CalculatedRemaining is empty and mqtt is active",
+        "de": "Fix: kein Fehler, wenn CalculatedRemaining leer ist und mqtt aktiv ist",
+        "ru": "Fix: нет ошибки, если CalculatedRemain остается пустым и mqtt активен",
+        "pt": "Corrigir: nenhum erro se CalculatedRemaining estiver vazio e mqtt estiver ativo",
+        "nl": "Fix: geen fout als berekendRemaining leeg is en mqtt actief is",
+        "fr": "Correction : aucune erreur si CalculatedRemaining est vide et mqtt est actif",
+        "it": "Fisso: nessun errore se CalculatedRemaining è vuoto e mqtt è attivo",
+        "es": "Fijación: ningún error si CalculadoEl mantenimiento está vacío y mqtt está activo",
+        "pl": "Fix: nie ma błędu jeśli Kalkulacja Pozostałości jest pusta i mqtt jest aktywny",
+        "uk": "Виправлення: Немає помилки, якщо Розрахунок є порожнім і mqtt активний",
+        "zh-cn": "修正: 如果计算保留为空且 mqtt 活动, 没有错误"
+      },
       "1.3.2": {
         "en": "Error intercepted for:\n- RemainsUntilCombined no data found\n- CalculatedRemaining is empty",
         "de": "Fehler abgefangen bei:\n- RemainsUntil Keine Daten gefunden\n- CalculatedRemaining ist leer",
@@ -80,19 +93,6 @@
         "pl": "Repo neu triggern",
         "uk": "Repo neu тригер",
         "zh-cn": "Repo neu 触发器"
-      },
-      "1.0.0": {
-        "en": "No errors found",
-        "de": "Keine Fehler gefunden",
-        "ru": "Не найдено ошибок",
-        "pt": "Sem erros encontrados",
-        "nl": "Geen fouten gevonden",
-        "fr": "Aucune erreur trouvée",
-        "it": "Nessun errore trovato",
-        "es": "No se han encontrado errores",
-        "pl": "Brak błędów",
-        "uk": "Немає помилок",
-        "zh-cn": "未找到错误"
       }
     },
     "titleLang": {
