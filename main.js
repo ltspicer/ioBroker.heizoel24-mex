@@ -360,12 +360,21 @@ class Heizoel24Mex extends utils.Adapter {
         const daten3 = items["RemainsUntilCombined"];
 
         for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
-            const result = daten3[this.RemainsUntilCombined[n].id] || false;
-            this.contentRemainsUntilCombined[n] = result;
-            if (mqtt_active) {
-                await this.sendMqtt(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n].id, result.toString());
+            let result = "empty";
+            try {
+                result = daten3[this.RemainsUntilCombined[n].id] || false;
+            } catch (error) {
+                this.log.debug("RemainsUntilCombined no data found");
             }
-            this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n].id + ": " + result.toString() + ", unit: " + this.RemainsUntilCombined[n].unit + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n].id]));
+            this.contentRemainsUntilCombined[n] = result;
+            try {
+                if (mqtt_active) {
+                    await this.sendMqtt(sensor_id, mqtt_active, client, "RemainsUntilCombined/" + this.RemainsUntilCombined[n].id, result.toString());
+                }
+                this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n].id + ": " + result.toString() + ", unit: " + this.RemainsUntilCombined[n].unit + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n].id]));
+            } catch (error) {
+                this.log.debug("RemainsUntilCombined no data found");
+            }
         }
 
         const sensorId = this.contentItems[1]; // get SensorId
@@ -418,7 +427,11 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.log.debug(n.toString() + " future days saved");
         unixTimestamp = new Date(datum).getTime() / 1000;
-        jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "}\n]";
+        try {
+            jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "}\n]";
+        } catch (error) {
+            this.log.debug("CalculatedRemaining is empty");
+        }
 
         await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.JsonForEcharts", {
             type: "state",
