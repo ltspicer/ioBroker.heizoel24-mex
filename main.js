@@ -364,7 +364,7 @@ class Heizoel24Mex extends utils.Adapter {
             try {
                 result = daten3[this.RemainsUntilCombined[n].id] || false;
             } catch (error) {
-            	this.log.debug("RemainsUntilCombined no data found");
+                this.log.debug("RemainsUntilCombined no data found");
             }
             this.contentRemainsUntilCombined[n] = result;
             try {
@@ -373,7 +373,7 @@ class Heizoel24Mex extends utils.Adapter {
                 }
                 this.log.debug("RemainsUntilCombined: " + this.RemainsUntilCombined[n].id + ": " + result.toString() + ", unit: " + this.RemainsUntilCombined[n].unit + ", Typ: " + (typeof daten3[this.RemainsUntilCombined[n].id]));
             } catch (error) {
-            	this.log.debug("RemainsUntilCombined no data found");
+                this.log.debug("RemainsUntilCombined no data found");
             }
         }
 
@@ -434,7 +434,7 @@ class Heizoel24Mex extends utils.Adapter {
         try {
             jsonData = jsonData + '    {"ts": ' + unixTimestamp + ', "val": ' + zukunftsDaten[key].toString() + "}\n]";
         } catch (error) {
-        	this.log.debug("CalculatedRemaining is empty");
+            this.log.debug("CalculatedRemaining is empty");
         }
 
         await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining.JsonForEcharts", {
