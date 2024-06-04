@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "news": {
+      "1.3.2": {
+        "en": "Error intercepted for:\n- RemainsUntilCombined no data found\n- CalculatedRemaining is empty",
+        "de": "Fehler abgefangen bei:\n- RemainsUntil Keine Daten gefunden\n- CalculatedRemaining ist leer",
+        "ru": "Ошибка перехвачена для:\n- RemainsUntil Сводные данные отсутствуют\n- Рассчитанный Остаток пуст",
+        "pt": "Erro interceptado para:\n- Permanece até Combinado nenhum dado encontrado\n- O restante está vazio",
+        "nl": "Fout onderschept voor:\n- Blijft tot Gecombineerd geen gegevens gevonden\n- BerekendRemaining is leeg",
+        "fr": "Erreur interceptée pour :\n- Reste jusqu'à Aucune donnée combinée n'a été trouvée\n- CalculéLe reste est vide",
+        "it": "Errore intercettato per:\n- Resta fino a quando Nessun dato trovato\n- CalculatedRemaining è vuoto",
+        "es": "Error interceptado para:\n- PermanecesUntil No se encontraron datos combinados\n- CalculadoEl mantenimiento está vacío",
+        "pl": "Błąd przechwycony dla:\n- Do czasu Nie znaleziono połączonych danych\n- Obliczenie pozostałych jest puste",
+        "uk": "Перехоплення помилок:\n- RemainsUntil Не знайдено ніяких даних\n- ОбчисленняПорожня",
+        "zh-cn": "已拦截错误 :\n- 留下来直到 合并未找到数据\n- 计算是空的"
+      },
       "1.3.1": {
         "en": "CalculatedRemaining json data point for eCharts added",
         "de": "Berechnung Weiterführender json-Datenpunkt für eCharts hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Brak błędów",
         "uk": "Немає помилок",
         "zh-cn": "未找到错误"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "uk": "Початкова версія",
-        "zh-cn": "首次出版"
       }
     },
     "titleLang": {

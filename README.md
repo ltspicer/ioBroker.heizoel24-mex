@@ -30,7 +30,7 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.2 (2024-06-04)
 
 Error intercepted for:
 - RemainsUntilCombined no data found
