@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "news": {
+      "1.3.4": {
+        "en": "js-controller dependency updated",
+        "de": "js-controller abhängigkeit aktualisiert",
+        "ru": "js-контроллер зависимость обновлен",
+        "pt": "js-controller dependência atualizada",
+        "nl": "js-controller afhankelijkheid bijgewerkt",
+        "fr": "js-controller dépendance mise à jour",
+        "it": "js-controller dipendenza aggiornata",
+        "es": "js-controller dependenciancy updated",
+        "pl": "aktualizacja zależności kontrolera js-",
+        "uk": "js-controller залежність оновлено",
+        "zh-cn": "js 控制器依赖性更新"
+      },
       "1.3.3": {
         "en": "Fix: no error if CalculatedRemaining is empty and mqtt is active",
         "de": "Fix: kein Fehler, wenn CalculatedRemaining leer ist und mqtt aktiv ist",
@@ -80,19 +93,6 @@
         "pl": "Usunięta funkcja logowania nadmiarowego",
         "uk": "Зняти функцію суперфлюзії",
         "zh-cn": "超流记录函数已删除"
-      },
-      "1.0.1-alpha.0": {
-        "en": "Repo neu triggern",
-        "de": "Repo neu triggern",
-        "ru": "Repo neu триггер",
-        "pt": "Repo neu gatilho",
-        "nl": "Repo neu triggern",
-        "fr": "Repo neu déclencheur",
-        "it": "Repo neu attivato",
-        "es": "Repo neu triggern",
-        "pl": "Repo neu triggern",
-        "uk": "Repo neu тригер",
-        "zh-cn": "Repo neu 触发器"
       }
     },
     "titleLang": {
