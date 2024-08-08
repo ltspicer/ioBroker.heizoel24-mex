@@ -30,7 +30,7 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.4 (2024-08-08)
 
 js-controller dependency updated
 
