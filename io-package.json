@@ -114,14 +114,15 @@
     "keywords": [
       "mex",
       "heizoel",
-      "heizoel24"
+      "heizoel24",
+      "ioBroker.heizoel24",
+      "ioBroker"
     ],
     "licenseInformation": {
       "type": "free",
       "license": "MIT"
     },
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "heizoel24-mex.png",
     "enabled": false,
     "extIcon": "https://raw.githubusercontent.com/ltspicer/ioBroker.heizoel24-mex/main/admin/heizoel24-mex.png",
