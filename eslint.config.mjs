@@ -24,8 +24,8 @@ export default [{
         },
 
         ecmaVersion: "latest",
-        sourceType: "commonjs",
-    },
+        sourceType: "module",
+    }
 
     rules: {
         indent: ["error", 4, {
