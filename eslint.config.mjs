@@ -31,7 +31,7 @@ export default [
             indent: ["error", 4, { SwitchCase: 1 }],
             "no-console": "off",
             "no-unused-vars": [
-                "error",
+                "warn",
                 {
                     ignoreRestSiblings: true,
                     argsIgnorePattern: "^_",
