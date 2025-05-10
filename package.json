@@ -9,6 +9,7 @@
   "homepage": "https://github.com/ltspicer/ioBroker.heizoel24-mex",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
     "mex",
     "heizoel",
     "heizoel24"
@@ -18,7 +19,7 @@
     "url": "git@github.com:ltspicer/ioBroker.heizoel24-mex.git"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 20"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.3",
