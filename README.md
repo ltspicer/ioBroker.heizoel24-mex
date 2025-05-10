@@ -30,6 +30,10 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+* (mcm1957) Adapter requires node.js 20 and admin 6.17.14 now
+
 ### 1.3.5 (2024-08-08)
 
 js-controller dependency updated
