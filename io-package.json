@@ -115,8 +115,7 @@
       "mex",
       "heizoel",
       "heizoel24",
-      "ioBroker.heizoel24",
-      "ioBroker"
+      "ioBroker.heizoel24"
     ],
     "licenseInformation": {
       "type": "free",
@@ -146,7 +145,7 @@
     ],
     "globalDependencies": [
       {
-        "admin": ">=5.1.13"
+        "admin": ">=6.17.14"
       }
     ]
   },
