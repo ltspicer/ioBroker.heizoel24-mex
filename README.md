@@ -27,10 +27,6 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 ## Changelog
 
 
-### **WORK IN PROGRESS > Done**
-
-* (mcm1957) Adapter requires node.js 20 and admin 6.17.14 now
-
 ### 1.3.5 (2024-08-08)
 
 js-controller dependency updated
