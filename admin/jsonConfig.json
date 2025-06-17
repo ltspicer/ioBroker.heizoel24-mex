@@ -6,62 +6,62 @@
       "type": "text",
       "label": "Heizoel24 username (email)",
       "newLine": true,
-      "size": { "xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 3 }
+      "sm": 6
     },
     "passwort": {
       "type": "text",
       "label": "Heizoel24 password",
-      "size": { "xs": 12, "sm": 6, "md": 6, "lg": 4, "xl": 3 }
+      "sm": 6
     },
     "mqtt_active": {
       "type": "checkbox",
       "label": "Use MQTT",
       "default": false,
       "newLine": true,
-      "size": { "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 2 }
+      "sm": 6
     },
     "broker_address": {
       "type": "text",
       "label": "MQTT broker IP address",
       "newLine": true,
-      "size": { "xs": 12, "sm": 8, "md": 6, "lg": 6, "xl": 4 }
+      "sm": 6
     },
     "mqtt_port": {
       "type": "number",
       "label": "MQTT port",
       "default": 1883,
-      "size": { "xs": 12, "sm": 4, "md": 2, "lg": 2, "xl": 1 }
+      "sm": 6
     },
     "mqtt_user": {
       "type": "text",
       "label": "MQTT user",
       "newLine": true,
-      "size": { "xs": 12, "sm": 6, "md": 4, "lg": 4, "xl": 3 }
+      "sm": 6
     },
     "mqtt_pass": {
       "type": "text",
       "label": "MQTT password",
-      "size": { "xs": 12, "sm": 6, "md": 4, "lg": 4, "xl": 3 }
+      "sm": 6
     },
     "sensor_id": {
       "type": "number",
       "label": "Sensor ID (1-20)",
       "default": 1,
       "newLine": true,
-      "size": { "xs": 12, "sm": 4, "md": 2, "lg": 2, "xl": 1 }
+      "sm": 6
     },
     "storeJson": {
       "type": "checkbox",
       "label": "Save Json file",
       "default": false,
       "newLine": true,
-      "size": { "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 2 }
+      "sm": 6
     },
     "storeDir": {
       "type": "text",
       "label": "Folder for files CalculatedRemaining.json & OilUsage.json",
       "default": "/home/iobroker",
-      "size": { "xs": 12, "sm": 10, "md": 8, "lg": 6, "xl": 6 }
+      "sm": 6
     }
   }
 }
