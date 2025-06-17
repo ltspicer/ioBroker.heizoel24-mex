@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.3.5",
+    "version": "1.4.0",
     "news": {
+      "1.4.0": {
+        "en": "OilUsage (Oil consumption per month) added",
+        "de": "Ölverbrauch (Ölverbrauch pro Monat) hinzugefügt",
+        "ru": "Использование масла (Потребление нефти в месяц)",
+        "pt": "Utilização do Petróleo (consumo de petróleo por mês)",
+        "nl": "Oliegebruik (Olieverbruik per maand) toegevoegd",
+        "fr": "Utilisation du pétrole (consommation d'huile par mois)",
+        "it": "Olio (Consumi del petrolio al mese) aggiunto",
+        "es": "OilUsage (Consumo de petróleo por mes) añadido",
+        "pl": "OilUsage (Zużycie oleju miesięcznie)",
+        "uk": "Мастила (Витрата палива в місяць) додано",
+        "zh-cn": "石油使用量 (每月石油消费量)"
+      },
       "1.3.5": {
         "en": "js-controller dependency updated",
         "de": "js-controller abhängigkeit aktualisiert",

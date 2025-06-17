@@ -25,7 +25,9 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 
 
 ## Changelog
+### 1.4.0 (2025-06-17)
 
+- OilUsage (Oil consumption per month) added
 
 ### 1.3.5 (2024-08-08)
 
@@ -71,7 +73,7 @@ Error intercepted for:
 ## License
 MIT License
 
-Copyright (c) 2024 Daniel Luginbühl <webmaster@ltspiceusers.ch>
+Copyright (c) 2025 Daniel Luginbühl <webmaster@ltspiceusers.ch>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
