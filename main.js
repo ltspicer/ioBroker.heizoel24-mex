@@ -297,25 +297,47 @@ class Heizoel24Mex extends utils.Adapter {
     async mex(username, passwort, sensor_id) {
         const [login_status, session_id] = await this.login(username, passwort);
         if (!login_status) {
-            return [false, false];
+            return [false, false, false];
         }
+
         this.log.debug("Refresh sensor data cache...");
-        const url = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/1/${sensor_id}/False`;
+
+        const url1 = `https://api.heizoel24.de/app/api/app/GetDashboardData/${session_id}/2/${sensor_id}/False`;
+        const url2 = `https://api.heizoel24.de/app/api/app/GetOilUsage/${session_id}/False`;
+
         try {
-            const reply = await axios.get(url);
-            if (reply.status === 200) {
-                this.log.debug("Data was received");
-                return [reply, session_id];
+            const reply1 = await axios.get(url1);
+            if (reply1.status !== 200) {
+                this.log.error("Dashboard data unsuccessful.");
+                return [false, false, false];
             }
+
+            let reply2 = false;
+            try {
+                const r2 = await axios.get(url2);
+                if (r2.status === 200) {
+                    reply2 = r2.data;
+                } else {
+                    this.log.warn("Oil consumption could not be loaded (status ≠ 200).");
+                }
+            } catch (e) {
+                this.log.warn("Error retrieving oil consumption: " + (e?.response?.status || e.message));
+            }
+
+            this.log.debug("Dashboard data successfully received.");
+            return [reply1.data, reply2, session_id];
+
         } catch (error) {
-            this.log.error("Error when fetching dashboard data. Error: " + error.response.status);
-            this.terminate ? this.terminate("Error when fetching dashboard!", 1) : process.exit(1);
+            const status = error?.response?.status || "unknown";
+            this.log.error("Error retrieving dashboard data. Status: " + status);
+            this.terminate ? this.terminate("Error retrieving dashboard data!", 1) : process.exit(1);
         }
-        return [false, false];
+
+        return [false, false, false];
     }
 
     async main(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir) {
-        const [daten, session_id] = await this.mex(username, passwort, sensor_id);
+        const [daten, oil_usage, session_id] = await this.mex(username, passwort, sensor_id);
         if (daten === false) {
             this.log.error("No data received");
             if (mqtt_active) {
@@ -325,7 +347,7 @@ class Heizoel24Mex extends utils.Adapter {
             return false;
         }
 
-        const datenJson = daten.data;
+        const datenJson = daten;
 
         for (let n = 0; n < this.PricingForecast.length; n++) {
             const result = datenJson[this.PricingForecast[n].id] || false;
@@ -391,6 +413,16 @@ class Heizoel24Mex extends utils.Adapter {
             } catch (error) {
                 this.log.warn("Json file not saved. Does ioBroker have write permissions in the specified folder?");
             }
+            if (oil_usage) {
+                try {
+                    const oilJson = JSON.stringify(oil_usage, null, 4);
+                    fs.writeFileSync(storeDir + "/OilUsage.json", oilJson, "utf8");
+                } catch (error) {
+                    this.log.warn("OilUsage file not saved. Does ioBroker have write permissions?");
+                }
+            } else {
+                this.log.warn("OilUsage data not available – file was not saved.");
+            }
         }
 
         await this.setObjectNotExistsAsync(sensor_id.toString() + ".CalculatedRemaining", {
@@ -450,6 +482,62 @@ class Heizoel24Mex extends utils.Adapter {
             native: {},
         });
         await this.setStateAsync(sensor_id.toString() + ".CalculatedRemaining.JsonForEcharts", { val: jsonData, ack: true });
+
+        // OilUsage verarbeiten und senden
+        if (oil_usage && oil_usage["Values"]) {
+            const oilUsage = oil_usage["Values"];
+            let oilJsonData = "[\n";
+            let count = 0;
+
+            for (const key in oilUsage) {
+                const datum = key.split("T")[0];
+                const liter = oilUsage[key];
+                const unixTimestamp = new Date(datum).getTime() / 1000;
+
+                if (mqtt_active) {
+                    await this.sendMqtt(sensor_id, mqtt_active, client, "OilUsage/" + datum, liter + " Ltr.");
+                }
+
+                oilJsonData += `    {"ts": ${unixTimestamp}, "val": ${liter}},\n`;
+                count++;
+            }
+
+            this.log.debug(count.toString() + " OilUsage-Einträge verarbeitet");
+
+            // Letztes Komma ersetzen
+            if (count > 0) {
+                oilJsonData = oilJsonData.trimEnd().replace(/,$/, "") + "\n]";
+            } else {
+                oilJsonData = "[]";
+            }
+
+            // ioBroker-Datenpunkt erstellen
+            await this.setObjectNotExistsAsync(sensor_id.toString() + ".OilUsage.JsonForEcharts", {
+                type: "state",
+                common: {
+                    name: "OilUsage over time",
+                    type: "string",
+                    role: "value",
+                    unit: "",
+                    read: true,
+                    write: false
+                },
+                native: {},
+            });
+
+            // Wert setzen
+            await this.setStateAsync(sensor_id.toString() + ".OilUsage.JsonForEcharts", { val: oilJsonData, ack: true });
+
+            // Datei speichern, falls gewünscht
+            if (storeJson) {
+                try {
+                    const json = JSON.stringify(oil_usage, null, 4);
+                    fs.writeFileSync(storeDir + "/OilUsage.json", json, "utf8");
+                } catch (error) {
+                    this.log.warn("OilUsage.json konnte nicht gespeichert werden. Schreibrechte prüfen?");
+                }
+            }
+        }
 
         if (mqtt_active) {
             client.end();
