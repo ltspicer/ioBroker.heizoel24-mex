@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "news": {
+      "1.4.2": {
+        "en": "Bug fix jsonConfig.json : xs,sm, md, ...",
+        "de": "Fehlerbehebung jsonConfig.json : xs,sm, md, ...",
+        "ru": "Обсуждение jsonConfig.json: xs,sm, md,...",
+        "pt": "Erro jsonConfig.json : xs, sm, md, ...",
+        "nl": "Bug fix jsonConfig.json: xs,sm, md, ...",
+        "fr": "Correction de bug jsonConfig.json : xs,sm, md, ...",
+        "it": "Bug fix jsonConfig.json: xs,sm, md, ...",
+        "es": "Bug fix jsonConfig.json : xs,sm, md, ...",
+        "pl": "Bug fix jsonConfig.json: xs, sm, md,...",
+        "uk": "Виправлено помилку jsonConfig.json : xs,sm, md, ...",
+        "zh-cn": "Bug fix jsonConfig.json : xs, sm, md, ... ) 错误修复jsonConfig.json : xs, sm, md,..."
+      },
       "1.4.1": {
         "en": "Bug fix jsonConfig.json : size removed",
         "de": "Fehlerbehebung jsonConfig.json : Größe entfernt",
@@ -80,19 +93,6 @@
         "pl": "Obliczone Pozostały punkt danych json dla eCharts dodany",
         "uk": "Розрахунок Зменшення точки даних json для eCharts додано",
         "zh-cn": "计算 添加了电子图的 json 数据点"
-      },
-      "1.3.0": {
-        "en": "New README.md",
-        "de": "Neue README.md",
-        "ru": "New README.md",
-        "pt": "Novo README.md",
-        "nl": "Nieuw README.md",
-        "fr": "Nouveau README.md",
-        "it": "Nuovo README.md",
-        "es": "Nuevo README.md",
-        "pl": "Nowy README.md",
-        "uk": "Новий README.md",
-        "zh-cn": "新建 README.md"
       }
     },
     "titleLang": {
