@@ -1,6 +1,6 @@
 {
   "name": "iobroker.heizoel24-mex",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Read in data from MEX",
   "author": {
     "name": "Daniel Luginbühl",

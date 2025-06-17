@@ -25,6 +25,10 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 
 
 ## Changelog
+### 1.4.1 (2025-06-17)
+
+- Bug fix jsonConfig.json : size removed
+
 ### 1.4.0 (2025-06-17)
 
 - OilUsage (Oil consumption per month) added

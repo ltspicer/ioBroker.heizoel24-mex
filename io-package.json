@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "news": {
+      "1.4.1": {
+        "en": "Bug fix jsonConfig.json : size removed",
+        "de": "Fehlerbehebung jsonConfig.json : Größe entfernt",
+        "ru": "Обсуждение jsonConfig.json: size removed",
+        "pt": "Erro jsonConfig.json : tamanho removido",
+        "nl": "Bug fix jsonConfig.json: grootte verwijderd",
+        "fr": "Correction du bug jsonConfig.json : taille enlevée",
+        "it": "Bug fix jsonConfig.json: taglia rimossa",
+        "es": "Bug fix jsonConfig.json : tamaño eliminado",
+        "pl": "Błąd fix jsonConfig.json: rozmiar usunięty",
+        "uk": "Виправлено помилку jsonConfig.json : розмір видалено",
+        "zh-cn": "错误修复 jsonConfig.json : 大小已删除"
+      },
       "1.4.0": {
         "en": "OilUsage (Oil consumption per month) added",
         "de": "Ölverbrauch (Ölverbrauch pro Monat) hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Nowy README.md",
         "uk": "Новий README.md",
         "zh-cn": "新建 README.md"
-      },
-      "1.2.0": {
-        "en": "CalculatedRemaining data points renamed to \"Day XXXX\"\nLimited to 735 data points\nOption for save CalculatedRemaining json",
-        "de": "Berechnung Weiterführende Datenpunkte in \"Day XXXX\" umbenannt\nLimitiert auf 735 Datenpunkte\nOption zum Speichern von CalculatedRemaining json",
-        "ru": "Рассчитано Оставшиеся точки данных, переименованные в «Day XXXX»\nОграниченные до 735 точек данных\nОпция для сохранения CalculatedRemaining json",
-        "pt": "Calculado Pontos de dados remanescentes renomeados para \"Day XXXX\"\nLimitado a 735 pontos de dados\nOpção para salvar calculado Continuando json",
-        "nl": "Berekend Resterende datapunten hernoemd naar \"Dag XXXX\"\nBeperkt tot 735 gegevenspunten\nOptie voor opslaan BerekendRemaining json",
-        "fr": "Calculé Autres points de données rebaptisés \"Jour XXXX\"\nLimité à 735 points de données\nOption pour sauvegarder CalculéRestement json",
-        "it": "Calcolato Remain data points rinominato \"Day XXXX\"\nLimitato a 735 punti dati\nOpzione per salvare CalculatedRemaining json",
-        "es": "Cálculo Permanecer puntos de datos renombrados a \"Día XXXX\"\nLimitado a 735 puntos de datos\nOpción para guardar CalculadoRemanente json",
-        "pl": "Obliczone Pozostałe punkty danych zmieniono na \"Dzień XXXX\"\nPomoc ograniczona do 735 punktów danych\nOpcja oszczędzania obliczonego pozostałego jsona",
-        "uk": "Розрахунок Зменшення очок даних, перейменованих на \"Day XXXX\"\nОбмежено до 735 точок даних\nВаріант для економії Розрахунково-вимірювальної джсон",
-        "zh-cn": "计算 剩余数据点更名为“ Day ”\n限于735个数据点\n保存计算json的选项"
       }
     },
     "titleLang": {
