@@ -6,62 +6,102 @@
       "type": "text",
       "label": "Heizoel24 username (email)",
       "newLine": true,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "passwort": {
       "type": "text",
       "label": "Heizoel24 password",
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "mqtt_active": {
       "type": "checkbox",
       "label": "Use MQTT",
       "default": false,
       "newLine": true,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "broker_address": {
       "type": "text",
       "label": "MQTT broker IP address",
       "newLine": true,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "mqtt_port": {
       "type": "number",
       "label": "MQTT port",
       "default": 1883,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "mqtt_user": {
       "type": "text",
       "label": "MQTT user",
       "newLine": true,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "mqtt_pass": {
       "type": "text",
       "label": "MQTT password",
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "sensor_id": {
       "type": "number",
       "label": "Sensor ID (1-20)",
       "default": 1,
       "newLine": true,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "storeJson": {
       "type": "checkbox",
       "label": "Save Json file",
       "default": false,
       "newLine": true,
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     },
     "storeDir": {
       "type": "text",
       "label": "Folder for files CalculatedRemaining.json & OilUsage.json",
       "default": "/home/iobroker",
-      "sm": 6
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
     }
   }
 }
