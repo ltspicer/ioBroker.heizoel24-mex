@@ -25,6 +25,10 @@ The data point CalculatedRemaining/JsonForEcharts (calculated remaining quantity
 
 
 ## Changelog
+### 1.4.3 (2025-06-21)
+
+- io-package.json > admin set to >=7.4.10
+
 ### 1.4.2 (2025-06-17)
 
 - Bug fix jsonConfig.json : xs,sm, md, ...
