@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "news": {
+      "1.4.4": {
+        "en": "README.md & README-de.md corrected",
+        "de": "README.md & README-de.md korrigiert",
+        "ru": "Readme.md и Readme.de.md исправлены",
+        "pt": "README.md & README-de.md corrigido",
+        "nl": "README.md & README-de.md gecorrigeerd",
+        "fr": "README.md & README-de.md corrigé",
+        "it": "README.md & README-de.md corretto",
+        "es": "README.md \" README-de.md corregido",
+        "pl": "README.md & README- de.md poprawione",
+        "uk": "README.md & README-de.md виправлено",
+        "zh-cn": "README.md 和 README-de.md 更正"
+      },
       "1.4.3": {
         "en": "io-package.json > admin set to >=7.4.10",
         "de": "io-package.json > admin eingestellt >=7.4.10",
@@ -80,19 +93,6 @@
         "pl": "Fix: nie ma błędu jeśli Kalkulacja Pozostałości jest pusta i mqtt jest aktywny",
         "uk": "Виправлення: Немає помилки, якщо Розрахунок є порожнім і mqtt активний",
         "zh-cn": "修正: 如果计算保留为空且 mqtt 活动, 没有错误"
-      },
-      "1.3.2": {
-        "en": "Error intercepted for:\n- RemainsUntilCombined no data found\n- CalculatedRemaining is empty",
-        "de": "Fehler abgefangen bei:\n- RemainsUntil Keine Daten gefunden\n- CalculatedRemaining ist leer",
-        "ru": "Ошибка перехвачена для:\n- RemainsUntil Сводные данные отсутствуют\n- Рассчитанный Остаток пуст",
-        "pt": "Erro interceptado para:\n- Permanece até Combinado nenhum dado encontrado\n- O restante está vazio",
-        "nl": "Fout onderschept voor:\n- Blijft tot Gecombineerd geen gegevens gevonden\n- BerekendRemaining is leeg",
-        "fr": "Erreur interceptée pour :\n- Reste jusqu'à Aucune donnée combinée n'a été trouvée\n- CalculéLe reste est vide",
-        "it": "Errore intercettato per:\n- Resta fino a quando Nessun dato trovato\n- CalculatedRemaining è vuoto",
-        "es": "Error interceptado para:\n- PermanecesUntil No se encontraron datos combinados\n- CalculadoEl mantenimiento está vacío",
-        "pl": "Błąd przechwycony dla:\n- Do czasu Nie znaleziono połączonych danych\n- Obliczenie pozostałych jest puste",
-        "uk": "Перехоплення помилок:\n- RemainsUntil Не знайдено ніяких даних\n- ОбчисленняПорожня",
-        "zh-cn": "已拦截错误 :\n- 留下来直到 合并未找到数据\n- 计算是空的"
       }
     },
     "titleLang": {
