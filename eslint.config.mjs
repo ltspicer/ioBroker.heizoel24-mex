@@ -1,47 +1,35 @@
-import globals from "globals";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all,
-});
+// ioBroker eslint template configuration file for js and ts files
+// Please note that esm or react based modules need additional modules loaded.
+import config from '@iobroker/eslint-config';
 
 export default [
+    ...config,
     {
-        ignores: ["**/.eslintrc.js", "admin/words.js"],
+        // specify files to exclude from linting here
+        ignores: [
+            '.dev-server/',
+            '.vscode/',
+            '*.test.js',
+            'test/**/*.js',
+            '*.config.mjs',
+            'build',
+            'dist',
+            'admin/build', 
+            'admin/words.js',
+            'admin/admin.d.ts',
+            'admin/blockly.js',
+            '**/adapter-config.d.ts',
+        ],
     },
-    ...compat.extends("eslint:recommended"),
     {
-        plugins: {},
-        languageOptions: {
-            globals: {
-                ...globals.node,
-                ...globals.mocha,
-            },
-            ecmaVersion: "latest",
-            sourceType: "module",
-        },
+        // you may disable some 'jsdoc' warnings - but using jsdoc is highly recommended
+        // as this improves maintainability. jsdoc warnings will not block buiuld process.
         rules: {
-            indent: ["error", 4, { SwitchCase: 1 }],
-            "no-console": "off",
-            "no-unused-vars": [
-                "warn",
-                {
-                    ignoreRestSiblings: true,
-                    argsIgnorePattern: "^_",
-                },
-            ],
-            "no-var": "error",
-            "no-trailing-spaces": "error",
-            "prefer-const": "error",
-            quotes: ["error", "double", { avoidEscape: true, allowTemplateLiterals: true }],
-            semi: ["error", "always"],
+            // 'jsdoc/require-jsdoc': 'off',
+            // 'jsdoc/require-param': 'off',
+            // 'jsdoc/require-param-description': 'off',
+            // 'jsdoc/require-returns-description': 'off',
+            // 'jsdoc/require-returns-check': 'off',
         },
     },
 ];
