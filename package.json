@@ -12,7 +12,8 @@
     "ioBroker",
     "mex",
     "heizoel",
-    "heizoel24"
+    "heizoel24",
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
