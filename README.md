@@ -25,6 +25,10 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 
 ## Changelog
+### 1.4.5 (2025-08-29)
+
+- Depends updated
+
 ### 1.4.4 (2025-06-21)
 
 - README.md & README-de.md corrected
