@@ -7,7 +7,7 @@
 const utils = require('@iobroker/adapter-core');
 const axios = require('axios');
 const mqtt = require('mqtt');
-const fs = require('fs');
+const fs = require('node:fs');
 
 axios.defaults.timeout = 2000;
 
