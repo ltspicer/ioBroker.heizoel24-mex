@@ -1,11 +1,13 @@
 {
-    "heizoel24-mex adapter settings": "Paramètres d'adaptateur pour heizoel24-mex",
-    "username": "Heizoel24 username (email)",
-    "passwort": "Heizoel24 password",
-    "mqtt_active": "Use MQTT",
-    "broker_address": "MQTT broker IP address",
-    "mqtt_user": "MQTT user",
-    "mqtt_pass": "MQTT password",
-    "mqtt_port": "MQTT port",
-    "debug": "Detailed log"
+    "heizoel24-mex adapter settings": "Paramètres de l'adaptateur pour Heizoel24-Mex",
+    "username": "Nom d'utilisateur Heizoel24 (e-mail)",
+    "passwort": "Mot de passe Heizoel24",
+    "mqtt_active": "Utiliser MQTT",
+    "broker_address": "Adresse IP du courtier MQTT",
+    "mqtt_user": "Utilisateur MQTT",
+    "mqtt_pass": "Mot de passe MQTT",
+    "mqtt_port": "Port MQTT",
+    "sensor_id": "ID du capteur (1-20)",
+    "storeJson": "Enregistrer JSON",
+    "storeDir": "Dossier pour le fichier JSON (nom de fichier: calculéReMing.json)"
 }

@@ -1,11 +1,13 @@
 {
     "heizoel24-mex adapter settings": "Настройки адаптера для heizoel24-mex",
-    "username": "Heizoel24 username (email)",
-    "passwort": "Heizoel24 password",
-    "mqtt_active": "Use MQTT",
-    "broker_address": "MQTT broker IP address",
-    "mqtt_user": "MQTT user",
-    "mqtt_pass": "MQTT password",
-    "mqtt_port": "MQTT port",
-    "debug": "Detailed log"
+    "username": "Heizoel24 имени пользователя (электронная почта)",
+    "passwort": "Heizoel24 Пароль",
+    "mqtt_active": "Используйте MQTT",
+    "broker_address": "IP -адрес брокера MQTT",
+    "mqtt_user": "Пользователь MQTT",
+    "mqtt_pass": "MQTT пароль",
+    "mqtt_port": "Порт MQTT",
+    "sensor_id": "Идентификатор датчика (1-20)",
+    "storeJson": "Спасите Json",
+    "storeDir": "Папка для файла JSON (имя файла: CalculetReming.json)"
 }

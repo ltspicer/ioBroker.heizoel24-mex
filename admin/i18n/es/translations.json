@@ -1,11 +1,13 @@
 {
-    "heizoel24-mex adapter settings": "Ajustes del adaptador para heizoel24-mex",
-    "username": "Heizoel24 username (email)",
-    "passwort": "Heizoel24 password",
-    "mqtt_active": "Use MQTT",
-    "broker_address": "MQTT broker IP address",
-    "mqtt_user": "MQTT user",
-    "mqtt_pass": "MQTT password",
-    "mqtt_port": "MQTT port",
-    "debug": "Detailed log"
+    "heizoel24-mex adapter settings": "Configuración del adaptador para Heizoel24-Mex",
+    "username": "Heizoel24 Nombre de usuario (correo electrónico)",
+    "passwort": "Contraseña de Heizoel24",
+    "mqtt_active": "Usar MQTT",
+    "broker_address": "Dirección IP del corredor MQTT",
+    "mqtt_user": "Usuario de MQTT",
+    "mqtt_pass": "Contraseña mqtt",
+    "mqtt_port": "Puerto MQTT",
+    "sensor_id": "ID de sensor (1-20)",
+    "storeJson": "Salvar json",
+    "storeDir": "Carpeta para el archivo JSON (nombre de archivo: calculadoReRening.json)"
 }

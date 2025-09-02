@@ -1,11 +1,13 @@
 {
-    "heizoel24-mex adapter settings": "Налаштування адаптера для heizoel24-mex",
-    "username": "Heizoel24 username (email)",
-    "passwort": "Heizoel24 password",
-    "mqtt_active": "Use MQTT",
-    "broker_address": "MQTT broker IP address",
-    "mqtt_user": "MQTT user",
-    "mqtt_pass": "MQTT password",
-    "mqtt_port": "MQTT port",
-    "debug": "Detailed log"
+    "heizoel24-mex adapter settings": "Налаштування адаптера для Heizoel24-Mex",
+    "username": "Ім'я користувача Heizoel24 (електронна пошта)",
+    "passwort": "Пароль Heizoel24",
+    "mqtt_active": "Використовуйте MQTT",
+    "broker_address": "IP -адреса MQTT Broker",
+    "mqtt_user": "Користувач MQTT",
+    "mqtt_pass": "Пароль MQTT",
+    "mqtt_port": "Порт MQTT",
+    "sensor_id": "Ідентифікатор датчика (1-20)",
+    "storeJson": "Зберегти json",
+    "storeDir": "Папка для файлу JSON (ім'я файлу: Розрахунок"
 }

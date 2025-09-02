@@ -1,11 +1,13 @@
 {
-    "heizoel24-mex adapter settings": "Ustawienia adaptera dla heizoel24-mex",
-    "username": "Heizoel24 username (email)",
-    "passwort": "Heizoel24 password",
-    "mqtt_active": "Use MQTT",
-    "broker_address": "MQTT broker IP address",
-    "mqtt_user": "MQTT user",
-    "mqtt_pass": "MQTT password",
-    "mqtt_port": "MQTT port",
-    "debug": "Detailed log"
+    "heizoel24-mex adapter settings": "Ustawienia adaptera dla Heizoel24-MEX",
+    "username": "Heizoel24 Nazwa użytkownika (e -mail)",
+    "passwort": "Hasło heizoel24",
+    "mqtt_active": "Użyj MQTT",
+    "broker_address": "MQTT Broker adres IP",
+    "mqtt_user": "Użytkownik MQTT",
+    "mqtt_pass": "Hasło MQTT",
+    "mqtt_port": "Port MQTT",
+    "sensor_id": "Identyfikator czujnika (1-20)",
+    "storeJson": "Zapisz JSON",
+    "storeDir": "Folder dla pliku JSON (nazwa pliku: calullulming.json)"
 }
