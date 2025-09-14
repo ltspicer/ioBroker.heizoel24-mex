@@ -25,8 +25,7 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 1.4.6 (2025-09-14)
 
 - Axios dependency updated
 
