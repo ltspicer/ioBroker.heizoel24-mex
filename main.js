@@ -135,7 +135,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.log.debug(`MQTT active: ${mqtt_active}`);
         this.log.debug(`MQTT port: ${mqtt_port}`);
-        const dataReceived = await this.main(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir);
+        const dataReceived = await this.mainRoutine(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir);
         if (dataReceived === true) {
             await this.setObjectNotExistsAsync(sensor_id.toString(), {
                 type: 'device',
@@ -296,7 +296,7 @@ class Heizoel24Mex extends utils.Adapter {
         return [false, ''];
     }
 
-    async measurement(sensor_id, session_id) {
+    async getCalculateRemaining(sensor_id, session_id) {
         this.log.debug('Get future residual oil levels...');
         const url = `https://api.heizoel24.de/app/api/app/measurement/CalculateRemaining/${session_id}/${sensor_id}/False`;
         try {
@@ -313,7 +313,7 @@ class Heizoel24Mex extends utils.Adapter {
         }
     }
 
-    async mex(username, passwort, sensor_id) {
+    async getMexData(username, passwort, sensor_id) {
         const [login_status, session_id] = await this.login(username, passwort);
         if (!login_status) {
             return [false, false, false];
@@ -354,8 +354,8 @@ class Heizoel24Mex extends utils.Adapter {
         return [false, false, false];
     }
 
-    async main(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir) {
-        const [daten, oil_usage, session_id] = await this.mex(username, passwort, sensor_id);
+    async mainRoutine(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir) {
+        const [daten, oil_usage, session_id] = await this.getMexData(username, passwort, sensor_id);
         if (daten === false) {
             this.log.error('No data received');
             if (mqtt_active) {
@@ -442,7 +442,7 @@ class Heizoel24Mex extends utils.Adapter {
         }
 
         const sensorId = this.contentItems[1]; // get SensorId
-        let zukunftsDaten = await this.measurement(sensorId, session_id);
+        let zukunftsDaten = await this.getCalculateRemaining(sensorId, session_id);
         if (zukunftsDaten === 'error') {
             this.log.debug('Error. No data received.');
             return false;
@@ -453,17 +453,21 @@ class Heizoel24Mex extends utils.Adapter {
                 const json = JSON.stringify(zukunftsDaten, null, 4);
                 fs.writeFileSync(`${storeDir}/CalculatedRemaining.json`, json, 'utf8');
             } catch {
-                this.log.warn('Json file not saved. Does ioBroker have write permissions in the specified folder?');
+                this.log.warn(
+                    'CalculatedRemaining.json file not saved. Have ioBroker write permissions in the specified folder?',
+                );
             }
             if (oil_usage) {
                 try {
                     const oilJson = JSON.stringify(oil_usage, null, 4);
                     fs.writeFileSync(`${storeDir}/OilUsage.json`, oilJson, 'utf8');
                 } catch {
-                    this.log.warn('OilUsage file not saved. Does ioBroker have write permissions?');
+                    this.log.warn(
+                        'OilUsage.json file not saved. Have ioBroker write permissions in the specified folder?',
+                    );
                 }
             } else {
-                this.log.warn('OilUsage data not available – file was not saved.');
+                this.log.warn('OilUsage data not available! OilUsage.json file was not saved.');
             }
         }
 
