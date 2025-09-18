@@ -135,7 +135,15 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.log.debug(`MQTT active: ${mqtt_active}`);
         this.log.debug(`MQTT port: ${mqtt_port}`);
-        const dataReceived = await this.mainRoutine(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir);
+        const dataReceived = await this.mainRoutine(
+            client,
+            username,
+            passwort,
+            mqtt_active,
+            sensor_id,
+            storeJson,
+            storeDir,
+        );
         if (dataReceived === true) {
             await this.setObjectNotExistsAsync(sensor_id.toString(), {
                 type: 'device',
