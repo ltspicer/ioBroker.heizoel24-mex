@@ -173,6 +173,13 @@ class Heizoel24Mex extends utils.Adapter {
                     },
                     native: {},
                 });
+
+                // If received boolean instead number, set it to 0
+                if (this.contentItems[n] === false && this.Items[n].type === 'number') {
+                    this.contentItems[n] = 0;
+                    this.log.warn(`${this.Items[n].id} == false. Set it to 0`);
+                }
+
                 await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[n].id}`, {
                     val: this.contentItems[n],
                     ack: true,
