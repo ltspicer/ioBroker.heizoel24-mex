@@ -26,6 +26,13 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- added "save jsonData.json" & set string to "---" if "false" received
+- json filenames in lowerCamelCase format
+- new translations
+- removed duplicate "save oilUsage.json"
+
 ### 1.4.7 (2025-09-19)
 
 - More explicit function names
