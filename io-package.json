@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.4.7",
+    "version": "1.5.0",
     "news": {
+      "1.5.0": {
+        "en": "added \"save jsonData.json\" & set string to \"---\" if \"false\" received\njson filenames in lowerCamelCase format\nnew translations\nremoved duplicate \"save oilUsage.json\"",
+        "de": "\"save jsonData.json\" & set string to \"--\" wenn \"false\" empfangen wurde\njson filenames in tiefer CamelCase Format\nneue übersetzungen\nentfernte duplikate \"save oilUsage.json\"",
+        "ru": "добавить \"save jsonData.json\" и установить строку \"---\", если \"ложный\" получен\nфайловые имена json в нижней части Формат CamelCase\nновые переводы\nудалить дубликат «Сохранить oilUsage.json»",
+        "pt": "adicionado \"salvar jsonData.json\" & definir string para \"---\" se \"falso\" recebido\nnomes de ficheiros json em baixo Formato CamelCase\nnovas traduções\nduplicado removido \"salvar óleoUsage.json\"",
+        "nl": "toegevoegd \"save jsonData.json\" & set string to \"---\" als \"valse\" ontvangen\njson-bestandsnamen in lager CamelCase-formaat\nnieuwe vertalingen\nverwijderd duplicate \"red olieUsage.json\"",
+        "fr": "ajouté \"save jsonData.json\" & set string à \"---\" si \"faux\" reçu\njson noms de fichiers en bas Format CamelCase\nnouvelles traductions\nduplicata enlevé \"huile d'épargneUsage.json\"",
+        "it": "aggiunto \"save jsonData.json\" & set string to \"---\" se \"false\" ricevuto\njson nomi di file in basso Formato CamelCase\nnuove traduzioni\nrimosso duplicato \"salva olioUsage.json\"",
+        "es": "añadió \"salvar jsonData.json\" con la cadena fija \"---\" si \"falso\" recibido\njson nombres de archivo en menor Formato CamelCase\nnuevas traducciones\neliminado duplicado \"salvar aceiteUsage.json\"",
+        "pl": "dodano \"save jsonData.json\" & set string to \"---\" if \"false\" received\njson nazwy plików w dolnym Format CamelCase\nnowe tłumaczenia\nusunięty duplikat \"save oilUsage.json\"",
+        "uk": "додано \"Зберегти jsonData.json\" & встановити рядок до \"--\" якщо \"false\" отримав\njson filenames в нижній Формат CamelCase\nнові переклади\nвидалити дублікати \"Зберегти маслоВипадок.json\"",
+        "zh-cn": "添加“ save jsonData\n下方为 json 文件名 骆驼Case 格式\n新翻译\n删除重复的“ 保存 OilUsage.json ”"
+      },
       "1.4.7": {
         "en": "More explicit function names",
         "de": "Ausführlichere Funktionsnamen",
@@ -80,19 +93,6 @@
         "pl": "Bug fix jsonConfig.json: xs, sm, md,...",
         "uk": "Виправлено помилку jsonConfig.json : xs,sm, md, ...",
         "zh-cn": "Bug fix jsonConfig.json : xs, sm, md, ... ) 错误修复jsonConfig.json : xs, sm, md,..."
-      },
-      "1.4.1": {
-        "en": "Bug fix jsonConfig.json : size removed",
-        "de": "Fehlerbehebung jsonConfig.json : Größe entfernt",
-        "ru": "Обсуждение jsonConfig.json: size removed",
-        "pt": "Erro jsonConfig.json : tamanho removido",
-        "nl": "Bug fix jsonConfig.json: grootte verwijderd",
-        "fr": "Correction du bug jsonConfig.json : taille enlevée",
-        "it": "Bug fix jsonConfig.json: taglia rimossa",
-        "es": "Bug fix jsonConfig.json : tamaño eliminado",
-        "pl": "Błąd fix jsonConfig.json: rozmiar usunięty",
-        "uk": "Виправлено помилку jsonConfig.json : розмір видалено",
-        "zh-cn": "错误修复 jsonConfig.json : 大小已删除"
       }
     },
     "titleLang": {
