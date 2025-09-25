@@ -9,5 +9,5 @@
     "mqtt_port": "Porta MQTT",
     "sensor_id": "ID do sensor (1-20)",
     "storeJson": "Salve JSON",
-    "storeDir": "Pasta para JSON FILE (Nome do arquivo: CalculateRemaining.json)"
+    "storeDir": "Pasta para arquivos json"
 }

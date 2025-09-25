@@ -9,5 +9,5 @@
     "mqtt_port": "Порт MQTT",
     "sensor_id": "Идентификатор датчика (1-20)",
     "storeJson": "Спасите Json",
-    "storeDir": "Папка для файла JSON (имя файла: CalculetReming.json)"
+    "storeDir": "Папка для файлов json"
 }

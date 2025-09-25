@@ -9,5 +9,5 @@
     "mqtt_port": "MQTT -poort",
     "sensor_id": "Sensor-ID (1-20)",
     "storeJson": "Bewaar JSON",
-    "storeDir": "Folder voor JSON -bestand (bestandsnaam: berekeningRemaining.json)"
+    "storeDir": "Map voor JSON -bestanden"
 }

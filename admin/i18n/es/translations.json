@@ -9,5 +9,5 @@
     "mqtt_port": "Puerto MQTT",
     "sensor_id": "ID de sensor (1-20)",
     "storeJson": "Salvar json",
-    "storeDir": "Carpeta para el archivo JSON (nombre de archivo: calculadoReRening.json)"
+    "storeDir": "Carpeta para archivos JSON"
 }

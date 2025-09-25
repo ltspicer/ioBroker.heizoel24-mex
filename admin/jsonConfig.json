@@ -95,7 +95,7 @@
     },
     "storeDir": {
       "type": "text",
-      "label": "Folder for files CalculatedRemaining.json, OilUsage.json, jsonData.json",
+      "label": "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json",
       "default": "/home/iobroker",
       "xs": 12,
       "sm": 12,

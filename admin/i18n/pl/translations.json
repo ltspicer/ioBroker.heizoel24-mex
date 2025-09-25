@@ -9,5 +9,5 @@
     "mqtt_port": "Port MQTT",
     "sensor_id": "Identyfikator czujnika (1-20)",
     "storeJson": "Zapisz JSON",
-    "storeDir": "Folder dla pliku JSON (nazwa pliku: calullulming.json)"
+    "storeDir": "Folder dla plików JSON"
 }

@@ -9,5 +9,5 @@
     "mqtt_port": "MQTT端口",
     "sensor_id": "传感器ID（1-20）",
     "storeJson": "保存JSON",
-    "storeDir": "JSON文件的文件夹（文件名：calculat remaining.json）"
+    "storeDir": "JSON文件的文件夹"
 }

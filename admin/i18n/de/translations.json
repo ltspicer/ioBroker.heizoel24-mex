@@ -1,13 +1,13 @@
 {
-    "heizoel24-mex adapter settings": "Adaptereinstellungen für heizoel24-mex",
-    "username": "Heizoel24 Username (Email)",
+    "heizoel24-mex adapter settings": "Adaptereinstellungen für Heizoel24-Mex",
+    "username": "Heizoel24 Benutzername (E-Mail)",
     "passwort": "Heizoel24 Passwort",
-    "mqtt_active": "MQTT benutzen",
-    "broker_address": "MQTT Broker IP Adresse",
-    "mqtt_user": "MQTT User",
-    "mqtt_pass": "MQTT Passwort",
-    "mqtt_port": "MQTT Port",
-    "sensor_id": "Sensor ID (1-20)",
-    "storeJson": "Json speichern",
-    "storeDir": "Verz. für Json Datei (Dateiname: CalculatedRemaining.json)"
+    "mqtt_active": "Verwenden Sie MQTT",
+    "broker_address": "MQTT Broker IP -Adresse",
+    "mqtt_user": "MQTT -Benutzer",
+    "mqtt_pass": "MQTT -Passwort",
+    "mqtt_port": "MQTT -Port",
+    "sensor_id": "Sensor-ID (1-20)",
+    "storeJson": "Rette json",
+    "storeDir": "Ordner für JSON-Dateien"
 }

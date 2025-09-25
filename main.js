@@ -472,23 +472,23 @@ class Heizoel24Mex extends utils.Adapter {
         if (storeJson) {
             try {
                 const json = JSON.stringify(zukunftsDaten, null, 4);
-                fs.writeFileSync(`${storeDir}/CalculatedRemaining.json`, json, 'utf8');
+                fs.writeFileSync(`${storeDir}/calculatedRemaining.json`, json, 'utf8');
             } catch {
                 this.log.warn(
-                    'CalculatedRemaining.json file not saved. Have ioBroker write permissions in the specified folder?',
+                    'calculatedRemaining.json file not saved. Have ioBroker write permissions in the specified folder?',
                 );
             }
             if (oil_usage) {
                 try {
                     const oilJson = JSON.stringify(oil_usage, null, 4);
-                    fs.writeFileSync(`${storeDir}/OilUsage.json`, oilJson, 'utf8');
+                    fs.writeFileSync(`${storeDir}/oilUsage.json`, oilJson, 'utf8');
                 } catch {
                     this.log.warn(
-                        'OilUsage.json file not saved. Have ioBroker write permissions in the specified folder?',
+                        'oilUsage.json file not saved. Have ioBroker write permissions in the specified folder?',
                     );
                 }
             } else {
-                this.log.warn('OilUsage data not available! OilUsage.json file was not saved.');
+                this.log.warn('OilUsage data not available! oilUsage.json file was not saved.');
             }
             try {
                 const data1 = JSON.stringify(daten, null, 4);
