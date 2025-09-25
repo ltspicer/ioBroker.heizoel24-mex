@@ -174,10 +174,16 @@ class Heizoel24Mex extends utils.Adapter {
                     native: {},
                 });
 
-                // If received boolean instead number, set it to 0
+                // If received boolean instead number, set it to -999999
                 if (this.contentItems[n] === false && this.Items[n].type === 'number') {
-                    this.contentItems[n] = 0;
-                    this.log.warn(`${this.Items[n].id} == false. Set it to 0`);
+                    this.contentItems[n] = -999999;
+                    this.log.warn(`${this.Items[n].id} == false. Set it to -999999`);
+                }
+
+                // If received boolean instead string, set it to ---
+                if (this.contentItems[n] === false && this.Items[n].type === 'string') {
+                    this.contentItems[n] = '---';
+                    this.log.warn(`${this.Items[n].id} == false. Set it to ---`);
                 }
 
                 await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[n].id}`, {
@@ -483,6 +489,12 @@ class Heizoel24Mex extends utils.Adapter {
                 }
             } else {
                 this.log.warn('OilUsage data not available! OilUsage.json file was not saved.');
+            }
+            try {
+                const data1 = JSON.stringify(daten, null, 4);
+                fs.writeFileSync(`${storeDir}/jsonData.json`, data1, 'utf8');
+            } catch {
+                this.log.warn('jsonData.json file not saved. Have ioBroker write permissions in the specified folder?');
             }
         }
 
