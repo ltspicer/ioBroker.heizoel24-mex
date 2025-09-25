@@ -631,16 +631,6 @@ class Heizoel24Mex extends utils.Adapter {
                 val: oilJsonData,
                 ack: true,
             });
-
-            // Datei speichern, falls gewünscht
-            if (storeJson) {
-                try {
-                    const json = JSON.stringify(oil_usage, null, 4);
-                    fs.writeFileSync(`${storeDir}/OilUsage.json`, json, 'utf8');
-                } catch {
-                    this.log.warn('OilUsage.json konnte nicht gespeichert werden. Schreibrechte prüfen?');
-                }
-            }
         }
 
         if (mqtt_active) {
