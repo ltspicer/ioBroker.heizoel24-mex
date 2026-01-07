@@ -25,8 +25,7 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 1.6.0 (2026-01-07)
 
 - LowBattery flag added
 

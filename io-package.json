@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "news": {
+      "1.6.0": {
+        "en": "LowBattery flag added",
+        "de": "LowBattery Flag hinzugefügt",
+        "ru": "Флаг LowBattery добавлен",
+        "pt": "Bandeira de LowBattery adicionada",
+        "nl": "LowBattery-vlag toegevoegd",
+        "fr": "Drapeau LowBatterie ajouté",
+        "it": "Bandiera LowBattery aggiunto",
+        "es": "Bandera LowBattery añadido",
+        "pl": "Dodano flagę LowBattery",
+        "uk": "Невисокий прапор додано",
+        "zh-cn": "添加低贝特里旗"
+      },
       "1.5.0": {
         "en": "added \"save jsonData.json\" & set string to \"---\" if \"false\" received\njson filenames in lowerCamelCase format\nnew translations\nremoved duplicate \"save oilUsage.json\"",
         "de": "\"save jsonData.json\" & set string to \"--\" wenn \"false\" empfangen wurde\njson filenames in tiefer CamelCase Format\nneue übersetzungen\nentfernte duplikate \"save oilUsage.json\"",
@@ -80,19 +93,6 @@
         "pl": "jo- package.json > admin set to > = 7.4.10",
         "uk": "io-package.json > адмін встановити в >=7.4.10",
         "zh-cn": "io-package.json > (英语). 管理员设置为7.4.10"
-      },
-      "1.4.2": {
-        "en": "Bug fix jsonConfig.json : xs,sm, md, ...",
-        "de": "Fehlerbehebung jsonConfig.json : xs,sm, md, ...",
-        "ru": "Обсуждение jsonConfig.json: xs,sm, md,...",
-        "pt": "Erro jsonConfig.json : xs, sm, md, ...",
-        "nl": "Bug fix jsonConfig.json: xs,sm, md, ...",
-        "fr": "Correction de bug jsonConfig.json : xs,sm, md, ...",
-        "it": "Bug fix jsonConfig.json: xs,sm, md, ...",
-        "es": "Bug fix jsonConfig.json : xs,sm, md, ...",
-        "pl": "Bug fix jsonConfig.json: xs, sm, md,...",
-        "uk": "Виправлено помилку jsonConfig.json : xs,sm, md, ...",
-        "zh-cn": "Bug fix jsonConfig.json : xs, sm, md, ... ) 错误修复jsonConfig.json : xs, sm, md,..."
       }
     },
     "titleLang": {
