@@ -25,6 +25,11 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+- LowBattery flag added
+
 ### 1.5.0 (2025-09-25)
 
 - added "save jsonData.json" & set string to "---" if "false" received
