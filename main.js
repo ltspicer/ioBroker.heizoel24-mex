@@ -49,6 +49,7 @@ class Heizoel24Mex extends utils.Adapter {
             { id: 'LastOrderPrice', role: 'value', unit: '€|CHF', type: 'number' },
             { id: 'ResultCode', role: 'value', unit: '', type: 'boolean' },
             { id: 'ResultMessage', role: 'value', unit: '', type: 'boolean' },
+            { id: 'LowBattery', role: 'indicator', unit: '', type: 'boolean' },
         ];
 
         this.PricingForecast = [
@@ -417,6 +418,15 @@ class Heizoel24Mex extends utils.Adapter {
 
         const items = datenJson['Items'][0];
 
+        // Rohwert von Batteriespannung holen
+        const rawBattery = datenJson?.Items?.[0]?.Battery;
+
+        // Nur akzeptieren, wenn eine gültige Zahl ist
+        const batteryVoltage = typeof rawBattery === 'number' && Number.isFinite(rawBattery) ? rawBattery : null;
+
+        // Alles Unerwartete = true
+        const lowBattery = batteryVoltage === null || batteryVoltage < 2.5;
+
         for (let n = 1; n < this.Items.length; n++) {
             const result = items[this.Items[n].id] || false;
             this.contentItems[n] = result;
@@ -427,10 +437,18 @@ class Heizoel24Mex extends utils.Adapter {
                 `Items: ${this.Items[n].id}: ${result.toString()}, unit: ${this.Items[n].unit}, Typ: ${typeof result}`,
             );
         }
+
+        // LowBattery an der richtigen Position speichern
+        const lowBatteryIndex = this.Items.findIndex(i => i.id === 'LowBattery');
+        this.contentItems[lowBatteryIndex] = lowBattery;
+
         if (mqtt_active) {
             await this.sendMqtt(sensor_id, mqtt_active, client, 'Items/DataReceived', 'true');
+            await this.sendMqtt(sensor_id, mqtt_active, client, 'Items/LowBattery', String(lowBattery));
         }
-        this.contentItems[0] = true;
+
+        const dataReceivedIndex = this.Items.findIndex(i => i.id === 'DataReceived');
+        this.contentItems[dataReceivedIndex] = true;
 
         const daten3 = items['RemainsUntilCombined'];
 
