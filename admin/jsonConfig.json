@@ -21,6 +21,17 @@
       "lg": 4,
       "xl": 4
     },
+    "sensor_id": {
+      "type": "number",
+      "label": "Sensor ID (1-20)",
+      "default": 1,
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
+    },
     "mqtt_active": {
       "type": "checkbox",
       "label": "Use MQTT",
@@ -40,7 +51,8 @@
       "sm": 12,
       "md": 6,
       "lg": 4,
-      "xl": 4
+      "xl": 4,
+      "hidden": "data.mqtt_active == false"
     },
     "mqtt_port": {
       "type": "number",
@@ -50,7 +62,8 @@
       "sm": 12,
       "md": 6,
       "lg": 4,
-      "xl": 4
+      "xl": 4,
+      "hidden": "data.mqtt_active == false"
     },
     "mqtt_user": {
       "type": "text",
@@ -60,7 +73,8 @@
       "sm": 12,
       "md": 6,
       "lg": 4,
-      "xl": 4
+      "xl": 4,
+      "hidden": "data.mqtt_active == false"
     },
     "mqtt_pass": {
       "type": "text",
@@ -69,18 +83,8 @@
       "sm": 12,
       "md": 6,
       "lg": 4,
-      "xl": 4
-    },
-    "sensor_id": {
-      "type": "number",
-      "label": "Sensor ID (1-20)",
-      "default": 1,
-      "newLine": true,
-      "xs": 12,
-      "sm": 12,
-      "md": 6,
-      "lg": 4,
-      "xl": 4
+      "xl": 4,
+      "hidden": "data.mqtt_active == false"
     },
     "storeJson": {
       "type": "checkbox",
@@ -101,7 +105,8 @@
       "sm": 12,
       "md": 6,
       "lg": 4,
-      "xl": 4
+      "xl": 4,
+      "hidden": "data.storeJson == false"
     }
   }
 }
