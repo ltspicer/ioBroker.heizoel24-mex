@@ -25,8 +25,7 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 1.7.0 (2026-01-28)
 
 - Better Admin menu
 

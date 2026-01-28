@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "news": {
+      "1.7.0": {
+        "en": "Better Admin menu",
+        "de": "Besseres Admin Menü",
+        "ru": "Лучшее меню администратора",
+        "pt": "Melhor menu de administração",
+        "nl": "Beter Admin menu",
+        "fr": "Meilleur menu Admin",
+        "it": "Menu migliore di amministrazione",
+        "es": "Mejor menú de Admin",
+        "pl": "Lepsze menu admin",
+        "uk": "Меню адміністратора",
+        "zh-cn": "更好的管理菜单"
+      },
       "1.6.0": {
         "en": "LowBattery flag added",
         "de": "LowBattery Flag hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "README.md & README- de.md poprawione",
         "uk": "README.md & README-de.md виправлено",
         "zh-cn": "README.md 和 README-de.md 更正"
-      },
-      "1.4.3": {
-        "en": "io-package.json > admin set to >=7.4.10",
-        "de": "io-package.json > admin eingestellt >=7.4.10",
-        "ru": "io-package.json admin set to >=7.4.10",
-        "pt": "io-package.json > administrador definido para >= 7.4.10",
-        "nl": "jo-package.json > administrator ingesteld op < 7.4.10",
-        "fr": "io-package.json > administrateur défini à >=7.4.10",
-        "it": "io-package.json > >=7.4.10",
-        "es": "io-package.json admin configurado en",
-        "pl": "jo- package.json > admin set to > = 7.4.10",
-        "uk": "io-package.json > адмін встановити в >=7.4.10",
-        "zh-cn": "io-package.json > (英语). 管理员设置为7.4.10"
       }
     },
     "titleLang": {
