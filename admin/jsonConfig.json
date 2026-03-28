@@ -67,7 +67,7 @@
     },
     "mqtt_user": {
       "type": "text",
-      "label": "MQTT user",
+      "label": "MQTT user. Leave blank for no-auth",
       "newLine": true,
       "xs": 12,
       "sm": 12,
@@ -78,7 +78,7 @@
     },
     "mqtt_pass": {
       "type": "text",
-      "label": "MQTT password",
+      "label": "MQTT password. Leave blank for no-auth",
       "xs": 12,
       "sm": 12,
       "md": 6,
