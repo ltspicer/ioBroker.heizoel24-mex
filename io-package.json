@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.7.0",
+    "version": "1.8.0",
     "news": {
+      "1.8.0": {
+        "en": "Yearly Oil usage by reference month added",
+        "de": "Jährliche Ölnutzung nach Referenzmonat hinzugefügt",
+        "ru": "Годовое использование нефти по контрольному месяцу добавлено",
+        "pt": "Uso anual do óleo por mês de referência adicionado",
+        "nl": "Jaarlijks olieverbruik per referentiemaand toegevoegd",
+        "fr": "Utilisation annuelle du pétrole par mois de référence",
+        "it": "Uso annuale dell'olio per mese di riferimento aggiunto",
+        "es": "Uso anual del petróleo por mes de referencia añadido",
+        "pl": "Roczne zużycie oleju w miesiącu referencyjnym",
+        "uk": "Рікове використання нафти за доданою місією",
+        "zh-cn": "按参考月份分列的年油使用情况"
+      },
       "1.7.0": {
         "en": "Better Admin menu",
         "de": "Besseres Admin Menü",
@@ -80,19 +93,6 @@
         "pl": "Zależy od aktualizacji",
         "uk": "В залежності від оновленої",
         "zh-cn": "取决于更新"
-      },
-      "1.4.4": {
-        "en": "README.md & README-de.md corrected",
-        "de": "README.md & README-de.md korrigiert",
-        "ru": "Readme.md и Readme.de.md исправлены",
-        "pt": "README.md & README-de.md corrigido",
-        "nl": "README.md & README-de.md gecorrigeerd",
-        "fr": "README.md & README-de.md corrigé",
-        "it": "README.md & README-de.md corretto",
-        "es": "README.md \" README-de.md corregido",
-        "pl": "README.md & README- de.md poprawione",
-        "uk": "README.md & README-de.md виправлено",
-        "zh-cn": "README.md 和 README-de.md 更正"
       }
     },
     "titleLang": {
