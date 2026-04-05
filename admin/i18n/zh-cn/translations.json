@@ -1,13 +1,14 @@
 {
-    "heizoel24-mex adapter settings": "Heizoel24-Mex的适配器设置",
-    "username": "Heizoel24用户名（电子邮件）",
-    "passwort": "Heizoel24密码",
+    "broker_address": "MQTT 代理 IP 地址",
+    "heizoel24-mex adapter settings": "heizoel24-mex 的适配器设置",
     "mqtt_active": "使用MQTT",
-    "broker_address": "MQTT代理IP地址",
-    "mqtt_user": "MQTT用户",
-    "mqtt_pass": "MQTT密码",
-    "mqtt_port": "MQTT端口",
-    "sensor_id": "传感器ID（1-20）",
-    "storeJson": "保存JSON",
-    "storeDir": "JSON文件的文件夹"
+    "mqtt_pass": "MQTT 密码",
+    "mqtt_port": "MQTT 端口",
+    "mqtt_user": "MQTT 用户",
+    "passwort": "Heizoel24 密码",
+    "reference_month": "参考月份（计算结束于本月最后一天，1-12）",
+    "sensor_id": "传感器 ID (1-20)",
+    "storeDir": "json 文件的文件夹",
+    "storeJson": "保存Json",
+    "username": "Heizoel24 用户名（电子邮件）"
 }

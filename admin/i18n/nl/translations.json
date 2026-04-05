@@ -1,13 +1,14 @@
 {
-    "heizoel24-mex adapter settings": "Adapterinstellingen voor Heizoel24-MEX",
-    "username": "Heizoel24 gebruikersnaam (e -mail)",
-    "passwort": "Heizoel24 -wachtwoord",
+    "broker_address": "IP-adres van MQTT-makelaar",
+    "heizoel24-mex adapter settings": "Adapterinstellingen voor heizoel24-mex",
     "mqtt_active": "Gebruik MQTT",
-    "broker_address": "MQTT -makelaar IP -adres",
-    "mqtt_user": "MQTT -gebruiker",
-    "mqtt_pass": "MQTT -wachtwoord",
-    "mqtt_port": "MQTT -poort",
+    "mqtt_pass": "MQTT-wachtwoord",
+    "mqtt_port": "MQTT-poort",
+    "mqtt_user": "MQTT-gebruiker",
+    "passwort": "Heizoel24-wachtwoord",
+    "reference_month": "Referentiemaand (berekening eindigt op de laatste dag van deze maand, 1–12)",
     "sensor_id": "Sensor-ID (1-20)",
-    "storeJson": "Bewaar JSON",
-    "storeDir": "Map voor JSON -bestanden"
+    "storeDir": "Map voor json-bestanden",
+    "storeJson": "Bewaar Json",
+    "username": "Heizoel24 gebruikersnaam (e-mail)"
 }

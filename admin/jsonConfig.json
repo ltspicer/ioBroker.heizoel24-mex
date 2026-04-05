@@ -32,6 +32,17 @@
       "lg": 4,
       "xl": 4
     },
+    "reference_month": {
+      "type": "number",
+      "label": "Reference month (calculation ends on the last day of this month, 1–12)",
+      "default": 6,
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "lg": 4,
+      "xl": 4
+    },
     "mqtt_active": {
       "type": "checkbox",
       "label": "Use MQTT",

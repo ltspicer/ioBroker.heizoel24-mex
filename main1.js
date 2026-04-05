@@ -152,8 +152,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         this.log.debug(`MQTT active: ${mqtt_active}`);
         this.log.debug(`MQTT port: ${mqtt_port}`);
-
-        await this.mainRoutine(
+        const dataReceived = await this.mainRoutine(
             client,
             username,
             passwort,
@@ -161,31 +160,219 @@ class Heizoel24Mex extends utils.Adapter {
             sensor_id,
             storeJson,
             storeDir,
-            reference_month,
         );
+        if (dataReceived === true) {
+            await this.setObjectNotExistsAsync(sensor_id.toString(), {
+                type: 'device',
+                common: {
+                    name: '',
+                },
+                native: {},
+            });
+            // Items
+            await this.setObjectNotExistsAsync(`${sensor_id.toString()}.Items`, {
+                type: 'channel',
+                common: {
+                    name: 'Items',
+                },
+                native: {},
+            });
+            for (let n = 0; n < this.Items.length; n++) {
+                await this.setObjectNotExistsAsync(`${sensor_id.toString()}.Items.${this.Items[n].id}`, {
+                    type: 'state',
+                    common: {
+                        name: this.Items[n].id,
+                        type: this.Items[n].type,
+                        role: this.Items[n].role,
+                        unit: this.Items[n].unit,
+                        read: true,
+                        write: false,
+                    },
+                    native: {},
+                });
+
+                // If received boolean instead number, set it to -999999
+                if (this.contentItems[n] === false && this.Items[n].type === 'number') {
+                    this.contentItems[n] = -999999;
+                    this.log.warn(`${this.Items[n].id} == false. Set it to -999999`);
+                }
+
+                // If received boolean instead string, set it to ---
+                if (this.contentItems[n] === false && this.Items[n].type === 'string') {
+                    this.contentItems[n] = '---';
+                    this.log.warn(`${this.Items[n].id} == false. Set it to ---`);
+                }
+
+                await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[n].id}`, {
+                    val: this.contentItems[n],
+                    ack: true,
+                });
+            }
+
+            // PricingForecast
+            await this.setObjectNotExistsAsync(`${sensor_id.toString()}.PricingForecast`, {
+                type: 'channel',
+                common: {
+                    name: 'PricingForecast',
+                },
+                native: {},
+            });
+            for (let n = 0; n < this.PricingForecast.length; n++) {
+                await this.setObjectNotExistsAsync(
+                    `${sensor_id.toString()}.PricingForecast.${this.PricingForecast[n].id}`,
+                    {
+                        type: 'state',
+                        common: {
+                            name: this.PricingForecast[n].name,
+                            type: this.PricingForecast[n].type,
+                            role: this.PricingForecast[n].role,
+                            unit: this.PricingForecast[n].unit,
+                            read: true,
+                            write: false,
+                        },
+                        native: {},
+                    },
+                );
+
+                if (
+                    this.contentPricingForecast[n] == false &&
+                    (this.PricingForecast[n].id == 'PriceComparedToYesterdayPercentage' ||
+                        this.PricingForecast[n].id == 'PriceForecastPercentage')
+                ) {
+                    this.log.debug(`${this.PricingForecast[n].id} omitted, because it's false`);
+                } else {
+                    await this.setStateAsync(`${sensor_id.toString()}.PricingForecast.${this.PricingForecast[n].id}`, {
+                        val: this.contentPricingForecast[n],
+                        ack: true,
+                    });
+                }
+            }
+
+            // RemainsUntilCombined
+            await this.setObjectNotExistsAsync(`${sensor_id.toString()}.RemainsUntilCombined`, {
+                type: 'channel',
+                common: {
+                    name: 'RemainsUntilCombined',
+                },
+                native: {},
+            });
+            for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
+                await this.setObjectNotExistsAsync(
+                    `${sensor_id.toString()}.RemainsUntilCombined.${this.RemainsUntilCombined[n].id}`,
+                    {
+                        type: 'state',
+                        common: {
+                            name: this.RemainsUntilCombined[n].id,
+                            type: this.RemainsUntilCombined[n].type,
+                            role: this.RemainsUntilCombined[n].role,
+                            unit: this.RemainsUntilCombined[n].unit,
+                            read: true,
+                            write: false,
+                        },
+                        native: {},
+                    },
+                );
+                await this.setStateAsync(
+                    `${sensor_id.toString()}.RemainsUntilCombined.${this.RemainsUntilCombined[n].id}`,
+                    { val: this.contentRemainsUntilCombined[n], ack: true },
+                );
+            }
+
+            // Yearly oil usage
+
+            const entries = Object.entries(this.oil_usage.Values).map(([dateStr, value]) => ({
+                date: new Date(dateStr),
+                value,
+            }));
+
+            // Sortieren (aufsteigend)
+            entries.sort((a, b) => a.date - b.date);
+
+            // Alle Jahre extrahieren
+            const years = [...new Set(entries.map(e => e.date.getFullYear()))];
+
+            await this.setObjectNotExistsAsync(`${sensor_id.toString()}.AnnualConsumption`, {
+                type: 'channel',
+                common: {
+                    name: 'AnnualConsumption',
+                },
+                native: {},
+            });
+
+            for (const year of years) {
+                const monthStr = reference_month.toString().padStart(2, '0');
+                const dpId = `${sensor_id}.AnnualConsumption.${year}-${monthStr}`;
+
+                // DP anlegen
+                await this.setObjectNotExistsAsync(dpId, {
+                    type: 'state',
+                    common: {
+                        name: `Annual consumption for ${year}-${monthStr}`,
+                        type: 'number',
+                        role: 'value',
+                        unit: 'L',
+                        read: true,
+                        write: false,
+                    },
+                    native: {},
+                });
+
+                const value = await this.calcAnnualFor(entries, year, reference_month);
+
+                await this.setStateAsync(dpId, value, true);
+
+                // MQTT senden
+                if (mqtt_active) {
+                    const topic = `AnnualConsumption/ByEndOf_${monthStr}_${year}`;
+
+                    if (value === null) {
+                        this.log.debug(`MQTT: ${topic} omitted, because value is null (not enough months)`);
+                    } else {
+                        await this.sendMqtt(sensor_id, mqtt_active, client, topic, value.toString());
+                        this.log.debug(`MQTT sent: ${topic} = ${value}`);
+                    }
+                }
+            }
+        } else {
+            await this.setObjectNotExistsAsync(`${sensor_id.toString()}.Items.${this.Items[0].id}`, {
+                type: 'state',
+                common: {
+                    name: this.Items[0].id,
+                    type: 'boolean',
+                    role: 'indicator',
+                    read: true,
+                    write: false,
+                },
+                native: {},
+            });
+            await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[0].id}`, { val: false, ack: true });
+            this.log.error('No data received');
+            this.terminate ? this.terminate('No data received', 1) : process.exit(1);
+        }
 
         // Finished - stopping instance
         this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 0) : process.exit(0);
     }
 
     async calcAnnualFor(entries, year, reference_month) {
-        // 1. Stichtag bestimmen (1. des Folgemonats)
-        let endMonth = reference_month + 1;
-        let endYear = year;
+        const end = new Date(year, reference_month - 1, 1);
+        const start = new Date(year - 1, reference_month - 1, 1);
 
-        if (endMonth === 13) {
-            endMonth = 1;
-            endYear = year + 1;
+        // Alle Einträge im Zeitraum
+        const window = entries.filter(e => e.date > start && e.date <= end);
+
+        // Alle Jahr-Monat-Kombinationen extrahieren
+        const months = new Set(window.map(e => `${e.date.getFullYear()}-${e.date.getMonth() + 1}`));
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+
+        // Return null if less than 12 months excluding the current year
+        if (year !== currentYear && months.size < 12) {
+            return null;
         }
 
-        // 2. Start- und Enddatum setzen
-        const end = new Date(endYear, endMonth - 1, 1);
-        const start = new Date(endYear - 1, endMonth - 1, 1);
-
-        // 3. Werte im Zeitraum sammeln
-        const window = entries.filter(e => e.date >= start && e.date < end);
-
-        // 4. Summe bilden (App-Logik)
+        // Summe bilden
         return window.reduce((sum, e) => sum + e.value, 0);
     }
 
@@ -282,7 +469,7 @@ class Heizoel24Mex extends utils.Adapter {
         return [false, false];
     }
 
-    async mainRoutine(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir, reference_month) {
+    async mainRoutine(client, username, passwort, mqtt_active, sensor_id, storeJson, storeDir) {
         const [daten, session_id] = await this.getMexData(username, passwort, sensor_id);
         if (daten === false) {
             this.log.error('No data received');
@@ -290,7 +477,6 @@ class Heizoel24Mex extends utils.Adapter {
                 await this.sendMqtt(sensor_id, mqtt_active, client, 'Items/DataReceived', 'false');
                 client.end();
             }
-            await this.noDataReceived(sensor_id);
             return false;
         }
 
@@ -391,7 +577,6 @@ class Heizoel24Mex extends utils.Adapter {
         let zukunftsDaten = await this.getCalculateRemaining(sensorId, session_id);
         if (zukunftsDaten === 'error') {
             this.log.debug('Error. No data received.');
-            await this.noDataReceived(sensor_id);
             return false;
         }
 
@@ -559,205 +744,10 @@ class Heizoel24Mex extends utils.Adapter {
             });
         }
 
-        await this.setObjectNotExistsAsync(sensor_id.toString(), {
-            type: 'device',
-            common: {
-                name: '',
-            },
-            native: {},
-        });
-        // Items
-        await this.setObjectNotExistsAsync(`${sensor_id.toString()}.Items`, {
-            type: 'channel',
-            common: {
-                name: 'Items',
-            },
-            native: {},
-        });
-        for (let n = 0; n < this.Items.length; n++) {
-            await this.setObjectNotExistsAsync(`${sensor_id.toString()}.Items.${this.Items[n].id}`, {
-                type: 'state',
-                common: {
-                    name: this.Items[n].id,
-                    type: this.Items[n].type,
-                    role: this.Items[n].role,
-                    unit: this.Items[n].unit,
-                    read: true,
-                    write: false,
-                },
-                native: {},
-            });
-
-            // If received boolean instead number, set it to -999999
-            if (this.contentItems[n] === false && this.Items[n].type === 'number') {
-                this.contentItems[n] = -999999;
-                this.log.warn(`${this.Items[n].id} == false. Set it to -999999`);
-            }
-
-            // If received boolean instead string, set it to ---
-            if (this.contentItems[n] === false && this.Items[n].type === 'string') {
-                this.contentItems[n] = '---';
-                this.log.warn(`${this.Items[n].id} == false. Set it to ---`);
-            }
-
-            await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[n].id}`, {
-                val: this.contentItems[n],
-                ack: true,
-            });
-        }
-
-        // PricingForecast
-        await this.setObjectNotExistsAsync(`${sensor_id.toString()}.PricingForecast`, {
-            type: 'channel',
-            common: {
-                name: 'PricingForecast',
-            },
-            native: {},
-        });
-        for (let n = 0; n < this.PricingForecast.length; n++) {
-            await this.setObjectNotExistsAsync(
-                `${sensor_id.toString()}.PricingForecast.${this.PricingForecast[n].id}`,
-                {
-                    type: 'state',
-                    common: {
-                        name: this.PricingForecast[n].name,
-                        type: this.PricingForecast[n].type,
-                        role: this.PricingForecast[n].role,
-                        unit: this.PricingForecast[n].unit,
-                        read: true,
-                        write: false,
-                    },
-                    native: {},
-                },
-            );
-
-            if (
-                this.contentPricingForecast[n] == false &&
-                (this.PricingForecast[n].id == 'PriceComparedToYesterdayPercentage' ||
-                    this.PricingForecast[n].id == 'PriceForecastPercentage')
-            ) {
-                this.log.debug(`${this.PricingForecast[n].id} omitted, because it's false`);
-            } else {
-                await this.setStateAsync(`${sensor_id.toString()}.PricingForecast.${this.PricingForecast[n].id}`, {
-                    val: this.contentPricingForecast[n],
-                    ack: true,
-                });
-            }
-        }
-
-        // RemainsUntilCombined
-        await this.setObjectNotExistsAsync(`${sensor_id.toString()}.RemainsUntilCombined`, {
-            type: 'channel',
-            common: {
-                name: 'RemainsUntilCombined',
-            },
-            native: {},
-        });
-        for (let n = 0; n < this.RemainsUntilCombined.length; n++) {
-            await this.setObjectNotExistsAsync(
-                `${sensor_id.toString()}.RemainsUntilCombined.${this.RemainsUntilCombined[n].id}`,
-                {
-                    type: 'state',
-                    common: {
-                        name: this.RemainsUntilCombined[n].id,
-                        type: this.RemainsUntilCombined[n].type,
-                        role: this.RemainsUntilCombined[n].role,
-                        unit: this.RemainsUntilCombined[n].unit,
-                        read: true,
-                        write: false,
-                    },
-                    native: {},
-                },
-            );
-            await this.setStateAsync(
-                `${sensor_id.toString()}.RemainsUntilCombined.${this.RemainsUntilCombined[n].id}`,
-                { val: this.contentRemainsUntilCombined[n], ack: true },
-            );
-        }
-
-        // Yearly oil usage
-
-        const entries = Object.entries(this.oil_usage.Values).map(([dateStr, value]) => {
-            const [y, m] = dateStr.split('T')[0].split('-');
-            return {
-                date: new Date(Number(y), Number(m) - 1, 1), // IMMER Monatsanfang
-                value,
-            };
-        });
-
-        // Sortieren (aufsteigend)
-        entries.sort((a, b) => a.date - b.date);
-
-        // Alle Jahre extrahieren
-        const minYear = Math.min(...entries.map(e => e.date.getFullYear()));
-
-        await this.setObjectNotExistsAsync(`${sensor_id.toString()}.AnnualConsumption`, {
-            type: 'channel',
-            common: {
-                name: 'AnnualConsumption',
-            },
-            native: {},
-        });
-
-        const now = new Date();
-        const currentYear = now.getFullYear();
-
-        for (let year = minYear + 1; year <= currentYear; year++) {
-            const monthStr = reference_month.toString().padStart(2, '0');
-            const dpId = `${sensor_id}.AnnualConsumption.${year}-${monthStr}`;
-
-            // DP anlegen
-            await this.setObjectNotExistsAsync(dpId, {
-                type: 'state',
-                common: {
-                    name: `Annual consumption for ${year}-${monthStr}`,
-                    type: 'number',
-                    role: 'value',
-                    unit: 'L',
-                    read: true,
-                    write: false,
-                },
-                native: {},
-            });
-
-            const value = await this.calcAnnualFor(entries, year, reference_month);
-
-            await this.setStateAsync(dpId, value, true);
-
-            // MQTT senden
-            if (mqtt_active) {
-                const topic = `AnnualConsumption/${year}-${monthStr}`;
-
-                if (value === null) {
-                    this.log.debug(`MQTT: ${topic} omitted, because value is null (not enough months)`);
-                } else {
-                    await this.sendMqtt(sensor_id, mqtt_active, client, topic, value.toString());
-                    this.log.debug(`MQTT sent: ${topic} = ${value}`);
-                }
-            }
-        }
-
         if (mqtt_active) {
             client.end();
         }
         return true;
-    }
-
-    async noDataReceived(sensor_id) {
-        await this.setObjectNotExistsAsync(`${sensor_id.toString()}.Items.${this.Items[0].id}`, {
-            type: 'state',
-            common: {
-                name: this.Items[0].id,
-                type: 'boolean',
-                role: 'indicator',
-                read: true,
-                write: false,
-            },
-            native: {},
-        });
-        await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[0].id}`, { val: false, ack: true });
-        this.log.error('No data received');
-        this.terminate ? this.terminate('No data received', 1) : process.exit(1);
     }
 
     onUnload(callback) {

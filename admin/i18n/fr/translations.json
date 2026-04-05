@@ -1,13 +1,14 @@
 {
-    "heizoel24-mex adapter settings": "Paramètres de l'adaptateur pour Heizoel24-Mex",
-    "username": "Nom d'utilisateur Heizoel24 (e-mail)",
-    "passwort": "Mot de passe Heizoel24",
-    "mqtt_active": "Utiliser MQTT",
     "broker_address": "Adresse IP du courtier MQTT",
-    "mqtt_user": "Utilisateur MQTT",
+    "heizoel24-mex adapter settings": "Paramètres de l'adaptateur pour heizoel24-mex",
+    "mqtt_active": "Utiliser MQTT",
     "mqtt_pass": "Mot de passe MQTT",
     "mqtt_port": "Port MQTT",
+    "mqtt_user": "Utilisateur MQTT",
+    "passwort": "Mot de passe Heizoel24",
+    "reference_month": "Mois de référence (le calcul se termine le dernier jour de ce mois, 1-12)",
     "sensor_id": "ID du capteur (1-20)",
-    "storeJson": "Enregistrer JSON",
-    "storeDir": "Dossier pour les fichiers JSON"
+    "storeDir": "Dossier pour les fichiers json",
+    "storeJson": "Enregistrer Json",
+    "username": "Nom d'utilisateur Heizoel24 (e-mail)"
 }
