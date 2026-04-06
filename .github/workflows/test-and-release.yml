@@ -21,10 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
       - uses: ioBroker/testing-action-check@v1
         with:
           node-version: '20'
@@ -42,11 +38,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'none'
 
       - uses: ioBroker/testing-action-adapter@v1
         with:
@@ -69,14 +60,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22.22.0'
-          cache: 'none'
-
       - uses: ioBroker/testing-action-deploy@v1
         with:
-          node-version: '22.22.0'
+          node-version: '20'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           sentry: false
           sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
