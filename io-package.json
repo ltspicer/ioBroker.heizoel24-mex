@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "news": {
+      "1.8.1": {
+        "en": "\"Reference month for annual consumption (1–12)\" edited",
+        "de": "\"Referenzmonat für Jahresverbrauch (1–12)\" bearbeitet",
+        "ru": "«Справочный месяц годового потребления (1-12)»",
+        "pt": "\"Mês de referência para consumo anual (1-12)\" editado",
+        "nl": "\"Referentiemaand voor jaarlijks verbruik (1",
+        "fr": "\"mois de référence pour la consommation annuelle (1-12)\" édité",
+        "it": "\"Mese di riferimento per il consumo annuo (1–12)\" modificato",
+        "es": "\"Mes de referencia para consumo anual (1–12)\" editado",
+        "pl": "\"Miesiąc odniesienia dla rocznego zużycia (1- 12)\"",
+        "uk": "\"Оновити місяць для щорічного споживання (1–12)\" відредаговано",
+        "zh-cn": "\"年度消费参考月(1-12)\"编辑"
+      },
       "1.8.0": {
         "en": "Yearly Oil usage by reference month added",
         "de": "Jährliche Ölnutzung nach Referenzmonat hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Zaktualizowano zależność Axios",
         "uk": "Оновлено залежність Axios",
         "zh-cn": "更新了Axios依赖"
-      },
-      "1.4.5": {
-        "en": "Depends updated",
-        "de": "Ausgaben aktualisiert",
-        "ru": "Зависит от обновленного",
-        "pt": "Depende da atualização",
-        "nl": "Afhankelijk van bijgewerkt",
-        "fr": "Dépend de la mise à jour",
-        "it": "Dipende aggiornato",
-        "es": "Dependes updated",
-        "pl": "Zależy od aktualizacji",
-        "uk": "В залежності від оновленої",
-        "zh-cn": "取决于更新"
       }
     },
     "titleLang": {
