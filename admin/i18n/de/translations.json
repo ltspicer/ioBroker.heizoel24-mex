@@ -6,7 +6,7 @@
     "mqtt_port": "MQTT-Port",
     "mqtt_user": "MQTT-Benutzer",
     "passwort": "Heizoel24-Passwort",
-    "reference_month": "Referenzmonat (Berechnung endet am letzten Tag dieses Monats, 1–12)",
+    "reference_month": "Referenzmonat für den Jahresverbrauch (1–12)",
     "sensor_id": "Sensor-ID (1-20)",
     "storeDir": "Ordner für JSON-Dateien",
     "storeJson": "Speichern Sie Json",

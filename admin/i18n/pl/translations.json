@@ -6,7 +6,7 @@
     "mqtt_port": "portu MQTT",
     "mqtt_user": "Użytkownik MQTT",
     "passwort": "Hasło Heizoel24",
-    "reference_month": "Miesiąc referencyjny (obliczenia kończą się ostatniego dnia tego miesiąca, 1–12)",
+    "reference_month": "Miesiąc referencyjny dla rocznego zużycia (1–12)",
     "sensor_id": "Identyfikator czujnika (1-20)",
     "storeDir": "Folder na pliki json",
     "storeJson": "Uratuj Jsona",

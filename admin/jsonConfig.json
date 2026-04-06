@@ -34,7 +34,7 @@
     },
     "reference_month": {
       "type": "number",
-      "label": "Reference month (calculation ends on the last day of this month, 1–12)",
+      "label": "Reference month for annual consumption (1–12)",
       "default": 6,
       "newLine": true,
       "xs": 12,

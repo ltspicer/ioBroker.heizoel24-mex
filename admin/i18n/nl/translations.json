@@ -6,7 +6,7 @@
     "mqtt_port": "MQTT-poort",
     "mqtt_user": "MQTT-gebruiker",
     "passwort": "Heizoel24-wachtwoord",
-    "reference_month": "Referentiemaand (berekening eindigt op de laatste dag van deze maand, 1–12)",
+    "reference_month": "Referentiemaand voor jaarlijks verbruik (1–12)",
     "sensor_id": "Sensor-ID (1-20)",
     "storeDir": "Map voor json-bestanden",
     "storeJson": "Bewaar Json",
