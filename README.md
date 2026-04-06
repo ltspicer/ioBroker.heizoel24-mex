@@ -25,6 +25,11 @@ The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantit
 
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+- "Reference month for annual consumption (1–12)" edited
+
 ### 1.8.0 (2026-04-05)
 
 - Yearly Oil usage by reference month added
