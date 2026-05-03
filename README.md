@@ -125,6 +125,8 @@ Error intercepted for:
 
 - Initial release for tests
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
