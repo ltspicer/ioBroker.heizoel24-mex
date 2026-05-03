@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.8.1",
+    "version": "1.9.0",
     "news": {
+      "1.9.0": {
+        "en": "Adapter requires node.js >= 22 now",
+        "de": "Adapter benötigt node.js >= 22 jetzt",
+        "ru": "Адаптер требует node.js >= 22 сейчас",
+        "pt": "Adaptador requer nod.js >= 22 agora",
+        "nl": "Voor de adapter zijn node.js < 22 nu nodig",
+        "fr": "Adaptateur nécessite node.js >= 22 maintenant",
+        "it": "Adattatore richiede node.js >= 22 ora",
+        "es": "Adaptador requiere node.js ю= 22 ahora",
+        "pl": "Adapter wymaga node.js > = 22",
+        "uk": "Адаптер вимагає node.js >= 22 тепер",
+        "zh-cn": "适配器需要节点.js 现在22"
+      },
       "1.8.1": {
         "en": "\"Reference month for annual consumption (1–12)\" edited",
         "de": "\"Referenzmonat für Jahresverbrauch (1–12)\" bearbeitet",
@@ -80,19 +93,6 @@
         "pl": "Bardziej explicite nazwy funkcji",
         "uk": "Більш явні назви функцій",
         "zh-cn": "更明确的功能名称"
-      },
-      "1.4.6": {
-        "en": "Axios dependency updated",
-        "de": "Axios-Abhängigkeit aktualisiert",
-        "ru": "Обновлена зависимость Axios",
-        "pt": "Atualizada a dependência do Axios",
-        "nl": "Axios afhankelijkheid bijgewerkt",
-        "fr": "Dépendance Axios mise à jour",
-        "it": "Aggiornata la dipendenza di Axios",
-        "es": "Dependencia de Axios actualizada",
-        "pl": "Zaktualizowano zależność Axios",
-        "uk": "Оновлено залежність Axios",
-        "zh-cn": "更新了Axios依赖"
       }
     },
     "titleLang": {
