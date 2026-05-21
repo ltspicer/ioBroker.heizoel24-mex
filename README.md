@@ -18,13 +18,17 @@ See: https://www.heizoel24.de/mex
 
 
 ## Use:
-Simply enter the login data from your Heizoel24 account (e-mail and password).
-The MEX data is stored in the data point heizoel24-mex.
-The adapter starts by default every 3 hours. This is completely sufficient, as the MEX only sends data once a day.
-The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantity) and OilUsage/JsonForEcharts can used directly with eCharts.
-
+Simply enter the login data from your Heizoel24 account (e-mail and password).<br>
+The MEX data is stored in the data point heizoel24-mex.<br>
+The adapter starts by default every 3 hours. This is completely sufficient, as the MEX only sends data once a day.<br>
+The data points CalculatedRemaining/JsonForEcharts (calculated remaining quantity) and OilUsage/JsonForEcharts can used directly with eCharts.<br>
+The adapter can send data via MQTT.<br>
+The original app always calculates annual usage as of December 31.<br>
+This is impractical, since that is in the middle of the heating season.<br>
+This adapter can calculate annual usage based on a specific month.<br>
 
 ## Changelog
+
 ### 1.9.0 (2026-05-03)
 - (copilot) Adapter requires node.js >= 22 now
 
