@@ -219,7 +219,9 @@ class Heizoel24Mex extends utils.Adapter {
                 this.log.error('ResultCode not 0. No session ID received!');
             }
         } catch (error) {
-            const errorMsg = error.response?.status ? `Login failed! Error: ${error.response.status}` : `Login failed! Error: ${error.message || error}`;
+            const errorMsg = error.response?.status
+                ? `Login failed! Error: ${error.response.status}`
+                : `Login failed! Error: ${error.message || error}`;
             this.log.error(errorMsg);
             this.terminate ? this.terminate('Login failed!', 1) : process.exit(1);
         }
@@ -238,7 +240,9 @@ class Heizoel24Mex extends utils.Adapter {
             this.log.debug(`Heizoel24 residual oil levels > Status Code: ${reply.status}`);
             return 'error';
         } catch (error) {
-            const errorMsg = error.response?.status ? `Error fetching data: ${error.response.status}` : `Error fetching data: ${error.message || error}`;
+            const errorMsg = error.response?.status
+                ? `Error fetching data: ${error.response.status}`
+                : `Error fetching data: ${error.message || error}`;
             this.log.error(errorMsg);
             return 'error';
         }
