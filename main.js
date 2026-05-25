@@ -96,11 +96,11 @@ class Heizoel24Mex extends utils.Adapter {
             sensor_id = parseInt(sensor_in);
             if (sensor_id < 1 || sensor_id > 20) {
                 this.log.error('Sensor ID has no value between 1 and 20');
-                this.terminate ? this.terminate('Sensor ID has no value between 1 and 20', 0) : process.exit(0);
+                this.terminate(2);
             }
         } else {
             this.log.error('Sensor ID has no valid value');
-            this.terminate ? this.terminate('Sensor ID has no valid value', 0) : process.exit(0);
+            this.terminate(2);
         }
         this.log.debug(`Sensor ID is ${sensor_id}`);
 
@@ -118,17 +118,13 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
             this.log.error('User email and/or user password empty - please check instance configuration');
-            this.terminate
-                ? this.terminate('User email and/or user password empty - please check instance configuration', 0)
-                : process.exit(0);
+            this.terminate(2);
         }
         let client = null;
         if (mqtt_active) {
             if (broker_address.trim().length === 0 || broker_address == '0.0.0.0') {
                 this.log.error('MQTT IP address is empty - please check instance configuration');
-                this.terminate
-                    ? this.terminate('MQTT IP address is empty - please check instance configuration', 0)
-                    : process.exit(0);
+                this.terminate(2);
             }
             client = mqtt.connect(`mqtt://${broker_address}:${mqtt_port}`, {
                 connectTimeout: 4000,
@@ -143,7 +139,7 @@ class Heizoel24Mex extends utils.Adapter {
                 instObj.common.schedule = `${Math.floor(Math.random() * 60)} */3 * * *`;
                 this.log.info(`Default schedule found and adjusted to spread calls better over the full hour!`);
                 await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, instObj);
-                this.terminate ? this.terminate() : process.exit(0);
+                this.terminate(0);
                 return;
             }
         } catch (err) {
@@ -165,7 +161,8 @@ class Heizoel24Mex extends utils.Adapter {
         );
 
         // Finished - stopping instance
-        this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 0) : process.exit(0);
+        this.log.info('Everything done. Going to terminate till next schedule');
+        this.terminate(0);
     }
 
     async calcAnnualFor(entries, year, reference_month) {
@@ -223,7 +220,7 @@ class Heizoel24Mex extends utils.Adapter {
                 ? `Login failed! Error: ${error.response.status}`
                 : `Login failed! Error: ${error.message || error}`;
             this.log.error(errorMsg);
-            this.terminate ? this.terminate('Login failed!', 1) : process.exit(1);
+            this.terminate(2);
         }
         return [false, ''];
     }
@@ -282,7 +279,7 @@ class Heizoel24Mex extends utils.Adapter {
         } catch (error) {
             const status = error?.response?.status || 'unknown';
             this.log.error(`Error retrieving dashboard data. Status: ${status}`);
-            this.terminate ? this.terminate('Error retrieving dashboard data!', 1) : process.exit(1);
+            this.terminate(1);
         }
 
         return [false, false];
@@ -763,7 +760,7 @@ class Heizoel24Mex extends utils.Adapter {
         });
         await this.setStateAsync(`${sensor_id.toString()}.Items.${this.Items[0].id}`, { val: false, ack: true });
         this.log.error('No data received');
-        this.terminate ? this.terminate('No data received', 1) : process.exit(1);
+        this.terminate(1);
     }
 
     onUnload(callback) {
