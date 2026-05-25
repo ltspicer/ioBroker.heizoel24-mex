@@ -118,7 +118,7 @@ class Heizoel24Mex extends utils.Adapter {
 
         if (username.trim().length === 0 || passwort.trim().length === 0) {
             this.log.error('User email and/or user password empty - please check instance configuration');
-            this.terminate(1);
+            this.terminate(0);
         }
         let client = null;
         if (mqtt_active) {
