@@ -28,6 +28,12 @@ This is impractical, since that is in the middle of the heating season.<br>
 This adapter can calculate annual usage based on a specific month.<br>
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+
+- Fix: Prevent crash on network errors by safely handling axios exceptions…
+- Issues E0036 & E5050 resolved
+
 ### 1.9.1 (2026-05-22)
 
 - Fix: Prevent crash on network errors by safely handling axios exceptions & Remove unused main1.js backup file
