@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.9.1",
+    "version": "1.9.2",
     "news": {
+      "1.9.2": {
+        "en": "Fix: Prevent crash on network errors by safely handling axios exceptions…\nIssues E0036 & E5050 resolved",
+        "de": "Fix: Verhindern Sie Crash auf Netzwerkfehlern, indem Sie axios Ausnahmen sicher behandeln..\nE0036 & E505050 gelöst",
+        "ru": "Исправление: Предотвращение сбоев в сетевых ошибках путем безопасной обработки исключений аксиоса\nВопросы E0036 и E5050 решены",
+        "pt": "Corrigir: Evitar falha em erros de rede, manuseando com segurança exceções axios..\nQuestões E0036 e E5050 resolvidas",
+        "nl": "Fix: Voorkom crash op netwerkfouten door veilig omgaan met axios uitzonderingen..\nProblemen E0036 & E5050 opgelost",
+        "fr": "Correction: Prévenir les pannes sur les erreurs réseau en gérant en toute sécurité les exceptions axios..\nRésolution des problèmes E0036 et E5050",
+        "it": "Fisso: Prevenire crash sugli errori di rete, manipolando in modo sicuro le eccezioni di assi..\nE0036 & E5050 risolto",
+        "es": "Corrección: Evitar el accidente en errores de red manejando con seguridad excepciones axios..\nProblemas resueltos E0036 & E5050",
+        "pl": "Fix: Zapobieganie awarii błędów sieci przez bezpieczną obsługę wyjątków axios..\nKwestie E0036 & E5050 rozwiązane",
+        "uk": "Виправлення: Запобігання аварії на мережевих помилках шляхом безпечної обробки..\nПитання E0036 та E5050 вирішуються",
+        "zh-cn": "修正: 通过安全处理轴码例外来防止网络错误的崩溃..\nE0036和E5050问题得到解决"
+      },
       "1.9.1": {
         "en": "Fix: Prevent crash on network errors by safely handling axios exceptions & Remove unused main1.js backup file",
         "de": "Fix: Verhindern Sie Crash auf Netzwerkfehlern, indem Sie axios Ausnahmen sicher handhaben & Entfernen Sie ungenutzte main1.js Backup-Datei",
@@ -80,19 +93,6 @@
         "pl": "Dodano flagę LowBattery",
         "uk": "Невисокий прапор додано",
         "zh-cn": "添加低贝特里旗"
-      },
-      "1.5.0": {
-        "en": "added \"save jsonData.json\" & set string to \"---\" if \"false\" received\njson filenames in lowerCamelCase format\nnew translations\nremoved duplicate \"save oilUsage.json\"",
-        "de": "\"save jsonData.json\" & set string to \"--\" wenn \"false\" empfangen wurde\njson filenames in tiefer CamelCase Format\nneue übersetzungen\nentfernte duplikate \"save oilUsage.json\"",
-        "ru": "добавить \"save jsonData.json\" и установить строку \"---\", если \"ложный\" получен\nфайловые имена json в нижней части Формат CamelCase\nновые переводы\nудалить дубликат «Сохранить oilUsage.json»",
-        "pt": "adicionado \"salvar jsonData.json\" & definir string para \"---\" se \"falso\" recebido\nnomes de ficheiros json em baixo Formato CamelCase\nnovas traduções\nduplicado removido \"salvar óleoUsage.json\"",
-        "nl": "toegevoegd \"save jsonData.json\" & set string to \"---\" als \"valse\" ontvangen\njson-bestandsnamen in lager CamelCase-formaat\nnieuwe vertalingen\nverwijderd duplicate \"red olieUsage.json\"",
-        "fr": "ajouté \"save jsonData.json\" & set string à \"---\" si \"faux\" reçu\njson noms de fichiers en bas Format CamelCase\nnouvelles traductions\nduplicata enlevé \"huile d'épargneUsage.json\"",
-        "it": "aggiunto \"save jsonData.json\" & set string to \"---\" se \"false\" ricevuto\njson nomi di file in basso Formato CamelCase\nnuove traduzioni\nrimosso duplicato \"salva olioUsage.json\"",
-        "es": "añadió \"salvar jsonData.json\" con la cadena fija \"---\" si \"falso\" recibido\njson nombres de archivo en menor Formato CamelCase\nnuevas traducciones\neliminado duplicado \"salvar aceiteUsage.json\"",
-        "pl": "dodano \"save jsonData.json\" & set string to \"---\" if \"false\" received\njson nazwy plików w dolnym Format CamelCase\nnowe tłumaczenia\nusunięty duplikat \"save oilUsage.json\"",
-        "uk": "додано \"Зберегти jsonData.json\" & встановити рядок до \"--\" якщо \"false\" отримав\njson filenames в нижній Формат CamelCase\nнові переклади\nвидалити дублікати \"Зберегти маслоВипадок.json\"",
-        "zh-cn": "添加“ save jsonData\n下方为 json 文件名 骆驼Case 格式\n新翻译\n删除重复的“ 保存 OilUsage.json ”"
       }
     },
     "titleLang": {
