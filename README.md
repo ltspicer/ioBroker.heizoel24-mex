@@ -49,7 +49,9 @@ This adapter can calculate annual usage based on a specific month.<br>
 
 - Yearly Oil usage by reference month added
 
-[Older changelogs can be found there](CHANGELOG_OLD.md)## License
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
+## License
 
 MIT License
 
