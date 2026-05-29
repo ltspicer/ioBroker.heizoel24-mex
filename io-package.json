@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.9.2",
+    "version": "1.9.3",
     "news": {
+      "1.9.3": {
+        "en": "Translation issues resolved",
+        "de": "Übersetzungsprobleme behoben",
+        "ru": "Вопросы перевода решены",
+        "pt": "Questões de tradução resolvidas",
+        "nl": "Vertaalproblemen opgelost",
+        "fr": "Problèmes de traduction résolus",
+        "it": "Problemi di traduzione risolti",
+        "es": "Cuestiones de traducción resueltas",
+        "pl": "Kwestie tłumaczeń rozwiązane",
+        "uk": "Вирішені питання перекладу",
+        "zh-cn": "翻译问题得到解决"
+      },
       "1.9.2": {
         "en": "Fix: Prevent crash on network errors by safely handling axios exceptions…\nIssues E0036 & E5050 resolved",
         "de": "Fix: Verhindern Sie Crash auf Netzwerkfehlern, indem Sie axios Ausnahmen sicher behandeln..\nE0036 & E505050 gelöst",
@@ -80,19 +93,6 @@
         "pl": "Lepsze menu admin",
         "uk": "Меню адміністратора",
         "zh-cn": "更好的管理菜单"
-      },
-      "1.6.0": {
-        "en": "LowBattery flag added",
-        "de": "LowBattery Flag hinzugefügt",
-        "ru": "Флаг LowBattery добавлен",
-        "pt": "Bandeira de LowBattery adicionada",
-        "nl": "LowBattery-vlag toegevoegd",
-        "fr": "Drapeau LowBatterie ajouté",
-        "it": "Bandiera LowBattery aggiunto",
-        "es": "Bandera LowBattery añadido",
-        "pl": "Dodano flagę LowBattery",
-        "uk": "Невисокий прапор додано",
-        "zh-cn": "添加低贝特里旗"
       }
     },
     "titleLang": {

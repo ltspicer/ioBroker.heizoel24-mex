@@ -1,4 +1,8 @@
 # Older changes
+## 1.8.0 (2026-04-05)
+
+- Yearly Oil usage by reference month added
+
 ## 1.7.0 (2026-01-28)
 
 - Better Admin menu

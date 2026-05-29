@@ -29,8 +29,7 @@ This is impractical, since that is in the middle of the heating season.<br>
 This adapter can calculate annual usage based on a specific month.<br>
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 1.9.3 (2026-05-29)
 
 - Translation issues resolved
 
@@ -50,13 +49,7 @@ This adapter can calculate annual usage based on a specific month.<br>
 
 - "Reference month for annual consumption (1–12)" edited
 
-### 1.8.0 (2026-04-05)
-
-- Yearly Oil usage by reference month added
-
-[Older changelogs can be found there](CHANGELOG_OLD.md)
-
-## License
+[Older changelogs can be found there](CHANGELOG_OLD.md)## License
 
 MIT License
 
