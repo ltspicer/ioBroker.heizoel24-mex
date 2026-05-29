@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.9.3",
+    "version": "1.10.0",
     "news": {
+      "1.10.0": {
+        "en": "More translations added",
+        "de": "Weitere Übersetzungen hinzugefügt",
+        "ru": "Добавлено больше переводов",
+        "pt": "Mais traduções adicionadas",
+        "nl": "Meer vertalingen toegevoegd",
+        "fr": "Autres traductions ajoutées",
+        "it": "Altre traduzioni aggiunte",
+        "es": "Más traducciones añadidos",
+        "pl": "Więcej tłumaczeń dodano",
+        "uk": "Більше перекладів",
+        "zh-cn": "增加翻译"
+      },
       "1.9.3": {
         "en": "Translation issues resolved",
         "de": "Übersetzungsprobleme behoben",
@@ -80,19 +93,6 @@
         "pl": "Roczne zużycie oleju w miesiącu referencyjnym",
         "uk": "Рікове використання нафти за доданою місією",
         "zh-cn": "按参考月份分列的年油使用情况"
-      },
-      "1.7.0": {
-        "en": "Better Admin menu",
-        "de": "Besseres Admin Menü",
-        "ru": "Лучшее меню администратора",
-        "pt": "Melhor menu de administração",
-        "nl": "Beter Admin menu",
-        "fr": "Meilleur menu Admin",
-        "it": "Menu migliore di amministrazione",
-        "es": "Mejor menú de Admin",
-        "pl": "Lepsze menu admin",
-        "uk": "Меню адміністратора",
-        "zh-cn": "更好的管理菜单"
       }
     },
     "titleLang": {
