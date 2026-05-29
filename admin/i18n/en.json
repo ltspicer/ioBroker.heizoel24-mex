@@ -10,5 +10,6 @@
     "Sensor ID (1-20)": "Sensor ID (1-20)",
     "Folder for json files": "Folder for json files",
     "Save Json": "Save Json",
-    "Heizoel24 username (email)": "Heizoel24 username (email)"
+    "Heizoel24 username (email)": "Heizoel24 username (email)",
+    "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json": "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json"
 }

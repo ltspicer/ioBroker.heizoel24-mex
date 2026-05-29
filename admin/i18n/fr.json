@@ -1,5 +1,6 @@
 {
     "Adapter settings for heizoel24-mex": "Paramètres de l'adaptateur pour heizoel24-mex",
+    "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json": "Dossier pour les fichiers calculateRemaining.json, oilUsage.json, jsonData.json",
     "Folder for json files": "Dossier pour les fichiers json",
     "Heizoel24 password": "Mot de passe Heizoel24",
     "Heizoel24 username (email)": "Nom d'utilisateur Heizoel24 (e-mail)",
