@@ -6,10 +6,13 @@
     "MQTT port": "MQTT port",
     "MQTT user": "MQTT user",
     "Heizoel24 password": "Heizoel24 password",
-    "Reference month for annual consumption (1–12)": "Reference month for annual consumption (1–12)",
+    "Reference month for annual consumption calculation (1–12)": "Reference month for annual consumption calculation (1–12)",
     "Sensor ID (1-20)": "Sensor ID (1-20)",
-    "Folder for json files": "Folder for json files",
-    "Save Json": "Save Json",
+    "Folder for json files": "Folder for JSON files",
+    "Save Json": "Save JSON",
     "Heizoel24 username (email)": "Heizoel24 username (email)",
-    "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json": "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json"
+    "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json": "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json",
+    "Save Json file": "Save JSON files",
+    "MQTT user. Leave blank for no-auth": "MQTT user. Leave blank for no-auth",
+    "MQTT password. Leave blank for no-auth": "MQTT password. Leave blank for no-auth"
 }

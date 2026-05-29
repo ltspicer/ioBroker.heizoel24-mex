@@ -6,10 +6,13 @@
     "Heizoel24 username (email)": "Heizoel24-Benutzername (E-Mail)",
     "MQTT broker IP address": "IP-Adresse des MQTT-Brokers",
     "MQTT password": "MQTT-Passwort",
+    "MQTT password. Leave blank for no-auth": "MQTT-Passwort. Für „Keine Authentifizierung“ leer lassen",
     "MQTT port": "MQTT-Port",
     "MQTT user": "MQTT-Benutzer",
-    "Reference month for annual consumption (1–12)": "Referenzmonat für die Jahresverbrauchsberechnung (1–12)",
-    "Save Json": "Speichere Json Dateien",
+    "MQTT user. Leave blank for no-auth": "MQTT-Benutzer. Für „Keine Authentifizierung“ leer lassen",
+    "Reference month for annual consumption calculation (1–12)": "Referenzmonat für die jährliche Verbrauchsberechnung (1–12)",
+    "Save Json": "Speichere JSON",
+    "Save Json file": "Speichere JSON-Dateien",
     "Sensor ID (1-20)": "Sensor-ID (1-20)",
     "Use MQTT": "Verwende MQTT"
 }

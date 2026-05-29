@@ -1,15 +1,18 @@
 {
     "Adapter settings for heizoel24-mex": "heizoel24-mex 的适配器设置",
     "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json": "文件calculatedRemaining.json、oilUsage.json、jsonData.json 的文件夹",
-    "Folder for json files": "json 文件的文件夹",
+    "Folder for json files": "JSON 文件的文件夹",
     "Heizoel24 password": "Heizoel24 密码",
     "Heizoel24 username (email)": "Heizoel24 用户名（电子邮件）",
     "MQTT broker IP address": "MQTT 代理 IP 地址",
     "MQTT password": "MQTT 密码",
+    "MQTT password. Leave blank for no-auth": "MQTT 密码。留空表示无授权",
     "MQTT port": "MQTT 端口",
     "MQTT user": "MQTT 用户",
-    "Reference month for annual consumption (1–12)": "年消耗量参考月份（1-12）",
-    "Save Json": "保存Json",
+    "MQTT user. Leave blank for no-auth": "MQTT 用户。留空表示无授权",
+    "Reference month for annual consumption calculation (1–12)": "年消耗量计算的参考月份（1-12）",
+    "Save Json": "保存 JSON",
+    "Save Json file": "保存 JSON 文件",
     "Sensor ID (1-20)": "传感器 ID (1-20)",
     "Use MQTT": "使用MQTT"
 }

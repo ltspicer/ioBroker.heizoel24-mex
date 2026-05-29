@@ -1,15 +1,18 @@
 {
     "Adapter settings for heizoel24-mex": "Configuración del adaptador para heizoel24-mex",
     "Folder for files calculatedRemaining.json, oilUsage.json, jsonData.json": "Carpeta para archivos calculadosRemaining.json, oilUsage.json, jsonData.json",
-    "Folder for json files": "Carpeta para archivos json",
+    "Folder for json files": "Carpeta para archivos JSON",
     "Heizoel24 password": "contraseña de heizoel24",
     "Heizoel24 username (email)": "Nombre de usuario de Heizoel24 (correo electrónico)",
     "MQTT broker IP address": "Dirección IP del corredor MQTT",
     "MQTT password": "contraseña MQTT",
+    "MQTT password. Leave blank for no-auth": "Contraseña MQTT. Dejar en blanco para no autenticación",
     "MQTT port": "Puerto MQTT",
     "MQTT user": "Usuario MQTT",
-    "Reference month for annual consumption (1–12)": "Mes de referencia para el consumo anual (1–12)",
-    "Save Json": "Guardar Json",
+    "MQTT user. Leave blank for no-auth": "Usuario MQTT. Dejar en blanco para no autenticación",
+    "Reference month for annual consumption calculation (1–12)": "Mes de referencia para el cálculo del consumo anual (1–12)",
+    "Save Json": "Guardar JSON",
+    "Save Json file": "Guardar archivos JSON",
     "Sensor ID (1-20)": "Identificación del sensor (1-20)",
     "Use MQTT": "Usar MQTT"
 }
