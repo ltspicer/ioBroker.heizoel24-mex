@@ -1,14 +1,14 @@
 {
-    "broker_address": "Adres IP brokera MQTT",
-    "heizoel24-mex adapter settings": "Ustawienia adaptera dla heizoel24-mex",
-    "mqtt_active": "Użyj MQTT",
-    "mqtt_pass": "Hasło MQTT",
-    "mqtt_port": "portu MQTT",
-    "mqtt_user": "Użytkownik MQTT",
-    "passwort": "Hasło Heizoel24",
-    "reference_month": "Miesiąc referencyjny dla rocznego zużycia (1–12)",
-    "sensor_id": "Identyfikator czujnika (1-20)",
-    "storeDir": "Folder na pliki json",
-    "storeJson": "Uratuj Jsona",
-    "username": "Nazwa użytkownika Heizoel24 (e-mail)"
+    "Adapter settings for heizoel24-mex": "Ustawienia adaptera dla heizoel24-mex",
+    "Folder for json files": "Folder na pliki json",
+    "Heizoel24 password": "Hasło Heizoel24",
+    "Heizoel24 username (email)": "Nazwa użytkownika Heizoel24 (e-mail)",
+    "MQTT broker IP address": "Adres IP brokera MQTT",
+    "MQTT password": "Hasło MQTT",
+    "MQTT port": "portu MQTT",
+    "MQTT user": "Użytkownik MQTT",
+    "Reference month for annual consumption (1–12)": "Miesiąc referencyjny dla rocznego zużycia (1–12)",
+    "Save Json": "Uratuj Jsona",
+    "Sensor ID (1-20)": "Identyfikator czujnika (1-20)",
+    "Use MQTT": "Użyj MQTT"
 }
