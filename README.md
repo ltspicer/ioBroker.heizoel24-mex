@@ -29,8 +29,7 @@ This is impractical, since that is in the middle of the heating season.<br>
 This adapter can calculate annual usage based on a specific month.<br>
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 1.10.1 (2026-06-12)
 
 - allowScripts esbuild and protobufjs
 
@@ -50,9 +49,6 @@ This adapter can calculate annual usage based on a specific month.<br>
 ### 1.9.1 (2026-05-22)
 
 - Fix: Prevent crash on network errors by safely handling axios exceptions & Remove unused main1.js backup file
-
-### 1.9.0 (2026-05-03)
-- (copilot) Adapter requires node.js >= 22 now
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "heizoel24-mex",
-    "version": "1.10.0",
+    "version": "1.10.1",
     "news": {
+      "1.10.1": {
+        "en": "allowScripts esbuild and protobufjs",
+        "de": "allowScripts esbuild und protobufjs",
+        "ru": "allowScripts esbuild и protobufjs",
+        "pt": "permitirScripts esbuild e protobufjs",
+        "nl": "allowScripts esbuild en protobufjs",
+        "fr": "autoriser les scripts esbuild et protobufjs",
+        "it": "consentiScript esbuild e protobufjs",
+        "es": "permitir scripts esbuild y protobufjs",
+        "pl": "allowScripts esbuild i protobufjs",
+        "uk": "allowScripts esbuild та protobufjs",
+        "zh-cn": "allowScripts esbuild 和 protobufjs"
+      },
       "1.10.0": {
         "en": "More translations added",
         "de": "Weitere Übersetzungen hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "\"Miesiąc odniesienia dla rocznego zużycia (1- 12)\"",
         "uk": "\"Оновити місяць для щорічного споживання (1–12)\" відредаговано",
         "zh-cn": "\"年度消费参考月(1-12)\"编辑"
-      },
-      "1.8.0": {
-        "en": "Yearly Oil usage by reference month added",
-        "de": "Jährliche Ölnutzung nach Referenzmonat hinzugefügt",
-        "ru": "Годовое использование нефти по контрольному месяцу добавлено",
-        "pt": "Uso anual do óleo por mês de referência adicionado",
-        "nl": "Jaarlijks olieverbruik per referentiemaand toegevoegd",
-        "fr": "Utilisation annuelle du pétrole par mois de référence",
-        "it": "Uso annuale dell'olio per mese di riferimento aggiunto",
-        "es": "Uso anual del petróleo por mes de referencia añadido",
-        "pl": "Roczne zużycie oleju w miesiącu referencyjnym",
-        "uk": "Рікове використання нафти за доданою місією",
-        "zh-cn": "按参考月份分列的年油使用情况"
       }
     },
     "titleLang": {
