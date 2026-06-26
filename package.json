@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.3.2",
-    "axios": "^1.15.2",
+    "axios": "^1.18.0",
     "mqtt": "^5.15.1"
   },
   "devDependencies": {
